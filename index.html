@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>paiedyali — Vérifiez votre bulletin de salaire</title>
+  <meta name="description" content="Vérifiez automatiquement votre bulletin de salaire (PDF). Résultat immédiat. 7,50 € TTC." />
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#0b1020;color:#eef2ff}
+    .wrap{max-width:980px;margin:0 auto;padding:28px}
+    .card{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:22px;background:rgba(255,255,255,.03)}
+    h1{margin:0 0 10px 0;font-size:clamp(26px,4vw,44px);line-height:1.1}
+    p{color:rgba(238,242,255,.75);margin:8px 0}
+    .btn{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:800}
+    .primary{background:#7c5cff;color:#fff}
+    .secondary{border:1px solid rgba(255,255,255,.15);color:#fff;margin-left:8px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .item{border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:14px;background:rgba(255,255,255,.02)}
+    @media(max-width:860px){.grid{grid-template-columns:1fr}}
+    footer{margin-top:18px;color:rgba(238,242,255,.6);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Vérifiez votre bulletin de salaire (PDF) avant de l’envoyer</h1>
+      <p>paiedyali analyse votre document et refuse les PDF non conformes (mauvais type, multi-pages incohérentes, période/salarié non cohérents).</p>
+      <p><b>Tarif :</b> 7,50 € TTC — paiement unique, sans abonnement.</p>
+
+      <!-- 1) Mets ici ton lien Stripe (test puis réel) -->
+      <a class="btn primary" href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000">Vérifier maintenant — 7,50 €</a>
+
+      <!-- 2) Lien direct vers l’app si tu veux (optionnel) -->
+      <a class="btn secondary" href="https://paiedyali.onrender.com">Accéder à l’app</a>
+
+      <div class="grid">
+        <div class="item"><b>Rapide</b><p>Résultat immédiat.</p></div>
+        <div class="item"><b>Clair</b><p>Motif de refus explicite.</p></div>
+        <div class="item"><b>SaaS</b><p>Rien à installer.</p></div>
+      </div>
+
+      <footer>
+        Contact : <a href="mailto:contact@paiedyali.fr" style="color:inherit">contact@paiedyali.fr</a><br/>
+        Mentions légales • Confidentialité (à ajouter)
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
