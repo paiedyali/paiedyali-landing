@@ -1,49 +1,147 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>paiedyali — Vérifiez votre bulletin de salaire</title>
-  <meta name="description" content="Vérifiez automatiquement votre bulletin de salaire (PDF). Résultat immédiat. 7,50 € TTC." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiedyali - Analyse de bulletin de salaire</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Si tu as un fichier CSS -->
   <style>
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#0b1020;color:#eef2ff}
-    .wrap{max-width:980px;margin:0 auto;padding:28px}
-    .card{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:22px;background:rgba(255,255,255,.03)}
-    h1{margin:0 0 10px 0;font-size:clamp(26px,4vw,44px);line-height:1.1}
-    p{color:rgba(238,242,255,.75);margin:8px 0}
-    .btn{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:800}
-    .primary{background:#7c5cff;color:#fff}
-    .secondary{border:1px solid rgba(255,255,255,.15);color:#fff;margin-left:8px}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-    .item{border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:14px;background:rgba(255,255,255,.02)}
-    @media(max-width:860px){.grid{grid-template-columns:1fr}}
-    footer{margin-top:18px;color:rgba(238,242,255,.6);font-size:13px}
+    /* Simple styling for layout */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f9;
+    }
+    header {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 50px 0;
+    }
+    header h1 {
+      margin: 0;
+    }
+    section {
+      padding: 30px;
+      margin: 20px 0;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #qui-sommes-nous h2, #faq h2 {
+      color: #007bff;
+    }
+    #faq h3 {
+      color: #555;
+    }
+    .cta-btn {
+      background-color: #28a745;
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      font-size: 18px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .cta-btn:hover {
+      background-color: #218838;
+    }
+    footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+    footer p {
+      margin: 0;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1>Vérifiez votre bulletin de salaire (PDF) avant de l’envoyer</h1>
-      <p>paiedyali analyse votre document et refuse les PDF non conformes (mauvais type, multi-pages incohérentes, période/salarié non cohérents).</p>
-      <p><b>Tarif :</b> 7,50 € TTC — paiement unique, sans abonnement.</p>
+  <!-- Header section -->
+  <header>
+    <h1>Bienvenue sur Paiedyali</h1>
+    <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
+    <a href="https://checkout.stripe.com/pay/{CHECKOUT_SESSION_ID}" class="cta-btn">
+      Vérifier maintenant
+    </a>
+  </header>
 
-      <!-- 1) Mets ici ton lien Stripe (test puis réel) -->
-      <a class="btn primary" href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000">Vérifier maintenant — 7,50 €</a>
+  <!-- Qui sommes-nous Section -->
+  <section id="qui-sommes-nous">
+    <h2>Qui sommes-nous ?</h2>
+    <p>
+      Diplômé d’expertise comptable, spécialiste de la paie depuis plus de 15 ans,
+j’ai créé Paiedyali à partir d’un constat simple :
+les salariés ne comprennent souvent que la ligne "Net payé" sur leur bulletin de salaire.
 
-      <!-- 2) Lien direct vers l’app si tu veux (optionnel) -->
-      <a class="btn secondary" href="https://paiedyali.onrender.com">Accéder à l’app</a>
+Entre les cotisations, les lignes techniques, les abréviations et les règles sociales complexes,
+il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
 
-      <div class="grid">
-        <div class="item"><b>Rapide</b><p>Résultat immédiat.</p></div>
-        <div class="item"><b>Clair</b><p>Motif de refus explicite.</p></div>
-        <div class="item"><b>SaaS</b><p>Rien à installer.</p></div>
-      </div>
+Le problème ?
+Très peu de salariés prennent le temps de comprendre toutes les autres lignes importantes de leur bulletin,
+comme les cotisations sociales, les congés payés, et les ajustements de salaire.
 
-      <footer>
-        Contact : <a href="mailto:contact@paiedyali.fr" style="color:inherit">contact@paiedyali.fr</a><br/>
-        Mentions légales • Confidentialité (à ajouter)
-      </footer>
-    </div>
-  </div>
+Paiedyali ne remplace pas un expert-comptable.
+Le service a été conçu pour traduire votre bulletin de salaire en français clair,
+de façon factuelle, pédagogique et compréhensible.
+
+L’analyse repose sur :
+
+mon expertise professionnelle en paie,
+
+une lecture rigoureuse des données,
+
+et une synthèse simple, sans jargon inutile.
+
+Objectif : vous permettre de comprendre chaque détail de votre bulletin,
+sans stress, sans interprétation approximative, et en toute confidentialité.
+    </p>
+  </section>
+
+  <!-- Fonctionnement Section -->
+  <section id="fonctionnement">
+    <h2>Comment ça marche ?</h2>
+    <ol>
+      <li>Téléchargez votre bulletin de salaire au format PDF.</li>
+      <li>Effectuez le paiement sécurisé de 7,50 € pour une analyse complète.</li>
+      <li>Recevez une analyse détaillée de votre bulletin en PDF.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2>Foire Aux Questions (FAQ)</h2>
+    <h3>Pourquoi mon bulletin de salaire est-il analysé ?</h3>
+    <p>
+      L’analyse de votre bulletin de salaire permet de comprendre facilement la répartition de vos cotisations, de vos congés payés et de votre salaire net. Vous aurez accès à un résumé détaillé en quelques secondes.
+    </p>
+
+    <h3>Est-ce que mes données sont en sécurité ?</h3>
+    <p>
+      Oui, vos données sont entièrement sécurisées. Nous ne stockons pas votre PDF après l’analyse et tous les traitements sont effectués localement sur notre serveur pendant l’analyse.
+    </p>
+
+    <h3>Combien coûte l’analyse de mon bulletin ?</h3>
+    <p>
+      L’analyse coûte 7,50€ pour un paiement unique. Ce montant couvre l’analyse complète de votre bulletin de salaire.
+    </p>
+
+    <h3>Combien de temps faut-il pour analyser mon bulletin ?</h3>
+    <p>
+      L’analyse est généralement terminée en moins de 5 minutes. Si le bulletin est un scan, cela peut prendre un peu plus de temps en fonction de la qualité de l'image.
+    </p>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 Paiedyali. Tous droits réservés.</p>
+    <p>Mentions légales | Politique de confidentialité</p>
+  </footer>
 </body>
 </html>
+
