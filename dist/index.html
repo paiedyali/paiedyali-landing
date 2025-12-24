@@ -17,6 +17,7 @@
       --border-color: #ddd;
       --box-shadow: 0 16px 48px rgba(0,0,0,.45);
       --radius: 12px;
+      --section-padding: 30px;
     }
 
     * {
@@ -70,7 +71,7 @@
     .section {
       margin: 40px auto;
       max-width: 900px;
-      padding: 30px;
+      padding: var(--section-padding);
       background-color: var(--bg-light);
       border-radius: var(--radius);
       box-shadow: var(--box-shadow);
@@ -136,6 +137,28 @@
       margin: 30px 0;
     }
 
+    /* Style spécifique aux sections de type bulletin */
+    .bulletin-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .bulletin-section div {
+      flex: 1;
+    }
+
+    .bulletin-section .label {
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    .bulletin-section .value {
+      text-align: right;
+      color: var(--text-color);
+    }
+
   </style>
 </head>
 <body>
@@ -150,11 +173,14 @@
   <section class="section">
     <h2>Qui sommes-nous ?</h2>
     <p>
-      Nous sommes spécialisés dans l'analyse de bulletins de salaire. Notre mission est de rendre les informations complexes compréhensibles pour tous, afin que vous puissiez comprendre chaque ligne de votre salaire sans confusion.
+      Diplômé d’expertise comptable et spécialiste de la paie, j’ai créé Paiedyali après avoir constaté que les salariés comprennent souvent mal leur bulletin de salaire. Notre mission : rendre l'analyse simple, claire et accessible, en traduisant le jargon technique en informations compréhensibles.
+    </p>
+    <p>
+      Grâce à notre expertise et à un processus rigoureux, nous permettons à chacun de comprendre facilement chaque ligne de son bulletin, qu'il s'agisse des cotisations sociales, des congés payés ou des ajustements de salaire.
     </p>
   </section>
 
-  <!-- Comment ça marche Section -->
+  <!-- Fonctionnement Section -->
   <section class="section">
     <h2>Comment ça marche ?</h2>
     <ol>
@@ -164,32 +190,15 @@
     </ol>
   </section>
 
-  <!-- FAQ Section -->
+  <!-- Exemple de Bulletin de salaire -->
   <section class="section">
-    <h2>Foire aux questions</h2>
-    <div class="grid">
-      <div>
-        <b>Pourquoi mon bulletin de salaire est-il analysé ?</b>
-        <p>L'analyse vous permet de comprendre chaque élément de votre bulletin : cotisations, congés payés, salaire net, etc.</p>
-      </div>
-      <div>
-        <b>Est-ce que mes données sont sécurisées ?</b>
-        <p>Oui, nous garantissons la sécurité totale de vos informations. Aucune donnée n’est stockée après l’analyse.</p>
-      </div>
-      <div>
-        <b>Combien coûte l’analyse ?</b>
-        <p>7,50 € pour un paiement unique. Aucun abonnement, aucun frais caché.</p>
-      </div>
-      <div>
-        <b>Combien de temps faut-il ?</b>
-        <p>L’analyse prend moins de 5 minutes. Si votre bulletin est un scan, cela peut prendre un peu plus de temps.</p>
-      </div>
+    <h2>Exemple de bulletin de salaire</h2>
+    <div class="bulletin-section">
+      <div class="label">Salaire Brut</div>
+      <div class="value">2 000,00 €</div>
     </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Paiedyali. Tous droits réservés.</p>
-    <p>Mentions légales | Politique de confidentialité</p>
-  </footer>
-</body>
-</html>
+    <div class="bulletin-section">
+      <div class="label">Cotisations sociales</div>
+      <div class="value">400,00 €</div>
+    </div>
+    <div class="bulletin-sect
