@@ -6,50 +6,21 @@
   <title>Paiedyali — Analyse de bulletin de salaire</title>
   <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité." />
   <style>
-    :root {
-      --bg-dark: #0b1020;
-      --bg-light: #eef2ff;
-      --accent-color: #7c5cff;
-      --btn-color: #28a745;
-      --btn-hover-color: #218838;
-      --text-color: #eef2ff;
-      --muted-color: rgba(238,242,255,.75);
-      --border-color: rgba(255,255,255,.12);
-      --box-shadow: 0 16px 48px rgba(0,0,0,.45);
-      --radius: 18px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
     }
 
     header {
-      background-color: var(--accent-color);
+      background-color: #7c5cff;
       padding: 40px 20px;
       text-align: center;
-      border-bottom: 2px solid var(--border-color);
-      box-shadow: var(--box-shadow);
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 3rem;
-    }
-
-    header p {
-      margin: 10px 0;
-      font-size: 1.25rem;
+      color: white;
     }
 
     .cta-btn {
-      background-color: var(--btn-color);
+      background-color: #28a745;
       color: white;
       padding: 15px 30px;
       text-decoration: none;
@@ -57,103 +28,52 @@
       border-radius: 30px;
       display: inline-block;
       margin-top: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.35);
     }
 
-    .cta-btn:hover {
-      background-color: var(--btn-hover-color);
-      box-shadow: 0 12px 36px rgba(0,0,0,.45);
-    }
-
-    .section {
-      margin: 40px auto;
-      max-width: 1000px;
+    section {
       padding: 30px;
-      background-color: var(--bg-light);
-      border-radius: var(--radius);
-      box-shadow: var(--box-shadow);
+      margin: 20px auto;
+      background-color: white;
+      max-width: 900px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
       font-size: 2rem;
-      color: var(--accent-color);
-      margin-bottom: 20px;
+      color: #7c5cff;
     }
 
-    .section p {
+    p {
       font-size: 1.1rem;
-      color: var(--muted-color);
-      line-height: 1.6;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .grid div {
-      background-color: rgba(255, 255, 255, 0.03);
-      padding: 20px;
-      border-radius: var(--radius);
-      box-shadow: var(--box-shadow);
-    }
-
-    .grid div b {
-      font-size: 1.2rem;
+      color: #555;
     }
 
     footer {
-      background-color: #343a40;
-      color: var(--text-color);
       text-align: center;
-      padding: 30px 20px;
-      margin-top: 40px;
-      border-top: 2px solid var(--border-color);
+      padding: 20px;
+      background-color: #343a40;
+      color: white;
     }
-
-    footer p {
-      margin: 5px 0;
-      font-size: 1rem;
-    }
-
-    footer a {
-      color: var(--accent-color);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    .divider {
-      height: 2px;
-      background-color: var(--border-color);
-      margin: 30px 0;
-    }
-
   </style>
 </head>
 <body>
   <header>
     <h1>Bienvenue sur Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
-    <!-- Lien Stripe fonctionnel -->
     <a href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000" class="cta-btn">Vérifier maintenant</a>
   </header>
 
   <!-- Qui sommes-nous Section -->
-  <section class="section">
+  <section>
     <h2>Qui sommes-nous ?</h2>
     <p>
-      Diplômé d’expertise comptable et spécialiste de la paie, j’ai créé Paiedyali après avoir constaté que les salariés comprennent souvent mal leur bulletin de salaire.
-      Notre mission : rendre l'analyse simple, claire et accessible, en traduisant le jargon technique en informations compréhensibles.
+      Nous sommes spécialisés dans l'analyse de bulletins de salaire. Notre mission est de rendre les informations complexes compréhensibles pour tous.
     </p>
   </section>
 
-  <!-- Fonctionnement Section -->
-  <section class="section">
+  <!-- Comment ça marche Section -->
+  <section>
     <h2>Comment ça marche ?</h2>
     <ol>
       <li>Téléchargez votre bulletin de salaire au format PDF.</li>
@@ -163,26 +83,19 @@
   </section>
 
   <!-- FAQ Section -->
-  <section class="section">
+  <section>
     <h2>Foire aux questions</h2>
-    <div class="grid">
-      <div>
-        <b>Pourquoi mon bulletin de salaire est-il analysé ?</b>
-        <p>L'analyse vous permet de comprendre chaque élément de votre bulletin : cotisations, congés payés, salaire net.</p>
-      </div>
-      <div>
-        <b>Est-ce que mes données sont sécurisées ?</b>
-        <p>Oui, nous garantissons la sécurité totale de vos informations. Aucune donnée n’est stockée après l’analyse.</p>
-      </div>
-      <div>
-        <b>Combien coûte l’analyse ?</b>
-        <p>7,50 € pour un paiement unique. Aucun abonnement, aucun frais caché.</p>
-      </div>
-      <div>
-        <b>Combien de temps faut-il ?</b>
-        <p>L’analyse prend moins de 5 minutes. Si votre bulletin est un scan, cela peut prendre un peu plus de temps.</p>
-      </div>
-    </div>
+    <p><b>Pourquoi mon bulletin de salaire est-il analysé ?</b></p>
+    <p>L'analyse vous permet de comprendre chaque élément de votre bulletin : cotisations, congés payés, salaire net.</p>
+
+    <p><b>Est-ce que mes données sont sécurisées ?</b></p>
+    <p>Oui, nous garantissons la sécurité totale de vos informations. Aucune donnée n’est stockée après l’analyse.</p>
+
+    <p><b>Combien coûte l’analyse ?</b></p>
+    <p>7,50 € pour un paiement unique. Aucun abonnement, aucun frais caché.</p>
+
+    <p><b>Combien de temps faut-il ?</b></p>
+    <p>L’analyse prend moins de 5 minutes. Si votre bulletin est un scan, cela peut prendre un peu plus de temps.</p>
   </section>
 
   <footer>
