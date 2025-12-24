@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Paiedyali — Analyse de bulletin de salaire</title>
-  <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité." />
+  <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité.">
   <style>
     :root {
-      --bg-dark: #1e293b; /* fond sombre pour l'effet "papier" */
-      --bg-light: #ffffff; /* fond du "document" */
+      --bg-dark: #1e293b;
+      --bg-light: #ffffff;
       --accent-color: #7c5cff;
       --btn-color: #28a745;
       --btn-hover-color: #218838;
@@ -22,23 +22,59 @@
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg-dark);
       color: var(--text-color);
     }
 
+    /* Animation de fade-in */
+    .fade-in {
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Animation de slide-up */
+    .slide-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 1s ease-out forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Header */
     header {
       background-color: var(--accent-color);
-      padding: 40px 20px;
-      text-align: center;
       color: white;
+      padding: 60px 20px;
+      text-align: center;
       border-radius: 12px;
       box-shadow: var(--box-shadow);
       margin: 20px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards;
     }
 
     header h1 {
@@ -47,20 +83,21 @@
     }
 
     header p {
-      margin: 10px 0;
+      margin-top: 10px;
       font-size: 1.25rem;
     }
 
     .cta-btn {
       background-color: var(--btn-color);
       color: white;
-      padding: 15px 30px;
+      padding: 14px 28px;
       text-decoration: none;
       font-size: 18px;
       border-radius: 30px;
       display: inline-block;
       margin-top: 20px;
       box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      transition: background-color 0.3s;
     }
 
     .cta-btn:hover {
@@ -69,13 +106,15 @@
     }
 
     .section {
-      margin: 40px auto;
+      margin: 60px auto;
       max-width: 900px;
       padding: var(--section-padding);
       background-color: var(--bg-light);
       border-radius: var(--radius);
       box-shadow: var(--box-shadow);
       border: 1px solid var(--border-color);
+      opacity: 0;
+      animation: slideUp 1s ease-out forwards;
     }
 
     h2 {
@@ -115,6 +154,8 @@
       text-align: center;
       padding: 20px;
       margin-top: 40px;
+      opacity: 0;
+      animation: fadeIn 2s ease-out forwards;
     }
 
     footer p {
@@ -131,13 +172,7 @@
       text-decoration: underline;
     }
 
-    .divider {
-      height: 2px;
-      background-color: var(--border-color);
-      margin: 30px 0;
-    }
-
-    /* Style spécifique aux sections de type bulletin */
+    /* Bullet points section */
     .bulletin-section {
       display: flex;
       justify-content: space-between;
@@ -162,6 +197,7 @@
   </style>
 </head>
 <body>
+
   <header>
     <h1>Bienvenue sur Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
@@ -169,90 +205,66 @@
     <a href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000" class="cta-btn">Vérifier maintenant</a>
   </header>
 
-  <!-- Qui sommes-nous Section -->
-  <section class="section">
-    <h2>Qui sommes-nous ?</h2>
-    <p>
-      Diplômé d’expertise comptable, spécialiste de la paie depuis plus de 15 ans, j’ai créé Paiedyali à partir d’un constat simple : les salariés ne comprennent souvent que la ligne "Net payé" sur leur bulletin de salaire. 
-      Entre les cotisations, les lignes techniques, les abréviations et les règles sociales complexes, il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
-    </p>
-    <p>
-      Le problème ? Très peu de salariés prennent le temps de comprendre toutes les autres lignes importantes de leur bulletin, comme les cotisations sociales, les congés payés, et les ajustements de salaire. 
-      Paiedyali ne remplace pas un expert-comptable. Le service a été conçu pour traduire votre bulletin de salaire en français clair, de façon factuelle, pédagogique et compréhensible. 
-      L’analyse repose sur : mon expertise professionnelle en paie, une lecture rigoureuse des données, et une synthèse simple, sans jargon inutile. 
-      Objectif : vous permettre de comprendre chaque détail de votre bulletin, sans stress, sans interprétation approximative, et en toute confidentialité.
-    </p>
-  </section>
+  <div class="container">
+    <!-- Pourquoi nous -->
+    <section class="section fade-in">
+      <h2>Pourquoi choisir Paiedyali ?</h2>
+      <div class="grid">
+        <div><b>Rapide</b>Résultats en quelques minutes</div>
+        <div><b>Pédagogique</b>Explications compréhensibles</div>
+        <div><b>Sécurisé</b>Confidentialité garantie</div>
+        <div><b>Sans abonnement</b>Juste €7,50</div>
+      </div>
+    </section>
 
-  <!-- Fonctionnement Section -->
-  <section class="section">
-    <h2>Comment ça marche ?</h2>
-    <ol>
-      <li>Téléchargez votre bulletin de salaire au format PDF.</li>
-      <li>Payer 7,50 € pour une analyse détaillée et compréhensible.</li>
-      <li>Recevez une analyse simple et claire, dans un format PDF.</li>
-    </ol>
-  </section>
+    <!-- Comment ça marche -->
+    <section class="section fade-in">
+      <h2>Comment ça marche ?</h2>
+      <div class="grid">
+        <div><b>1. Télécharger</b>Importez votre PDF</div>
+        <div><b>2. Payer</b>Sécurisé, rapide</div>
+        <div><b>3. Recevoir</b>Analyse simple et claire</div>
+      </div>
+    </section>
 
-  <!-- Exemple de Bulletin de salaire -->
-  <section class="section">
-    <h2>Exemple de bulletin de salaire</h2>
-    <div class="bulletin-section">
-      <div class="label">Salaire Brut</div>
-      <div class="value">2 000,00 €</div>
-    </div>
-    <div class="bulletin-section">
-      <div class="label">Cotisations sociales</div>
-      <div class="value">400,00 €</div>
-    </div>
-    <div class="bulletin-section">
-      <div class="label">Salaire Net</div>
-      <div class="value">1 600,00 €</div>
-    </div>
-    <div class="bulletin-section">
-      <div class="label">Congés Payés</div>
-      <div class="value">150,00 €</div>
-    </div>
-  </section>
+    <!-- Exemple de Bulletin de salaire -->
+    <section class="section fade-in">
+      <h2>Exemple de bulletin de salaire</h2>
+      <div class="bulletin-section">
+        <div class="label">Salaire Brut</div>
+        <div class="value">2 000,00 €</div>
+      </div>
+      <div class="bulletin-section">
+        <div class="label">Cotisations sociales</div>
+        <div class="value">400,00 €</div>
+      </div>
+      <div class="bulletin-section">
+        <div class="label">Salaire Net</div>
+        <div class="value">1 600,00 €</div>
+      </div>
+      <div class="bulletin-section">
+        <div class="label">Congés Payés</div>
+        <div class="value">150,00 €</div>
+      </div>
+    </section>
 
-  <!-- FAQ Section -->
-  <section class="section">
-    <h2>Foire aux questions</h2>
-    <div class="grid">
-      <div>
-        <b>Pourquoi mon bulletin de salaire est-il analysé ?</b>
-        <p>L'analyse vous permet de comprendre chaque élément de votre bulletin : cotisations, congés payés, salaire net, etc.</p>
+    <!-- FAQ Section -->
+    <section class="section fade-in">
+      <h2>Foire aux questions</h2>
+      <div class="grid">
+        <div><b>Pourquoi mon bulletin de salaire est-il analysé ?</b>Comprendre cotisations, congés payés, net payé.</div>
+        <div><b>Est-ce sécurisé ?</b>Oui, vos documents ne sont jamais stockés après analyse.</div>
+        <div><b>Combien ça coûte ?</b>€7,50 pour une analyse complète, sans abonnement.</div>
+        <div><b>Combien de temps pour l’analyse ?</b>Analyse rapide en 5 minutes maximum.</div>
       </div>
-      <div>
-        <b>Est-ce que mes données sont sécurisées ?</b>
-        <p>Oui, nous garantissons la sécurité totale de vos informations. Aucune donnée n’est stockée après l’analyse.</p>
-      </div>
-      <div>
-        <b>Combien coûte l’analyse ?</b>
-        <p>7,50 € pour un paiement unique. Aucun abonnement, aucun frais caché.</p>
-      </div>
-      <div>
-        <b>Combien de temps faut-il ?</b>
-        <p>L’analyse prend moins de 5 minutes. Si votre bulletin est un scan, cela peut prendre un peu plus de temps.</p>
-      </div>
-      <div>
-        <b>Est-ce que l’analyse prend en compte les erreurs sur le bulletin ?</b>
-        <p>Oui, l’analyse permet également d’identifier les erreurs courantes sur un bulletin de salaire, comme les mauvais montants de cotisations ou de congés.</p>
-      </div>
-      <div>
-        <b>Que se passe-t-il après le paiement ?</b>
-        <p>Après le paiement, vous recevrez un email avec votre analyse détaillée, accompagnée d’un résumé de chaque élément clé de votre bulletin.</p>
-      </div>
-      <div>
-        <b>Puis-je obtenir un remboursement si je ne suis pas satisfait ?</b>
-        <p>Oui, nous offrons une garantie de remboursement sous 7 jours si vous n’êtes pas satisfait de l’analyse.</p>
-      </div>
-    </div>
-  </section>
+    </section>
+
+  </div>
 
   <footer>
     <p>&copy; 2025 Paiedyali. Tous droits réservés.</p>
     <p>Mentions légales | Politique de confidentialité</p>
   </footer>
+
 </body>
 </html>
