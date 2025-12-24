@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /admin/
 Allow: /images/
 
-Sitemap: https://www.monsite.com/sitemap.xml
+Sitemap: https://www.paiedyali.fr/sitemap.xml
