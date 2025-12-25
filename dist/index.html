@@ -7,246 +7,276 @@
   <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité.">
 
   <style>
-    :root {
-      --bg-dark: #1e293b;
-      --bg-light: #ffffff;
-      --accent-color: #4e73df;
-      --btn-color: #28a745;
-      --btn-hover-color: #218838;
-      --text-color: #0f172a;
-      --muted-color: #64748b;
-      --border-color: rgba(15, 23, 42, 0.12);
-      --box-shadow: 0 16px 48px rgba(0,0,0,.35);
-      --radius: 12px;
-      --section-padding: 30px;
+    :root{
+      --bg-dark:#0f172a;
+      --bg-light:#ffffff;
+      --card:#0b1224;
+      --accent:#4e73df;
+      --btn:#28a745;
+      --btn-hover:#218838;
+      --text:#e5e7eb;
+      --text-dark:#111827;
+      --muted:#94a3b8;
+      --border:rgba(255,255,255,.12);
+      --shadow:0 16px 48px rgba(0,0,0,.45);
+      --radius:14px;
+      --section-padding:30px;
+      --max:980px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-color);
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(1200px 700px at 10% 0%, rgba(78,115,223,.22), transparent 55%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(40,167,69,.14), transparent 60%),
+                  var(--bg-dark);
+      color: var(--text);
       line-height: 1.6;
     }
 
-    .container { max-width: 1000px; margin: 0 auto; padding: 0 16px 40px; }
+    a{color:inherit}
+    .container{max-width:var(--max);margin:0 auto;padding:0 18px 60px}
 
     /* Animations */
-    .fade-in { animation: fadeIn 1.0s ease-out forwards; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .fade-in{opacity:0;animation:fadeIn 1.2s ease-out forwards}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
     /* Header */
-    header {
-      background-color: var(--accent-color);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-      border-radius: 12px;
-      box-shadow: var(--box-shadow);
-      margin: 20px auto;
-      max-width: 1000px;
+    header{
+      max-width:var(--max);
+      margin:20px auto 24px;
+      padding:70px 22px;
+      border-radius:var(--radius);
+      background: linear-gradient(135deg, rgba(78,115,223,.95), rgba(78,115,223,.72));
+      box-shadow:var(--shadow);
+      text-align:center;
+      border:1px solid rgba(255,255,255,.18);
+    }
+    header h1{font-size:clamp(2rem, 3.5vw, 3rem);margin:0 0 8px}
+    header p{font-size:clamp(1.05rem, 1.5vw, 1.25rem);opacity:.95}
+
+    .cta-btn{
+      background:var(--btn);
+      color:#fff;
+      padding:14px 28px;
+      text-decoration:none;
+      font-size:18px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:22px;
+      box-shadow:0 10px 26px rgba(0,0,0,.35);
+      transition:transform .15s ease, background-color .25s ease, box-shadow .25s ease;
+    }
+    .cta-btn:hover{
+      background:var(--btn-hover);
+      transform:translateY(-1px);
+      box-shadow:0 14px 34px rgba(0,0,0,.45);
     }
 
-    header h1 { margin: 0; font-size: 3rem; }
-    header p { margin-top: 10px; font-size: 1.25rem; opacity: .95; }
-
-    .cta-btn {
-      background-color: var(--btn-color);
-      color: white;
-      padding: 14px 28px;
-      text-decoration: none;
-      font-size: 18px;
-      border-radius: 30px;
-      display: inline-block;
-      margin-top: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.25);
-      transition: transform 0.15s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Sections */
+    .section{
+      margin:22px auto;
+      padding:var(--section-padding);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
     }
 
-    .cta-btn:hover {
-      background-color: var(--btn-hover-color);
-      box-shadow: 0 12px 36px rgba(0,0,0,.35);
+    h2{
+      font-size:clamp(1.4rem, 2.2vw, 2rem);
+      color:#dbeafe;
+      margin-bottom:14px;
+      letter-spacing:.2px;
+    }
+
+    .section p{color:rgba(229,231,235,.92)}
+
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.12);
+      margin:18px 0 8px;
+    }
+
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:16px;
+      margin-top:14px;
+    }
+    @media (max-width: 720px){
+      .grid{grid-template-columns:1fr}
+      header{padding:56px 18px}
+    }
+
+    /* ✅ correction + style */
+    .grid div{
+      background-color: rgba(255,255,255,0.06);
+      padding:18px;
+      border-radius: calc(var(--radius) - 2px);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    }
+    .grid div b{
+      display:inline-block;
+      font-size:1.08rem;
+      margin-bottom:6px;
+      color:#fff;
+    }
+    .grid div{color: rgba(229,231,235,.92)}
+
+    /* Footer */
+    footer{
+      max-width:var(--max);
+      margin:28px auto 0;
+      padding:18px 18px;
+      color: rgba(229,231,235,.88);
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .footer-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .link-btn{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.16);
+      color:rgba(229,231,235,.92);
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:background .2s ease, transform .15s ease, border-color .2s ease;
+      font: inherit;
+    }
+    .link-btn:hover{
+      background: rgba(255,255,255,.06);
       transform: translateY(-1px);
+      border-color: rgba(255,255,255,.24);
     }
 
-    .section {
-      margin: 28px auto;
-      max-width: 1000px;
-      padding: var(--section-padding);
-      background-color: var(--bg-light);
-      border-radius: var(--radius);
-      box-shadow: var(--box-shadow);
-      border: 1px solid var(--border-color);
+    /* Modal */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
     }
-
-    h2 { font-size: 2rem; color: var(--accent-color); margin-bottom: 14px; }
-    .section p { font-size: 1.05rem; color: var(--muted-color); }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    /* ✅ Correctif : tout est dans le bloc .grid div (pas de } au milieu) */
-    .grid div {
-      background-color: rgba(255, 255, 255, 0.12);
-      padding: 18px;
-      border-radius: var(--radius);
-      box-shadow: 0 10px 28px rgba(0,0,0,.18);
-      border: 1px solid var(--border-color);
-      color: var(--text-color);
-    }
-
-    .grid div b { font-size: 1.15rem; display: inline-block; margin-bottom: 6px; }
-
-    .divider { height: 2px; background-color: rgba(255,255,255,.18); margin: 18px auto; max-width: 1000px; border-radius: 999px; }
-
-    footer {
-      max-width: 1000px;
-      margin: 0 auto 22px;
-      padding: 18px 20px;
-      color: rgba(255,255,255,.9);
-      text-align: center;
-    }
-
-    footer p { margin: 6px 0; }
-
-    .footer-links {
-      display: inline-flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      margin-top: 8px;
-    }
-
-    .footer-links a {
-      color: #dbeafe;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      cursor: pointer;
-    }
-
-    .footer-links a:hover { opacity: .9; }
-
-    /* ---------- MODALS (Mentions légales / RGPD) ---------- */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      z-index: 9999;
-    }
-
-    .modal-overlay[aria-hidden="false"] { display: flex; }
-
-    .modal {
-      width: min(900px, 100%);
-      max-height: 85vh;
-      overflow: auto;
-      background: #fff;
+    .modal{
+      width:min(920px, 100%);
+      max-height: 86vh;
+      overflow:auto;
+      background: #0b1224;
+      border: 1px solid rgba(255,255,255,.14);
       border-radius: 16px;
-      box-shadow: 0 24px 80px rgba(0,0,0,.45);
-      border: 1px solid rgba(15,23,42,.12);
+      box-shadow: 0 22px 70px rgba(0,0,0,.6);
+      padding: 18px;
     }
-
-    .modal-header {
-      position: sticky;
-      top: 0;
-      background: #fff;
-      border-bottom: 1px solid rgba(15,23,42,.12);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      z-index: 1;
+    .modal-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      margin-bottom:12px;
     }
-
-    .modal-title { font-size: 1.15rem; font-weight: 700; color: var(--text-color); }
-
-    .modal-close {
-      border: 1px solid rgba(15,23,42,.18);
-      background: #f8fafc;
-      color: var(--text-color);
-      padding: 8px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform .12s ease, background .2s ease;
+    .modal-title{
+      font-size: 1.2rem;
+      color:#fff;
+      margin:0;
     }
-    .modal-close:hover { background: #eef2ff; transform: translateY(-1px); }
-
-    .modal-body { padding: 16px; color: var(--text-color); }
-    .modal-body h3 { margin: 14px 0 6px; font-size: 1.1rem; }
-    .modal-body p, .modal-body li { color: #334155; }
-    .modal-body ul { padding-left: 18px; margin: 8px 0 14px; }
-
-    .tag {
-      display: inline-block;
-      font-size: .85rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: #1e40af;
-      border: 1px solid rgba(30,64,175,.18);
-      margin-left: 8px;
-      vertical-align: middle;
+    .close-btn{
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
     }
-
-    /* Responsive */
-    @media (max-width: 720px) {
-      header h1 { font-size: 2.2rem; }
-      header p { font-size: 1.05rem; }
-      .grid { grid-template-columns: 1fr; }
-      .section { padding: 22px; }
+    .modal-content{
+      color: rgba(229,231,235,.92);
+      font-size: 0.98rem;
+    }
+    .modal-content h3{
+      margin:14px 0 8px;
+      color:#fff;
+      font-size:1.05rem;
+    }
+    .modal-content p, .modal-content li{color: rgba(229,231,235,.9)}
+    .modal-content ul{padding-left:18px;margin:8px 0}
+    .pill{
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      background: rgba(78,115,223,.18);
+      border:1px solid rgba(78,115,223,.28);
+      margin: 4px 0;
+      font-size: .9rem;
+      color:#dbeafe;
+    }
+    .note{
+      background: rgba(40,167,69,.10);
+      border:1px solid rgba(40,167,69,.18);
+      padding:10px 12px;
+      border-radius:12px;
+      margin-top:10px;
     }
   </style>
 </head>
 
 <body>
-
   <header class="fade-in">
     <h1>Bienvenue sur Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
-    <a href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000" class="cta-btn">Vérifier maintenant</a>
+    <a href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000" class="cta-btn">
+      Vérifier maintenant
+    </a>
   </header>
 
-  <div class="container">
-
+  <main class="container">
+    <!-- Qui sommes-nous -->
     <section class="section fade-in">
       <h2>Qui sommes-nous ?</h2>
       <p>
         Diplômé d’expertise comptable, spécialiste de la paie depuis plus de 15 ans,
-        j’ai créé Paiedyali à partir d’un constat simple : les salariés ne comprennent souvent
-        que la ligne "Net payé" sur leur bulletin de salaire.<br><br>
-
+        j’ai créé Paiedyali à partir d’un constat simple : les salariés ne comprennent
+        souvent que la ligne “Net payé” sur leur bulletin de salaire.
+      </p>
+      <div class="divider"></div>
+      <p>
         Entre les cotisations, les lignes techniques, les abréviations et les règles sociales complexes,
-        il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.<br><br>
-
-        Paiedyali ne remplace pas un expert-comptable. Le service a été conçu pour traduire votre bulletin
-        de salaire en français clair, de façon factuelle, pédagogique et compréhensible.<br><br>
-
-        Objectif : vous permettre de comprendre chaque détail de votre bulletin,
-        sans stress, sans interprétation approximative, et en toute confidentialité.
+        il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
+        Paiedyali a été conçu pour traduire votre bulletin en français clair, de façon factuelle,
+        pédagogique et compréhensible — en toute confidentialité.
       </p>
     </section>
 
+    <!-- Pourquoi nous -->
     <section class="section fade-in">
       <h2>Pourquoi choisir Paiedyali ?</h2>
       <div class="grid">
         <div><b>Rapide</b><br>Résultats en quelques minutes</div>
         <div><b>Pédagogique</b><br>Explications compréhensibles</div>
         <div><b>Sécurisé</b><br>Confidentialité garantie</div>
-        <div><b>Sans abonnement</b><br>Juste €7,50</div>
+        <div><b>Sans abonnement</b><br>Juste 7,50 €</div>
       </div>
     </section>
 
+    <!-- Comment ça marche -->
     <section class="section fade-in">
       <h2>Comment ça marche ?</h2>
       <div class="grid">
@@ -256,202 +286,174 @@
       </div>
     </section>
 
-    <section class="section fade-in" id="faq">
+    <!-- FAQ -->
+    <section class="section fade-in">
       <h2>Foire aux questions</h2>
       <div class="grid">
-        <div><b>Pourquoi mon bulletin de salaire est-il analysé ?</b><br>Comprendre cotisations, congés payés, net payé.</div>
-        <div><b>Est-ce sécurisé ?</b><br>Oui, vos documents ne sont jamais stockés après analyse.</div>
-        <div><b>Combien ça coûte ?</b><br>€7,50 pour une analyse complète, sans abonnement.</div>
-        <div><b>Combien de temps pour l’analyse ?</b><br>Analyse rapide en 5 minutes maximum.</div>
-        <div><b>Comment suis-je facturé ?</b><br>Vous payez une seule fois via Stripe, pour une analyse complète.</div>
+        <div><b>Pourquoi mon bulletin est-il analysé ?</b><br>Pour comprendre cotisations, congés payés, net payé et vérifier la cohérence.</div>
+        <div><b>Est-ce sécurisé ?</b><br>Oui. Le service est pensé pour minimiser les données et protéger votre confidentialité.</div>
+        <div><b>Combien ça coûte ?</b><br>7,50 € pour une analyse complète, sans abonnement.</div>
+        <div><b>Combien de temps ?</b><br>En général quelques minutes (selon la complexité du bulletin).</div>
+        <div><b>Comment suis-je facturé ?</b><br>Une seule fois via Stripe, pour une analyse.</div>
         <div><b>Puis-je analyser plusieurs bulletins ?</b><br>Oui, chaque analyse est facturée 7,50 €.</div>
-        <div><b>Compatible avec tous les bulletins ?</b><br>Oui, tous les bulletins au format PDF.</div>
-        <div><b>Remboursement ?</b><br>Après remise du rapport, le service est considéré rendu : pas de remboursement.</div>
+        <div><b>Compatible avec tous les bulletins ?</b><br>Oui, tant que le fichier est un PDF lisible.</div>
+        <div><b>Remboursement ?</b><br>Après fourniture du rapport, le service est considéré rendu (pas de remboursement).</div>
+      </div>
+
+      <div class="note">
+        <b>Astuce :</b> si tu veux renforcer la confiance, on peut ajouter une mini-ligne “Données supprimées après traitement”
+        juste sous le bouton Stripe (tu me dis et je te le mets).
       </div>
     </section>
-
-  </div>
-
-  <div class="divider"></div>
+  </main>
 
   <footer>
-    <p>&copy; 2025 Paiedyali. Tous droits réservés.</p>
+    <div>© 2025 Paiedyali — Tous droits réservés.</div>
+
     <div class="footer-links">
-      <a href="#" data-open="modal-mentions">Mentions légales</a>
-      <span>•</span>
-      <a href="#" data-open="modal-rgpd">Politique de confidentialité (RGPD)</a>
+      <button class="link-btn" type="button" data-open="mentions">Mentions légales</button>
+      <button class="link-btn" type="button" data-open="rgpd">Politique de confidentialité (RGPD)</button>
+      <span class="pill">Contact : contact@paiedyali.fr</span>
     </div>
-    <p style="margin-top:10px; opacity:.9;">Contact : <a href="mailto:paiedyalii@gmail.com" style="color:#dbeafe; text-decoration:underline;">paiedyalii@gmail.com</a></p>
   </footer>
 
-  <!-- ===================== MODAL : MENTIONS LÉGALES ===================== -->
-  <div class="modal-overlay" id="modal-mentions" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mentions légales">
-    <div class="modal" role="document">
+  <!-- MODAL Mentions légales -->
+  <div class="modal-overlay" id="modal-mentions" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mentions-title">
       <div class="modal-header">
-        <div class="modal-title">Mentions légales <span class="tag">SAS Paiedyali</span></div>
-        <button class="modal-close" type="button" data-close>Fermer</button>
+        <h2 class="modal-title" id="mentions-title">Mentions légales</h2>
+        <button class="close-btn" type="button" data-close>Fermer</button>
       </div>
-      <div class="modal-body">
-        <p>
-          Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique (LCEN),
-          les informations suivantes sont portées à la connaissance des utilisateurs du site <b>Paiedyali</b>.
-        </p>
-
+      <div class="modal-content">
         <h3>Éditeur du site</h3>
-        <ul>
-          <li><b>Raison sociale :</b> SAS Paiedyali</li>
-          <li><b>Email :</b> <a href="mailto:paiedyalii@gmail.com">paiedyalii@gmail.com</a> (remplacer par <b>contact@paiedyali.fr</b> dès création)</li>
-          <li><b>Directeur de la publication :</b> SAS Paiedyali</li>
-          <li><b>Adresse :</b> À compléter (si tu veux être carré légalement, ajoute l’adresse du siège)</li>
-          <li><b>SIREN/SIRET :</b> À compléter</li>
-        </ul>
-
-        <h3>Hébergement</h3>
-        <ul>
-          <li><b>Hébergeur :</b> OVH SAS</li>
-          <li><b>Adresse :</b> 2 rue Kellermann, 59100 Roubaix, France</li>
-          <li><b>Téléphone :</b> 1007</li>
-        </ul>
-
-        <h3>Propriété intellectuelle</h3>
         <p>
-          Le site et l’ensemble de ses contenus (textes, visuels, logos, éléments graphiques) sont protégés.
-          Toute reproduction ou représentation, totale ou partielle, sans autorisation, est interdite.
-        </p>
-
-        <h3>Responsabilité</h3>
-        <p>
-          Les informations fournies sur le site le sont à titre informatif. Paiedyali met tout en œuvre pour assurer
-          l’exactitude des informations mais ne peut garantir l’absence d’erreurs.
+          <b>Paiedyali</b> — <b>SAS</b><br>
+          (À compléter : adresse du siège, SIREN/SIRET, RCS, capital social, TVA intracommunautaire si applicable.)
         </p>
 
         <h3>Contact</h3>
         <p>
-          Pour toute question, vous pouvez écrire à : <a href="mailto:paiedyalii@gmail.com">paiedyalii@gmail.com</a>.
+          Email principal : <b>contact@paiedyali.fr</b><br>
+          Email temporaire (en attendant la création) : <b>paiedyalii@gmail.com</b>
+        </p>
+
+        <h3>Hébergement</h3>
+        <p>
+          <b>OVH SAS</b> — 2 rue Kellermann, 59100 Roubaix, France.
+        </p>
+
+        <h3>Responsabilité</h3>
+        <p>
+          Paiedyali propose un service d’aide à la compréhension du bulletin de salaire.
+          Les informations fournies sont pédagogiques et ne constituent pas un conseil juridique.
         </p>
       </div>
     </div>
   </div>
 
-  <!-- ===================== MODAL : RGPD / CONFIDENTIALITÉ ===================== -->
-  <div class="modal-overlay" id="modal-rgpd" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Politique de confidentialité">
-    <div class="modal" role="document">
+  <!-- MODAL RGPD -->
+  <div class="modal-overlay" id="modal-rgpd" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rgpd-title">
       <div class="modal-header">
-        <div class="modal-title">Politique de confidentialité (RGPD)</div>
-        <button class="modal-close" type="button" data-close>Fermer</button>
+        <h2 class="modal-title" id="rgpd-title">Politique de confidentialité (RGPD)</h2>
+        <button class="close-btn" type="button" data-close>Fermer</button>
       </div>
-      <div class="modal-body">
+      <div class="modal-content">
+        <h3>Responsable de traitement</h3>
         <p>
-          Cette politique décrit comment <b>SAS Paiedyali</b> traite vos données personnelles lorsque vous utilisez le site.
+          <b>Paiedyali (SAS)</b> — Contact : <b>contact@paiedyali.fr</b>
         </p>
 
-        <h3>Responsable de traitement</h3>
+        <h3>Données traitées</h3>
         <ul>
-          <li><b>Entité :</b> SAS Paiedyali</li>
-          <li><b>Contact :</b> <a href="mailto:paiedyalii@gmail.com">paiedyalii@gmail.com</a> (bientôt <b>contact@paiedyali.fr</b>)</li>
-        </ul>
-
-        <h3>Données collectées</h3>
-        <ul>
-          <li><b>Données de contact</b> (si vous nous écrivez) : email, contenu du message.</li>
-          <li><b>Données de paiement</b> : gérées par <b>Stripe</b>. Paiedyali ne stocke pas vos données bancaires.</li>
-          <li><b>Bulletin de salaire (PDF)</b> : utilisé uniquement pour réaliser l’analyse.</li>
+          <li>Le bulletin de salaire (PDF) que vous téléversez</li>
+          <li>Données techniques minimales nécessaires au fonctionnement (ex. logs techniques)</li>
         </ul>
 
         <h3>Finalités</h3>
         <ul>
-          <li>Fournir le service d’analyse du bulletin</li>
-          <li>Gérer le paiement et la facturation</li>
-          <li>Assistance / support client</li>
-          <li>Sécurité et prévention des abus</li>
+          <li>Réaliser l’analyse et générer un rapport</li>
+          <li>Assurer la sécurité et le bon fonctionnement du service</li>
         </ul>
 
         <h3>Base légale</h3>
         <ul>
-          <li><b>Exécution d’un contrat</b> : fournir l’analyse après paiement</li>
-          <li><b>Obligation légale</b> : obligations comptables/fiscales liées à la facturation</li>
-          <li><b>Intérêt légitime</b> : sécurité du site et amélioration du service</li>
+          <li>Exécution du contrat (fourniture du service)</li>
+          <li>Intérêt légitime (sécurité, prévention de fraude)</li>
         </ul>
 
-        <h3>Durées de conservation</h3>
-        <ul>
-          <li><b>PDF</b> : non conservé après l’analyse (sauf obligation technique temporaire).</li>
-          <li><b>Facturation</b> : conservation selon les obligations légales (ex : comptabilité).</li>
-          <li><b>Emails</b> : le temps nécessaire au traitement + archivage raisonnable.</li>
-        </ul>
+        <h3>Conservation</h3>
+        <p>
+          Objectif : minimiser la conservation. (À adapter selon ton fonctionnement réel.)
+          Si tu supprimes les PDF après analyse, indique-le ici clairement.
+        </p>
 
-        <h3>Destinataires</h3>
+        <h3>Prestataires</h3>
         <ul>
-          <li>Prestataires techniques nécessaires au service (ex : hébergement OVH, paiement Stripe).</li>
+          <li>Paiement : Stripe</li>
+          <li>Hébergement : OVH</li>
+          <li>CDN/serving (si applicable) : Cloudflare</li>
         </ul>
 
         <h3>Vos droits</h3>
         <p>
-          Conformément au RGPD, vous disposez des droits d’accès, rectification, effacement, limitation, opposition,
-          et portabilité lorsque applicable. Vous pouvez exercer vos droits en écrivant à
-          <a href="mailto:paiedyalii@gmail.com">paiedyalii@gmail.com</a>.
+          Vous disposez des droits d’accès, rectification, effacement, limitation, opposition et portabilité.
+          Pour exercer vos droits : <b>contact@paiedyali.fr</b>
         </p>
 
         <h3>Cookies</h3>
         <p>
-          Si vous utilisez des outils de mesure d’audience ou de publicité, vous devez mettre un bandeau cookies.
-          (Si tu n’as aucun tracking : tu peux indiquer “Pas de cookies de suivi”).
-        </p>
-
-        <h3>Réclamation</h3>
-        <p>
-          Vous pouvez déposer une réclamation auprès de la CNIL (France) si vous estimez que vos droits ne sont pas respectés.
+          À préciser selon ce que tu utilises (analytics, etc.). Si tu n’utilises aucun cookie de suivi,
+          tu peux l’indiquer explicitement.
         </p>
       </div>
     </div>
   </div>
 
   <script>
-    // ====== MODALS ======
+    // Open/close modals
+    const openButtons = document.querySelectorAll('[data-open]');
+    const closeButtons = document.querySelectorAll('[data-close]');
     const overlays = document.querySelectorAll('.modal-overlay');
 
-    function openModal(id) {
-      const el = document.getElementById(id);
-      if (!el) return;
+    function openModal(which){
+      const el = document.getElementById('modal-' + which);
+      if(!el) return;
+      el.style.display = 'flex';
       el.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     }
 
-    function closeModal(el) {
+    function closeModal(el){
+      el.style.display = 'none';
       el.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     }
 
-    // Open links
-    document.addEventListener('click', (e) => {
-      const openBtn = e.target.closest('[data-open]');
-      if (openBtn) {
-        e.preventDefault();
-        openModal(openBtn.getAttribute('data-open'));
-        return;
-      }
-
-      const closeBtn = e.target.closest('[data-close]');
-      if (closeBtn) {
-        const overlay = closeBtn.closest('.modal-overlay');
-        if (overlay) closeModal(overlay);
-        return;
-      }
-
-      // Click outside modal closes
-      const overlayClick = e.target.classList.contains('modal-overlay') ? e.target : null;
-      if (overlayClick) closeModal(overlayClick);
+    openButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=> openModal(btn.dataset.open));
     });
 
-    // Escape closes any open modal
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        overlays.forEach(ov => {
-          if (ov.getAttribute('aria-hidden') === 'false') closeModal(ov);
+    closeButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const overlay = btn.closest('.modal-overlay');
+        if(overlay) closeModal(overlay);
+      });
+    });
+
+    overlays.forEach(overlay=>{
+      overlay.addEventListener('click', (e)=>{
+        if(e.target === overlay) closeModal(overlay);
+      });
+    });
+
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        overlays.forEach(overlay=>{
+          if(overlay.style.display === 'flex') closeModal(overlay);
         });
       }
     });
   </script>
-
 </body>
 </html>
