@@ -7,34 +7,228 @@
   <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité.">
 
   <style>
-    /* Style existant... */
+    :root{
+      --bg-dark:#0f172a;
+      --bg-light:#ffffff;
+      --card:#0b1224;
+      --accent:#4e73df;
+      --btn:#28a745;
+      --btn-hover:#218838;
+      --text:#e5e7eb;
+      --text-dark:#111827;
+      --muted:#94a3b8;
+      --border:rgba(255,255,255,.12);
+      --shadow:0 16px 48px rgba(0,0,0,.45);
+      --radius:14px;
+      --section-padding:30px;
+      --max:980px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(1200px 700px at 10% 0%, rgba(78,115,223,.22), transparent 55%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(40,167,69,.14), transparent 60%),
+                  var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a{color:inherit}
+    .container{max-width:var(--max);margin:0 auto;padding:0 18px 60px}
+
+    /* Animations */
+    .fade-in{opacity:0;animation:fadeIn 1.2s ease-out forwards}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    /* Header */
+    header{
+      max-width:var(--max);
+      margin:20px auto 24px;
+      padding:70px 22px;
+      border-radius:var(--radius);
+      background: linear-gradient(135deg, rgba(78,115,223,.95), rgba(78,115,223,.72));
+      box-shadow:var(--shadow);
+      text-align:center;
+      border:1px solid rgba(255,255,255,.18);
+    }
+    header h1{font-size:clamp(2rem, 3.5vw, 3rem);margin:0 0 8px}
+    header p{font-size:clamp(1.05rem, 1.5vw, 1.25rem);opacity:.95}
+
+    .cta-btn{
+      background:var(--btn);
+      color:#fff;
+      padding:14px 28px;
+      text-decoration:none;
+      font-size:18px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:22px;
+      box-shadow:0 10px 26px rgba(0,0,0,.35);
+      transition:transform .15s ease, background-color .25s ease, box-shadow .25s ease;
+    }
+    .cta-btn:hover{
+      background:var(--btn-hover);
+      transform:translateY(-1px);
+      box-shadow:0 14px 34px rgba(0,0,0,.45);
+    }
+
+    /* Sections */
+    .section{
+      margin:22px auto;
+      padding:var(--section-padding);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    h2{
+      font-size:clamp(1.4rem, 2.2vw, 2rem);
+      color:#dbeafe;
+      margin-bottom:14px;
+      letter-spacing:.2px;
+    }
+
+    .section p{color:rgba(229,231,235,.92)}
+
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.12);
+      margin:18px 0 8px;
+    }
+
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:16px;
+      margin-top:14px;
+    }
+    @media (max-width: 720px){
+      .grid{grid-template-columns:1fr}
+      header{padding:56px 18px}
+    }
+
+    /* ✅ correction + style */
+    .grid div{
+      background-color: rgba(255,255,255,0.06);
+      padding:18px;
+      border-radius: calc(var(--radius) - 2px);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    }
+    .grid div b{
+      display:inline-block;
+      font-size:1.08rem;
+      margin-bottom:6px;
+      color:#fff;
+    }
+    .grid div{color: rgba(229,231,235,.92)}
+
+    /* Footer */
+    footer{
+      max-width:var(--max);
+      margin:28px auto 0;
+      padding:18px 18px;
+      color: rgba(229,231,235,.88);
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .footer-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .link-btn{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.16);
+      color:rgba(229,231,235,.92);
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:background .2s ease, transform .15s ease, border-color .2s ease;
+      font: inherit;
+    }
+    .link-btn:hover{
+      background: rgba(255,255,255,.06);
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.24);
+    }
+
+    /* MODAL */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
+    }
+    .modal{
+      width:min(920px, 100%);
+      max-height: 86vh;
+      overflow:auto;
+      background: #0b1224;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      box-shadow: 0 22px 70px rgba(0,0,0,.6);
+      padding: 18px;
+    }
+    .modal-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      margin-bottom:12px;
+    }
+    .modal-title{
+      font-size: 1.2rem;
+      color:#fff;
+      margin:0;
+    }
+    .close-btn{
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
+    }
+    .modal-content{
+      color: rgba(229,231,235,.92);
+      font-size: 0.98rem;
+    }
+    .modal-content h3{
+      margin:14px 0 8px;
+      color:#fff;
+      font-size:1.05rem;
+    }
+    .modal-content p, .modal-content li{color: rgba(229,231,235,.9)}
+    .modal-content ul{padding-left:18px;margin:8px 0}
+    .pill{
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      background: rgba(78,115,223,.18);
+      border:1px solid rgba(78,115,223,.28);
+      margin: 4px 0;
+      font-size: .9rem;
+      color:#dbeafe;
+    }
   </style>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TKM8MB9T2H"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    // Configuration de Google Analytics (GA4)
-    gtag('config', 'G-TKM8MB9T2H');
-
-    // Suivi de l'événement de transaction (achat)
-    gtag('event', 'purchase', {
-      "transaction_id": "12345",  // Remplacez par l'ID unique de la transaction
-      "affiliation": "Paiedyali",  // Nom de la boutique
-      "value": 29.99,  // Montant total de la commande
-      "currency": "EUR",  // Devise utilisée, remplacez "EUR" par ta devise
-      "items": [{
-        "id": "P12345",  // ID du produit
-        "name": "Produit 1",  // Nom du produit
-        "category": "Catégorie 1",  // Catégorie du produit
-        "quantity": 1,  // Quantité achetée
-        "price": 29.99  // Prix unitaire
-      }]
-    });
-  </script>
 </head>
 
 <body>
@@ -188,7 +382,8 @@
 
         <h3>Conservation</h3>
         <p>
-          Objectif : minimiser la conservation. (À adapter selon ton fonctionnement réel. Si tu supprimes les PDF après analyse, indique-le ici clairement.)
+          Objectif : minimiser la conservation. (À adapter selon ton fonctionnement réel.)
+          Si tu supprimes les PDF après analyse, indique-le ici clairement.
         </p>
 
         <h3>Prestataires</h3>
@@ -233,13 +428,28 @@
       document.body.style.overflow = '';
     }
 
-    openButtons.forEach(btn=>{ btn.addEventListener('click', ()=> openModal(btn.dataset.open)); });
-    closeButtons.forEach(btn=>{ btn.addEventListener('click', ()=>{ const overlay = btn.closest('.modal-overlay'); if(overlay) closeModal(overlay); }); });
-    overlays.forEach(overlay=>{ overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(overlay); }); });
+    openButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=> openModal(btn.dataset.open));
+    });
+
+    closeButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const overlay = btn.closest('.modal-overlay');
+        if(overlay) closeModal(overlay);
+      });
+    });
+
+    overlays.forEach(overlay=>{
+      overlay.addEventListener('click', (e)=>{
+        if(e.target === overlay) closeModal(overlay);
+      });
+    });
 
     window.addEventListener('keydown', (e)=>{
       if(e.key === 'Escape'){
-        overlays.forEach(overlay=>{ if(overlay.style.display === 'flex') closeModal(overlay); });
+        overlays.forEach(overlay=>{
+          if(overlay.style.display === 'flex') closeModal(overlay);
+        });
       }
     });
   </script>
