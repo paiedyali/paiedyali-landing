@@ -164,6 +164,70 @@
       border-color: rgba(255,255,255,.24);
     }
 
+    /* MODAL */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
+    }
+    .modal{
+      width:min(920px, 100%);
+      max-height: 86vh;
+      overflow:auto;
+      background: #0b1224;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      box-shadow: 0 22px 70px rgba(0,0,0,.6);
+      padding: 18px;
+    }
+    .modal-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      margin-bottom:12px;
+    }
+    .modal-title{
+      font-size: 1.2rem;
+      color:#fff;
+      margin:0;
+    }
+    .close-btn{
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
+    }
+    .modal-content{
+      color: rgba(229,231,235,.92);
+      font-size: 0.98rem;
+    }
+    .modal-content h3{
+      margin:14px 0 8px;
+      color:#fff;
+      font-size:1.05rem;
+    }
+    .modal-content p, .modal-content li{color: rgba(229,231,235,.9)}
+    .modal-content ul{padding-left:18px;margin:8px 0}
+    .pill{
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      background: rgba(78,115,223,.18);
+      border:1px solid rgba(78,115,223,.28);
+      margin: 4px 0;
+      font-size: .9rem;
+      color:#dbeafe;
+    }
   </style>
 </head>
 
