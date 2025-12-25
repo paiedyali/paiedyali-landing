@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Paiedyali — Analyse de bulletin de salaire</title>
   <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité.">
 
@@ -10,26 +10,18 @@
     :root {
       --bg-dark: #1e293b;
       --bg-light: #ffffff;
-
-      /* ✅ Couleurs WCAG */
       --accent-color: #2f4fd8;
       --btn-color: #1f7a32;
       --btn-hover-color: #155d27;
-
       --text-color: #212529;
       --muted-color: #495057;
       --border-color: #ddd;
-
       --box-shadow: 0 16px 48px rgba(0,0,0,.45);
       --radius: 12px;
       --section-padding: 30px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -40,25 +32,12 @@
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 16px;
+      padding: 0 16px 60px;
     }
 
-    /* Animations */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Header */
     header {
       background-color: var(--accent-color);
-      color: #ffffff;
+      color: #fff;
       padding: 60px 20px;
       text-align: center;
       border-radius: var(--radius);
@@ -66,19 +45,12 @@
       margin: 20px;
     }
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      font-size: 1.25rem;
-      opacity: 0.95;
-    }
+    header h1 { font-size: 3rem; margin-bottom: 10px; }
+    header p { font-size: 1.25rem; opacity: 0.95; }
 
     .cta-btn {
       background-color: var(--btn-color);
-      color: #ffffff;
+      color: #fff;
       padding: 14px 28px;
       font-size: 18px;
       border-radius: 30px;
@@ -86,22 +58,10 @@
       display: inline-block;
       margin-top: 24px;
       box-shadow: 0 8px 24px rgba(0,0,0,.35);
-      transition: background-color 0.3s, box-shadow 0.3s;
     }
 
-    .cta-btn:hover {
-      background-color: var(--btn-hover-color);
-      box-shadow: 0 12px 36px rgba(0,0,0,.45);
-    }
-
-    .cta-btn:focus-visible {
-      outline: 3px solid #fff;
-      outline-offset: 4px;
-    }
-
-    /* Sections */
     .section {
-      margin: 60px auto;
+      margin: 30px auto;
       max-width: 900px;
       padding: var(--section-padding);
       background-color: var(--bg-light);
@@ -113,59 +73,25 @@
     h2 {
       font-size: 2rem;
       color: var(--accent-color);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .section p {
-      font-size: 1.1rem;
+    .section p, .section li {
+      font-size: 1.05rem;
       color: var(--muted-color);
       line-height: 1.6;
     }
 
-    /* Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .grid div {
-      background-color: rgba(255,255,255,0.12);
-      padding: 20px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-color);
-      box-shadow: var(--box-shadow);
-      color: var(--text-color);
-    }
-
-    .grid div b {
-      font-size: 1.15rem;
-    }
-
-    /* Footer */
     footer {
       background-color: #343a40;
-      color: #ffffff;
+      color: #fff;
       text-align: center;
       padding: 20px;
       margin-top: 40px;
     }
 
-    footer a {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    footer a { color: #cfe0ff; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 
@@ -179,85 +105,72 @@
   </a>
 </header>
 
-<main>
-  <div class="container">
+<main class="container">
 
-    <!-- Qui sommes-nous -->
-    <section class="section fade-in">
-      <h2>Qui sommes-nous ?</h2>
-      <p>
-        Diplômé d’expertise comptable, spécialiste de la paie depuis plus de 15 ans,
-          j’ai créé Paiedyali à partir d’un constat simple :
-          les salariés ne comprennent souvent que la ligne "Net payé" sur leur bulletin de salaire.
-          <br><br>
-          Entre les cotisations, les lignes techniques, les abréviations et les règles sociales complexes,
-          il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
-          <br><br>
-          Paiedyali ne remplace pas un expert-comptable.
-          Le service a été conçu pour traduire votre bulletin de salaire en français clair,
-          de façon factuelle, pédagogique et compréhensible.
-          <br><br>
-          Objectif : vous permettre de comprendre chaque détail de votre bulletin,
-          sans stress, sans interprétation approximative, et en toute confidentialité.
-      </p>
-    </section>
+  <!-- Mentions légales -->
+  <section class="section" id="mentions-legales">
+    <h2>Mentions légales</h2>
+    <p>
+      <b>Éditeur du site :</b> SAS Paiedyali<br>
+      <b>Responsable de la publication :</b> SAS Paiedyali<br>
+      <b>Email de contact :</b> paiedyalii@gmail.com (temporaire) / contact@paiedyali.fr (email principal)<br><br>
 
-    <!-- Pourquoi -->
-    <section class="section fade-in">
-      <h2>Pourquoi choisir Paiedyali ?</h2>
-      <div class="grid">
-        <div><b>Rapide</b><br>Résultats en quelques minutes</div>
-        <div><b>Pédagogique</b><br>Explications simples</div>
-        <div><b>Sécurisé</b><br>Données non conservées</div>
-        <div><b>Sans abonnement</b><br>7,50 € par analyse</div>
-      </div>
-    </section>
+      <b>Hébergement :</b><br>
+      OVH SAS<br>
+      2 rue Kellermann – 59100 Roubaix – France<br>
+      Téléphone : 1007<br><br>
 
-    <!-- Comment -->
-    <section class="section fade-in">
-      <h2>Comment ça marche ?</h2>
-      <div class="grid">
-        <div><b>1. Téléverser</b><br>Votre bulletin PDF</div>
-        <div><b>2. Payer</b><br>Via Stripe</div>
-        <div><b>3. Recevoir</b><br>Une analyse claire</div>
-      </div>
-    </section>
+      <b>Propriété intellectuelle :</b><br>
+      L’ensemble des contenus présents sur le site Paiedyali (textes, graphismes, logo, structure)
+      est protégé par le droit d’auteur. Toute reproduction, même partielle, est interdite sans autorisation préalable.<br><br>
 
-    <!-- FAQ -->
-    <section class="section fade-in">
-      <h2>Foire aux questions</h2>
-      <div class="grid">
-        <div><b>Pourquoi analyser mon bulletin ?</b><br>Pour comprendre cotisations, congés et net payé.</div>
-        <div><b>Mes données sont-elles sécurisées ?</b><br>Oui, aucun document n’est conservé.</div>
-        <div><b>Combien ça coûte ?</b><br>7,50 € par analyse, sans abonnement.</div>
-        <div><b>Temps d’analyse ?</b><br>Moins de 5 minutes.</div>
-        <div><b>Remboursement possible ?</b><br>Non, le service est rendu après analyse.</div>
-        <div><b>Plusieurs bulletins ?</b><br>Oui, chaque analyse est facturée séparément.</div>
-      </div>
-    </section>
+      <b>Limitation de responsabilité :</b><br>
+      Paiedyali propose un service d’analyse pédagogique des bulletins de salaire.
+      Les informations fournies ne constituent pas un conseil juridique, fiscal ou comptable personnalisé.
+    </p>
+  </section>
 
-  </div>
+  <!-- Politique de confidentialité -->
+  <section class="section" id="confidentialite">
+    <h2>Politique de confidentialité (RGPD)</h2>
+    <p>
+      <b>Responsable du traitement :</b> SAS Paiedyali<br>
+      <b>Contact RGPD :</b> paiedyalii@gmail.com / contact@paiedyali.fr<br><br>
+
+      <b>Données collectées :</b><br>
+      Bulletin de salaire transmis par l’utilisateur (PDF), données strictement nécessaires à l’analyse,
+      et données de contact en cas d’échange avec l’utilisateur.<br><br>
+
+      <b>Finalités :</b><br>
+      Réalisation de l’analyse du bulletin, fourniture du rapport, gestion du paiement et du support client.<br><br>
+
+      <b>Paiement :</b><br>
+      Les paiements sont traités exclusivement par Stripe. Paiedyali n’a jamais accès aux données bancaires.<br><br>
+
+      <b>Durée de conservation :</b><br>
+      Les bulletins de salaire sont utilisés uniquement le temps nécessaire à l’analyse,
+      puis supprimés. Aucune donnée n’est conservée à des fins commerciales.<br><br>
+
+      <b>Droits des utilisateurs :</b><br>
+      Conformément au RGPD, vous disposez de droits d’accès, de rectification,
+      d’effacement et de limitation du traitement.  
+      Pour exercer vos droits : paiedyalii@gmail.com ou contact@paiedyali.fr<br><br>
+
+      <b>Cookies :</b><br>
+      Le site n’utilise aucun cookie publicitaire ou de suivi.
+      Seuls des cookies techniques strictement nécessaires peuvent être utilisés.
+    </p>
+  </section>
+
 </main>
 
 <footer>
   <p>&copy; 2025 Paiedyali — Tous droits réservés</p>
+  <p>
+    <a href="#mentions-legales">Mentions légales</a> |
+    <a href="#confidentialite">Politique de confidentialité</a>
+  </p>
 </footer>
-
-<script>
-  function isInView(el) {
-    const r = el.getBoundingClientRect();
-    return r.top < window.innerHeight - 60 && r.bottom > 0;
-  }
-
-  function reveal() {
-    document.querySelectorAll('.fade-in').forEach(el => {
-      if (isInView(el)) el.classList.add('visible');
-    });
-  }
-
-  window.addEventListener('scroll', reveal);
-  window.addEventListener('load', reveal);
-</script>
 
 </body>
 </html>
