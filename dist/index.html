@@ -14,22 +14,31 @@
       padding: 0;
       box-sizing: border-box;
       background-color: #f4f4f9;
+      color: #222;
+      -webkit-font-smoothing:antialiased;
     }
     header {
       background-color: #007bff;
       color: white;
       text-align: center;
-      padding: 50px 0;
+      padding: 50px 16px;
     }
     header h1 {
-      margin: 0;
+      margin: 0 0 8px 0;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+    header p {
+      margin: 0 0 12px 0;
+      font-size: 16px;
     }
     section {
       padding: 30px;
-      margin: 20px 0;
+      margin: 20px auto;
+      max-width: 980px;
       background-color: white;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
     }
     #qui-sommes-nous h2, #faq h2 {
       color: #007bff;
@@ -60,6 +69,61 @@
     footer p {
       margin: 0;
     }
+
+    /* Banner & trust badges */
+    .privacy-banner {
+      max-width:900px;
+      margin:16px auto 0 auto;
+      padding:12px 16px;
+      border-radius:8px;
+      background:#eef8ff;
+      color:#063246;
+      text-align:center;
+      font-size:15px;
+    }
+    .trust-badges {
+      display:flex;
+      gap:14px;
+      max-width:1000px;
+      margin:18px auto;
+      padding:10px 6px;
+      justify-content:center;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .trust-badge {
+      background:white;
+      padding:12px 16px;
+      border-radius:8px;
+      box-shadow:0 1px 4px rgba(0,0,0,0.06);
+      text-align:center;
+      min-width:180px;
+    }
+    .trust-badge .title {
+      font-weight:700;
+      color:#007bff;
+    }
+    .trust-badge .desc {
+      font-size:13px;
+      color:#444;
+      margin-top:6px;
+    }
+
+    /* small caption under CTA */
+    .cta-caption {
+      max-width:900px;
+      margin:14px auto 0 auto;
+      text-align:center;
+      font-size:13px;
+      color:#e9f7ef;
+    }
+
+    @media (max-width:720px) {
+      .trust-badges { gap:10px; padding:6px; }
+      .trust-badge { min-width:140px; padding:10px; font-size:14px; }
+      header { padding: 36px 12px; }
+      header h1 { font-size:20px; }
+    }
   </style>
 </head>
 <body>
@@ -70,18 +134,43 @@
     <a href="https://checkout.stripe.com/pay/{CHECKOUT_SESSION_ID}" class="cta-btn">
       Vérifier maintenant
     </a>
+
+    <!-- Petite légende sous le CTA -->
+    <div class="cta-caption" style="color:rgba(255,255,255,0.9); margin-top:10px;">
+      Prix : 7,50 € — Confidentialité garantie : nous ne conservons pas vos bulletins.
+    </div>
   </header>
+
+  <!-- Privacy banner (visible sous header) -->
+  <div class="privacy-banner" role="note" aria-live="polite">
+    <strong>Confidentialité :</strong> par souci de sécurité, nous ne stockons aucun bulletin. Vous devrez téléverser à nouveau le même fichier après paiement pour lancer l’analyse complète.
+  </div>
+
+  <!-- Trust badges -->
+  <div class="trust-badges" aria-hidden="false">
+    <div class="trust-badge">
+      <div class="title">Aucun stockage</div>
+      <div class="desc">Votre PDF n’est pas conservé sur nos serveurs.</div>
+    </div>
+    <div class="trust-badge">
+      <div class="title">Traitement sécurisé</div>
+      <div class="desc">Transmissions chiffrées (TLS) et suppression après analyse.</div>
+    </div>
+    <div class="trust-badge">
+      <div class="title">Expertise paie</div>
+      <div class="desc">15+ ans d’expérience en paie et expertise comptable.</div>
+    </div>
+  </div>
 
   <!-- Qui sommes-nous Section -->
   <section id="qui-sommes-nous">
     <h2>Qui sommes-nous et pourquoi analyser votre bulletin de salaire avec Paiedyali ?</h2>
     <p>
-      Diplômé d’expertise comptable et spécialiste de la paie depuis plus de 15 ans, j’ai créé Paiedyali après avoir constaté un problème courant : la majorité des salariés ne comprennent souvent que la ligne "Net payé" sur leur bulletin de salaire. 
+      Diplômé d’expertise comptable et spécialiste de la paie depuis plus de 15 ans, j’ai créé Paiedyali après avoir constaté un problème courant : la majorité des salariés ne comprennent pas complètement leur bulletin de salaire.
       <br><br>
-      Entre les cotisations, les abréviations techniques, et les règles sociales complexes, il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct. 
-      Le problème ? Peu de salariés prennent le temps de comprendre toutes les autres lignes importantes de leur bulletin de salaire, comme les cotisations sociales, les congés payés et les ajustements de salaire.
+      Entre les cotisations, les abréviations techniques, et les règles sociales complexes, il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
       <br><br>
-      **Paiedyali ne remplace pas un expert-comptable**, mais propose un service conçu pour rendre votre bulletin de salaire facile à comprendre. Nous le traduisons en **français clair**, en une analyse **pédagogique** et **compréhensible**.
+      <strong>Paiedyali ne remplace pas un expert-comptable</strong>, mais propose un service conçu pour rendre votre bulletin de salaire facile à comprendre. Nous le traduisons en <strong>français clair</strong>, en une analyse synthétique et pédagogique.
       <br><br>
       Notre analyse repose sur :
       <ul>
@@ -90,7 +179,7 @@
         <li>Une synthèse simple et sans jargon inutile.</li>
       </ul>
       <br>
-      L'objectif est de vous permettre de **comprendre votre bulletin de salaire de manière claire et transparente*, sans stress et sans interprétation approximative, tout en garantissant **votre confidentialité**.
+      L'objectif est de vous permettre de <strong>comprendre votre bulletin de salaire</strong> de manière claire et transparente, sans stress et sans interprétation approximative, tout en garantissant <strong>votre confidentialité</strong>.
     </p>
   </section>
 
@@ -102,19 +191,29 @@
       <li>Effectuez le paiement sécurisé de 7,50 € pour une analyse complète.</li>
       <li>Recevez une analyse détaillée de votre bulletin en PDF.</li>
     </ol>
+    <p style="font-size:14px;color:#555;margin-top:8px;">
+      Remarque : pour des raisons de confidentialité nous ne conservons pas les fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bulletin pour lancer l’analyse complète.
+    </p>
   </section>
 
   <!-- FAQ Section -->
   <section id="faq">
     <h2>Foire Aux Questions (FAQ)</h2>
+
     <h3>Pourquoi mon bulletin de salaire est-il analysé ?</h3>
     <p>
-      L’analyse de votre bulletin de salaire permet de comprendre facilement la répartition de vos cotisations, de vos congés payés et de votre salaire net. Vous aurez accès à un résumé détaillé en quelques secondes.
+      L’analyse de votre bulletin de salaire permet de comprendre facilement la répartition de vos cotisations, de vos congés payés et de votre salaire net. Vous aurez accès à un résumé détaillé et des explications claires sur les lignes principales.
     </p>
 
     <h3>Est-ce que mes données sont en sécurité ?</h3>
     <p>
-      Oui, vos données sont entièrement sécurisées. Nous ne stockons pas votre PDF après l’analyse et tous les traitements sont effectués localement sur notre serveur pendant l’analyse.
+      Oui. Nous comprenons la sensibilité des bulletins de salaire. Pour garantir votre confidentialité :
+      <ul>
+        <li><strong>Nous ne conservons pas votre bulletin :</strong> aucun fichier n’est stocké en base ou en archive après l’analyse.</li>
+        <li><strong>Double téléversement :</strong> pour limiter tout stockage côté serveur, nous réalisons d’abord une vérification de lisibilité (analyse partielle). Si le document est lisible, vous pouvez payer. Après paiement, nous vous demandons de téléverser à nouveau le même fichier — cela nous permet de lancer l’analyse complète sans avoir jamais conservé votre fichier avant le paiement.</li>
+        <li><strong>Chiffrement & suppression :</strong> toutes les communications se font via TLS et nous ne gardons aucune copie. Les données temporaires utilisées pendant le traitement sont supprimées dès la fin de l’opération.</li>
+      </ul>
+      Si vous souhaitez plus d’informations sur notre politique de confidentialité ou sur le flux technique, consultez la rubrique <a href="/privacy.html" style="color:#007bff">Politique de confidentialité</a> ou contactez-nous.
     </p>
 
     <h3>Combien coûte l’analyse de mon bulletin ?</h3>
@@ -131,7 +230,7 @@
   <!-- Footer Section -->
   <footer>
     <p>&copy; 2025 Paiedyali. Tous droits réservés.</p>
-    <p>Mentions légales | Politique de confidentialité</p>
+    <p><a href="/legal.html" style="color:#cbd3da;text-decoration:none">Mentions légales</a> | <a href="/privacy.html" style="color:#cbd3da;text-decoration:none">Politique de confidentialité</a></p>
   </footer>
 </body>
 </html>
