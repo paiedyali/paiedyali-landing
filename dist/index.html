@@ -8,6 +8,9 @@
 
   <style>
     /* Simple styling for layout */
+    html, body {
+      height: 100%;
+    }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -16,6 +19,9 @@
       background-color: #f4f4f9;
       color: #222;
       -webkit-font-smoothing:antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     header {
       background-color: #007bff;
@@ -31,6 +37,9 @@
     header p {
       margin: 0 0 12px 0;
       font-size: 16px;
+    }
+    main {
+      flex: 1 0 auto;
     }
     section {
       padding: 30px;
@@ -59,15 +68,30 @@
     .cta-btn:hover {
       background-color: #218838;
     }
+
+    /* Footer styling and accessible links */
     footer {
       background-color: #343a40;
       color: white;
       text-align: center;
       padding: 20px 0;
       margin-top: 40px;
+      flex-shrink: 0;
     }
     footer p {
       margin: 0;
+      line-height: 1.6;
+    }
+    footer a {
+      color: #cbd3da;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+    footer a:focus,
+    footer a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+      outline: none;
     }
 
     /* Banner & trust badges */
@@ -131,7 +155,7 @@
   <header>
     <h1>Analyse de bulletin de salaire simplifiée avec Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
-    <a href="https://checkout.stripe.com/pay/{CHECKOUT_SESSION_ID}" class="cta-btn">
+    <a href="https://checkout.stripe.com/pay/{CHECKOUT_SESSION_ID}" class="cta-btn" aria-label="Vérifier maintenant">
       Vérifier maintenant
     </a>
 
@@ -141,96 +165,101 @@
     </div>
   </header>
 
-  <!-- Privacy banner (visible sous header) -->
-  <div class="privacy-banner" role="note" aria-live="polite">
-    <strong>Confidentialité :</strong> par souci de sécurité, nous ne stockons aucun bulletin. Vous devrez téléverser à nouveau le même fichier après paiement pour lancer l’analyse complète.
-  </div>
-
-  <!-- Trust badges -->
-  <div class="trust-badges" aria-hidden="false">
-    <div class="trust-badge">
-      <div class="title">Aucun stockage</div>
-      <div class="desc">Votre PDF n’est pas conservé sur nos serveurs.</div>
+  <main>
+    <!-- Privacy banner (visible under header) -->
+    <div class="privacy-banner" role="note" aria-live="polite">
+      <strong>Confidentialité :</strong> par souci de sécurité, nous ne stockons aucun bulletin. Vous devrez téléverser à nouveau le même fichier après paiement pour lancer l’analyse complète.
     </div>
-    <div class="trust-badge">
-      <div class="title">Traitement sécurisé</div>
-      <div class="desc">Transmissions chiffrées (TLS) et suppression après analyse.</div>
+
+    <!-- Trust badges -->
+    <div class="trust-badges" aria-hidden="false">
+      <div class="trust-badge">
+        <div class="title">Aucun stockage</div>
+        <div class="desc">Votre PDF n’est pas conservé sur nos serveurs.</div>
+      </div>
+      <div class="trust-badge">
+        <div class="title">Traitement sécurisé</div>
+        <div class="desc">Transmissions chiffrées (TLS) et suppression après analyse.</div>
+      </div>
+      <div class="trust-badge">
+        <div class="title">Expertise paie</div>
+        <div class="desc">15+ ans d’expérience en paie et expertise comptable.</div>
+      </div>
     </div>
-    <div class="trust-badge">
-      <div class="title">Expertise paie</div>
-      <div class="desc">15+ ans d’expérience en paie et expertise comptable.</div>
-    </div>
-  </div>
 
-  <!-- Qui sommes-nous Section -->
-  <section id="qui-sommes-nous">
-    <h2>Qui sommes-nous et pourquoi analyser votre bulletin de salaire avec Paiedyali ?</h2>
-    <p>
-      Diplômé d’expertise comptable et spécialiste de la paie depuis plus de 15 ans, j’ai créé Paiedyali après avoir constaté un problème courant : la majorité des salariés ne comprennent pas complètement leur bulletin de salaire.
-      <br><br>
-      Entre les cotisations, les abréviations techniques, et les règles sociales complexes, il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
-      <br><br>
-      <strong>Paiedyali ne remplace pas un expert-comptable</strong>, mais propose un service conçu pour rendre votre bulletin de salaire facile à comprendre. Nous le traduisons en <strong>français clair</strong>, en une analyse synthétique et pédagogique.
-      <br><br>
-      Notre analyse repose sur :
-      <ul>
-        <li>Mon expertise professionnelle en paie,</li>
-        <li>Une lecture rigoureuse des données de votre bulletin de salaire,</li>
-        <li>Une synthèse simple et sans jargon inutile.</li>
-      </ul>
-      <br>
-      L'objectif est de vous permettre de <strong>comprendre votre bulletin de salaire</strong> de manière claire et transparente, sans stress et sans interprétation approximative, tout en garantissant <strong>votre confidentialité</strong>.
-    </p>
-  </section>
+    <!-- Qui sommes-nous Section -->
+    <section id="qui-sommes-nous">
+      <h2>Qui sommes-nous et pourquoi analyser votre bulletin de salaire avec Paiedyali ?</h2>
+      <p>
+        Diplômé d’expertise comptable et spécialiste de la paie depuis plus de 15 ans, j’ai créé Paiedyali après avoir constaté un problème courant : la majorité des salariés ne comprennent pas complètement leur bulletin de salaire.
+        <br><br>
+        Entre les cotisations, les abréviations techniques, et les règles sociales complexes, il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
+        <br><br>
+        <strong>Paiedyali ne remplace pas un expert-comptable</strong>, mais propose un service conçu pour rendre votre bulletin de salaire facile à comprendre. Nous le traduisons en <strong>français clair</strong>, en une analyse synthétique et pédagogique.
+        <br><br>
+        Notre analyse repose sur :
+        <ul>
+          <li>Mon expertise professionnelle en paie,</li>
+          <li>Une lecture rigoureuse des données de votre bulletin de salaire,</li>
+          <li>Une synthèse simple et sans jargon inutile.</li>
+        </ul>
+        <br>
+        L'objectif est de vous permettre de <strong>comprendre votre bulletin de salaire</strong> de manière claire et transparente, sans stress et sans interprétation approximative, tout en garantissant <strong>votre confidentialité</strong>.
+      </p>
+    </section>
 
-  <!-- Fonctionnement Section -->
-  <section id="fonctionnement">
-    <h2>Comment ça marche ?</h2>
-    <ol>
-      <li>Téléchargez votre bulletin de salaire au format PDF.</li>
-      <li>Effectuez le paiement sécurisé de 7,50 € pour une analyse complète.</li>
-      <li>Recevez une analyse détaillée de votre bulletin en PDF.</li>
-    </ol>
-    <p style="font-size:14px;color:#555;margin-top:8px;">
-      Remarque : pour des raisons de confidentialité nous ne conservons pas les fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bulletin pour lancer l’analyse complète.
-    </p>
-  </section>
+    <!-- Fonctionnement Section -->
+    <section id="fonctionnement">
+      <h2>Comment ça marche ?</h2>
+      <ol>
+        <li>Téléchargez votre bulletin de salaire au format PDF.</li>
+        <li>Effectuez le paiement sécurisé de 7,50 € pour une analyse complète.</li>
+        <li>Recevez une analyse détaillée de votre bulletin en PDF.</li>
+      </ol>
+      <p style="font-size:14px;color:#555;margin-top:8px;">
+        Remarque : pour des raisons de confidentialité nous ne conservons pas les fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bulletin pour lancer l’analyse complète.
+      </p>
+    </section>
 
-  <!-- FAQ Section -->
-  <section id="faq">
-    <h2>Foire Aux Questions (FAQ)</h2>
+    <!-- FAQ Section -->
+    <section id="faq">
+      <h2>Foire Aux Questions (FAQ)</h2>
 
-    <h3>Pourquoi mon bulletin de salaire est-il analysé ?</h3>
-    <p>
-      L’analyse de votre bulletin de salaire permet de comprendre facilement la répartition de vos cotisations, de vos congés payés et de votre salaire net. Vous aurez accès à un résumé détaillé et des explications claires sur les lignes principales.
-    </p>
+      <h3>Pourquoi mon bulletin de salaire est-il analysé ?</h3>
+      <p>
+        L’analyse de votre bulletin de salaire permet de comprendre facilement la répartition de vos cotisations, de vos congés payés et de votre salaire net. Vous aurez accès à un résumé détaillé et des explications claires sur les lignes principales.
+      </p>
 
-    <h3>Est-ce que mes données sont en sécurité ?</h3>
-    <p>
-      Oui. Nous comprenons la sensibilité des bulletins de salaire. Pour garantir votre confidentialité :
-      <ul>
-        <li><strong>Nous ne conservons pas votre bulletin :</strong> aucun fichier n’est stocké en base ou en archive après l’analyse.</li>
-        <li><strong>Double téléversement :</strong> pour limiter tout stockage côté serveur, nous réalisons d’abord une vérification de lisibilité (analyse partielle). Si le document est lisible, vous pouvez payer. Après paiement, nous vous demandons de téléverser à nouveau le même fichier — cela nous permet de lancer l’analyse complète sans avoir jamais conservé votre fichier avant le paiement.</li>
-        <li><strong>Chiffrement & suppression :</strong> toutes les communications se font via TLS et nous ne gardons aucune copie. Les données temporaires utilisées pendant le traitement sont supprimées dès la fin de l’opération.</li>
-      </ul>
-      Si vous souhaitez plus d’informations sur notre politique de confidentialité ou sur le flux technique, consultez la rubrique <a href="/privacy.html" style="color:#007bff">Politique de confidentialité</a> ou contactez-nous.
-    </p>
+      <h3>Est-ce que mes données sont en sécurité ?</h3>
+      <p>
+        Oui. Nous comprenons la sensibilité des bulletins de salaire. Pour garantir votre confidentialité :
+        <ul>
+          <li><strong>Nous ne conservons pas votre bulletin :</strong> aucun fichier n’est stocké en base ou en archive après l’analyse.</li>
+          <li><strong>Double téléversement :</strong> pour limiter tout stockage côté serveur, nous réalisons d’abord une vérification de lisibilité (analyse partielle). Si le document est lisible, vous pouvez payer. Après paiement, nous vous demandons de téléverser à nouveau le même fichier — cela nous permet de lancer l’analyse complète sans avoir jamais conservé votre fichier avant le paiement.</li>
+          <li><strong>Chiffrement & suppression :</strong> toutes les communications se font via TLS et nous ne gardons aucune copie. Les données temporaires utilisées pendant le traitement sont supprimées dès la fin de l’opération.</li>
+        </ul>
+        Si vous souhaitez plus d’informations sur notre politique de confidentialité ou sur le flux technique, consultez la rubrique <a href="/privacy.html" style="color:#007bff">Politique de confidentialité</a> ou contactez-nous.
+      </p>
 
-    <h3>Combien coûte l’analyse de mon bulletin ?</h3>
-    <p>
-      L’analyse coûte 7,50€ pour un paiement unique. Ce montant couvre l’analyse complète de votre bulletin de salaire.
-    </p>
+      <h3>Combien coûte l’analyse de mon bulletin ?</h3>
+      <p>
+        L’analyse coûte 7,50€ pour un paiement unique. Ce montant couvre l’analyse complète de votre bulletin de salaire.
+      </p>
 
-    <h3>Combien de temps faut-il pour analyser mon bulletin ?</h3>
-    <p>
-      L’analyse est généralement terminée en moins de 5 minutes. Si le bulletin est un scan, cela peut prendre un peu plus de temps en fonction de la qualité de l'image.
-    </p>
-  </section>
+      <h3>Combien de temps faut-il pour analyser mon bulletin ?</h3>
+      <p>
+        L’analyse est généralement terminée en moins de 5 minutes. Si le bulletin est un scan, cela peut prendre un peu plus de temps en fonction de la qualité de l'image.
+      </p>
+    </section>
+  </main>
 
   <!-- Footer Section -->
   <footer>
     <p>&copy; 2025 Paiedyali. Tous droits réservés.</p>
-    <p><a href="/legal.html" style="color:#cbd3da;text-decoration:none">Mentions légales</a> | <a href="/privacy.html" style="color:#cbd3da;text-decoration:none">Politique de confidentialité</a></p>
+    <p>
+      <a href="/legal.html" aria-label="Mentions légales">Mentions légales</a> |
+      <a href="/privacy.html" aria-label="Politique de confidentialité">Politique de confidentialité</a>
+    </p>
   </footer>
 </body>
 </html>
