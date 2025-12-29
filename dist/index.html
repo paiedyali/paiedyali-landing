@@ -314,27 +314,85 @@
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section fade-in">
-      <h2>Foire aux questions</h2>
-      <div class="grid">
-        <div><b>Pourquoi mon bulletin est-il analysé ?</b><br>Pour comprendre cotisations, congés payés, net payé et vérifier la cohérence.</div>
-        <div><b>Est-ce sécurisé ?</b><br>
-          Oui. Nous minimisons la conservation des données et protégeons votre confidentialité :
-          <ul>
-            <li><strong>Aucun stockage permanent :</strong> nous ne conservons pas votre PDF après analyse.</li>
-            <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement vous téléversez à nouveau le même fichier pour lancer l’analyse complète, ce qui évite tout stockage préalable.</li>
-            <li><strong>Chiffrement :</strong> toutes les communications sont chiffrées (TLS).</li>
-          </ul>
-        </div>
-        <div><b>Combien ça coûte ?</b><br>7,50 € pour une analyse complète, sans abonnement.</div>
-        <div><b>Combien de temps ?</b><br>En général quelques minutes (selon la complexité du bulletin).</div>
-        <div><b>Comment suis-je facturé ?</b><br>Une seule fois via Stripe, pour une analyse.</div>
-        <div><b>Puis-je analyser plusieurs bulletins ?</b><br>Oui, chaque analyse est facturée 7,50 €.</div>
-        <div><b>Compatible avec tous les bulletins ?</b><br>Oui, tant que le fichier est un PDF lisible.</div>
+   <!-- FAQ -->
+<section class="section fade-in" id="faq">
+  <h2>Foire aux questions</h2>
+  <div class="grid">
+    <div>
+      <div class="faq-title">Pourquoi mon bulletin est‑il analysé ?</div>
+      <div class="faq-body">
+        L’analyse vous aide à :
+        <ul>
+          <li>Comprendre la répartition des cotisations, des cotisations patronales et du salaire net,</li>
+          <li>Vérifier la présence d’éléments récurrents (primes, heures supplémentaires, congés payés),</li>
+          <li>Détecter d’éventuelles erreurs (mauvais taux, absence de lignes attendues, doublons).</li>
+        </ul>
+        En résumé : vous recevez un rapport clair et pédagogique qui explique chaque poste important de votre bulletin.
       </div>
-    </section>
-  </main>
+    </div>
+
+    <div>
+      <div class="faq-title">Que contient le rapport ?</div>
+      <div class="faq-body">
+        Le rapport inclut :
+        <ul>
+          <li>Un résumé synthétique (Salaire brut estimé, Net payé, Cotisations principales),</li>
+          <li>Une explication ligne par ligne des éléments significatifs,</li>
+          <li>Les anomalies détectées et des recommandations (quand c’est pertinent),</li>
+          <li>La source (lignes du PDF utilisées) pour chaque conclusion afin que vous puissiez vérifier.</li>
+        </ul>
+        Format : PDF téléchargeable et texte résumé affiché à l’écran.
+      </div>
+    </div>
+
+    <div>
+      <div class="faq-title">Est‑ce sécurisé ?</div>
+      <div class="faq-body">
+        Oui. Nous minimisons au maximum la conservation des données :
+        <ul>
+          <li><strong>Aucun stockage permanent :</strong> nous ne conservons pas votre PDF après l’analyse.</li>
+          <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement vous téléversez à nouveau le même fichier pour lancer l’analyse complète, ce qui évite toute conservation préalable.</li>
+          <li><strong>Chiffrement :</strong> toutes les communications sont chiffrées (TLS).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="faq-title">Combien ça coûte ?</div>
+      <div class="faq-body">
+        Une analyse complète : 7,50 € (paiement unique via Stripe). Pas d’abonnement.
+      </div>
+    </div>
+
+    <div>
+      <div class="faq-title">Combien de temps ?</div>
+      <div class="faq-body">
+        En général quelques minutes. Si le bulletin est un scan de faible qualité, le traitement peut prendre plus de temps.
+      </div>
+    </div>
+
+    <div>
+      <div class="faq-title">Puis‑je analyser plusieurs bulletins ?</div>
+      <div class="faq-body">
+        Oui — chaque bulletin analysé est facturé séparément au tarif indiqué.
+      </div>
+    </div>
+
+    <div>
+      <div class="faq-title">Compatibilité</div>
+      <div class="faq-body">
+        Le service fonctionne pour la majorité des bulletins au format PDF lisible. Les scans très flous peuvent réduire la qualité de l’OCR.
+      </div>
+    </div>
+
+    <div>
+      <div class="faq-title">Remboursement</div>
+      <div class="faq-body">
+        Le service est considéré rendu à la fourniture du rapport. En cas de problème, contactez‑nous (contact@paiedyali.fr) — nous examinons chaque demande au cas par cas.
+      </div>
+    </div>
+  </div>
+</section>
 
   <!-- Footer with Mentions légales and RGPD -->
   <footer>
