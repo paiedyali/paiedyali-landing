@@ -75,6 +75,20 @@
       box-shadow:0 14px 34px rgba(0,0,0,.45);
     }
 
+    /* Privacy banner */
+    .privacy-banner{
+      max-width:var(--max);
+      margin:0 auto 18px;
+      padding:14px 18px;
+      border-radius:10px;
+      background: linear-gradient(90deg, rgba(78,115,223,.08), rgba(40,167,69,.04));
+      color: rgba(229,231,235,.95);
+      text-align:center;
+      font-size:0.98rem;
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .privacy-banner strong{color:#fff}
+
     /* Sections */
     .section{
       margin:22px auto;
@@ -252,9 +266,14 @@
       Vérifier maintenant
     </a>
 
-    <!-- Lien de confiance ajouté sous le bouton -->
+    <!-- Lien de confiance ajouté sous the button -->
     <p class="data-trust" style="margin-top:12px;opacity:.9">Données supprimées après traitement</p>
   </header>
+
+  <!-- Privacy banner (added to highlight confidentiality) -->
+  <div class="privacy-banner" role="note" aria-live="polite">
+    <strong>Confidentialité :</strong> par souci de sécurité, nous ne conservons pas vos fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bulletin pour lancer l’analyse complète. Toutes les transmissions sont chiffrées (TLS) et aucun PDF n'est archivé.
+  </div>
 
   <main class="container">
     <!-- Qui sommes-nous -->
@@ -300,13 +319,19 @@
       <h2>Foire aux questions</h2>
       <div class="grid">
         <div><b>Pourquoi mon bulletin est-il analysé ?</b><br>Pour comprendre cotisations, congés payés, net payé et vérifier la cohérence.</div>
-        <div><b>Est-ce sécurisé ?</b><br>Oui. Le service est pensé pour minimiser les données et protéger votre confidentialité.</div>
+        <div><b>Est-ce sécurisé ?</b><br>
+          Oui. Nous minimisons la conservation des données et protégeons votre confidentialité :
+          <ul>
+            <li><strong>Aucun stockage permanent :</strong> nous ne conservons pas votre PDF après analyse.</li>
+            <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement vous téléversez à nouveau le même fichier pour lancer l’analyse complète, ce qui évite tout stockage préalable.</li>
+            <li><strong>Chiffrement :</strong> toutes les communications sont chiffrées (TLS).</li>
+          </ul>
+        </div>
         <div><b>Combien ça coûte ?</b><br>7,50 € pour une analyse complète, sans abonnement.</div>
         <div><b>Combien de temps ?</b><br>En général quelques minutes (selon la complexité du bulletin).</div>
         <div><b>Comment suis-je facturé ?</b><br>Une seule fois via Stripe, pour une analyse.</div>
         <div><b>Puis-je analyser plusieurs bulletins ?</b><br>Oui, chaque analyse est facturée 7,50 €.</div>
         <div><b>Compatible avec tous les bulletins ?</b><br>Oui, tant que le fichier est un PDF lisible.</div>
-        <div><b>Remboursement ?</b><br>Après fourniture du rapport, le service est considéré rendu (pas de remboursement).</div>
       </div>
     </section>
   </main>
