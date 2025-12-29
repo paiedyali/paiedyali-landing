@@ -3,263 +3,47 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Analysez facilement votre bulletin de salaire avec Paiedyali</title>
-  <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité avec Paiedyali. Comprenez chaque détail de votre fiche de paie sans jargon." />
-
+  <title>paiedyali — Vérifiez votre bulletin de salaire</title>
+  <meta name="description" content="Vérifiez automatiquement votre bulletin de salaire (PDF). Résultat immédiat. 7,50 € TTC." />
   <style>
-    /* Simple styling for layout */
-    html, body {
-      height: 100%;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background-color: #f4f4f9;
-      color: #222;
-      -webkit-font-smoothing:antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      background-color: #007bff;
-      color: white;
-      text-align: center;
-      padding: 50px 16px;
-    }
-    header h1 {
-      margin: 0 0 8px 0;
-      font-size: 28px;
-      line-height: 1.2;
-    }
-    header p {
-      margin: 0 0 12px 0;
-      font-size: 16px;
-    }
-    main {
-      flex: 1 0 auto;
-    }
-    section {
-      padding: 30px;
-      margin: 20px auto;
-      max-width: 980px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-    }
-    #qui-sommes-nous h2, #faq h2 {
-      color: #007bff;
-    }
-    #faq h3 {
-      color: #555;
-    }
-    .cta-btn {
-      background-color: #28a745;
-      color: white;
-      padding: 15px 30px;
-      text-decoration: none;
-      font-size: 18px;
-      border-radius: 5px;
-      display: inline-block;
-      margin-top: 20px;
-    }
-    .cta-btn:hover {
-      background-color: #218838;
-    }
-
-    /* Footer styling and accessible links */
-    footer {
-      background-color: #343a40;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 40px;
-      flex-shrink: 0;
-    }
-    footer p {
-      margin: 0;
-      line-height: 1.6;
-    }
-    footer a {
-      color: #cbd3da;
-      text-decoration: none;
-      margin: 0 8px;
-    }
-    footer a:focus,
-    footer a:hover {
-      color: #ffffff;
-      text-decoration: underline;
-      outline: none;
-    }
-
-    /* Banner & trust badges */
-    .privacy-banner {
-      max-width:900px;
-      margin:16px auto 0 auto;
-      padding:12px 16px;
-      border-radius:8px;
-      background:#eef8ff;
-      color:#063246;
-      text-align:center;
-      font-size:15px;
-    }
-    .trust-badges {
-      display:flex;
-      gap:14px;
-      max-width:1000px;
-      margin:18px auto;
-      padding:10px 6px;
-      justify-content:center;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    .trust-badge {
-      background:white;
-      padding:12px 16px;
-      border-radius:8px;
-      box-shadow:0 1px 4px rgba(0,0,0,0.06);
-      text-align:center;
-      min-width:180px;
-    }
-    .trust-badge .title {
-      font-weight:700;
-      color:#007bff;
-    }
-    .trust-badge .desc {
-      font-size:13px;
-      color:#444;
-      margin-top:6px;
-    }
-
-    /* small caption under CTA */
-    .cta-caption {
-      max-width:900px;
-      margin:14px auto 0 auto;
-      text-align:center;
-      font-size:13px;
-      color:#e9f7ef;
-    }
-
-    @media (max-width:720px) {
-      .trust-badges { gap:10px; padding:6px; }
-      .trust-badge { min-width:140px; padding:10px; font-size:14px; }
-      header { padding: 36px 12px; }
-      header h1 { font-size:20px; }
-    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#0b1020;color:#eef2ff}
+    .wrap{max-width:980px;margin:0 auto;padding:28px}
+    .card{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:22px;background:rgba(255,255,255,.03)}
+    h1{margin:0 0 10px 0;font-size:clamp(26px,4vw,44px);line-height:1.1}
+    p{color:rgba(238,242,255,.75);margin:8px 0}
+    .btn{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:800}
+    .primary{background:#7c5cff;color:#fff}
+    .secondary{border:1px solid rgba(255,255,255,.15);color:#fff;margin-left:8px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .item{border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:14px;background:rgba(255,255,255,.02)}
+    @media(max-width:860px){.grid{grid-template-columns:1fr}}
+    footer{margin-top:18px;color:rgba(238,242,255,.6);font-size:13px}
   </style>
 </head>
 <body>
-  <!-- Header section -->
-  <header>
-    <h1>Analyse de bulletin de salaire simplifiée avec Paiedyali</h1>
-    <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
-    <a href="https://checkout.stripe.com/pay/{CHECKOUT_SESSION_ID}" class="cta-btn" aria-label="Vérifier maintenant">
-      Vérifier maintenant
-    </a>
+  <div class="wrap">
+    <div class="card">
+      <h1>Vérifiez votre bulletin de salaire (PDF) avant de l’envoyer</h1>
+      <p>paiedyali analyse votre document et refuse les PDF non conformes (mauvais type, multi-pages incohérentes, période/salarié non cohérents).</p>
+      <p><b>Tarif :</b> 7,50 € TTC — paiement unique, sans abonnement.</p>
 
-    <!-- Petite légende sous le CTA -->
-    <div class="cta-caption" style="color:rgba(255,255,255,0.9); margin-top:10px;">
-      Prix : 7,50 € — Confidentialité garantie : nous ne conservons pas vos bulletins.
-    </div>
-  </header>
+      <!-- 1) Mets ici ton lien Stripe (test puis réel) -->
+      <a class="btn primary" href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000">Vérifier maintenant — 7,50 €</a>
 
-  <main>
-    <!-- Privacy banner (visible under header) -->
-    <div class="privacy-banner" role="note" aria-live="polite">
-      <strong>Confidentialité :</strong> par souci de sécurité, nous ne stockons aucun bulletin. Vous devrez téléverser à nouveau le même fichier après paiement pour lancer l’analyse complète.
-    </div>
+      <!-- 2) Lien direct vers l’app si tu veux (optionnel) -->
+      <a class="btn secondary" href="https://paiedyali.onrender.com">Accéder à l’app</a>
 
-    <!-- Trust badges -->
-    <div class="trust-badges" aria-hidden="false">
-      <div class="trust-badge">
-        <div class="title">Aucun stockage</div>
-        <div class="desc">Votre PDF n’est pas conservé sur nos serveurs.</div>
+      <div class="grid">
+        <div class="item"><b>Rapide</b><p>Résultat immédiat.</p></div>
+        <div class="item"><b>Clair</b><p>Motif de refus explicite.</p></div>
+        <div class="item"><b>SaaS</b><p>Rien à installer.</p></div>
       </div>
-      <div class="trust-badge">
-        <div class="title">Traitement sécurisé</div>
-        <div class="desc">Transmissions chiffrées (TLS) et suppression après analyse.</div>
-      </div>
-      <div class="trust-badge">
-        <div class="title">Expertise paie</div>
-        <div class="desc">15+ ans d’expérience en paie et expertise comptable.</div>
-      </div>
+
+      <footer>
+        Contact : <a href="mailto:contact@paiedyali.fr" style="color:inherit">contact@paiedyali.fr</a><br/>
+        Mentions légales • Confidentialité (à ajouter)
+      </footer>
     </div>
-
-    <!-- Qui sommes-nous Section -->
-    <section id="qui-sommes-nous">
-      <h2>Qui sommes-nous et pourquoi analyser votre bulletin de salaire avec Paiedyali ?</h2>
-      <p>
-        Diplômé d’expertise comptable et spécialiste de la paie depuis plus de 15 ans, j’ai créé Paiedyali après avoir constaté un problème courant : la majorité des salariés ne comprennent pas complètement leur bulletin de salaire.
-        <br><br>
-        Entre les cotisations, les abréviations techniques, et les règles sociales complexes, il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
-        <br><br>
-        <strong>Paiedyali ne remplace pas un expert-comptable</strong>, mais propose un service conçu pour rendre votre bulletin de salaire facile à comprendre. Nous le traduisons en <strong>français clair</strong>, en une analyse synthétique et pédagogique.
-        <br><br>
-        Notre analyse repose sur :
-        <ul>
-          <li>Mon expertise professionnelle en paie,</li>
-          <li>Une lecture rigoureuse des données de votre bulletin de salaire,</li>
-          <li>Une synthèse simple et sans jargon inutile.</li>
-        </ul>
-        <br>
-        L'objectif est de vous permettre de <strong>comprendre votre bulletin de salaire</strong> de manière claire et transparente, sans stress et sans interprétation approximative, tout en garantissant <strong>votre confidentialité</strong>.
-      </p>
-    </section>
-
-    <!-- Fonctionnement Section -->
-    <section id="fonctionnement">
-      <h2>Comment ça marche ?</h2>
-      <ol>
-        <li>Téléchargez votre bulletin de salaire au format PDF.</li>
-        <li>Effectuez le paiement sécurisé de 7,50 € pour une analyse complète.</li>
-        <li>Recevez une analyse détaillée de votre bulletin en PDF.</li>
-      </ol>
-      <p style="font-size:14px;color:#555;margin-top:8px;">
-        Remarque : pour des raisons de confidentialité nous ne conservons pas les fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bulletin pour lancer l’analyse complète.
-      </p>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq">
-      <h2>Foire Aux Questions (FAQ)</h2>
-
-      <h3>Pourquoi mon bulletin de salaire est-il analysé ?</h3>
-      <p>
-        L’analyse de votre bulletin de salaire permet de comprendre facilement la répartition de vos cotisations, de vos congés payés et de votre salaire net. Vous aurez accès à un résumé détaillé et des explications claires sur les lignes principales.
-      </p>
-
-      <h3>Est-ce que mes données sont en sécurité ?</h3>
-      <p>
-        Oui. Nous comprenons la sensibilité des bulletins de salaire. Pour garantir votre confidentialité :
-        <ul>
-          <li><strong>Nous ne conservons pas votre bulletin :</strong> aucun fichier n’est stocké en base ou en archive après l’analyse.</li>
-          <li><strong>Double téléversement :</strong> pour limiter tout stockage côté serveur, nous réalisons d’abord une vérification de lisibilité (analyse partielle). Si le document est lisible, vous pouvez payer. Après paiement, nous vous demandons de téléverser à nouveau le même fichier — cela nous permet de lancer l’analyse complète sans avoir jamais conservé votre fichier avant le paiement.</li>
-          <li><strong>Chiffrement & suppression :</strong> toutes les communications se font via TLS et nous ne gardons aucune copie. Les données temporaires utilisées pendant le traitement sont supprimées dès la fin de l’opération.</li>
-        </ul>
-        Si vous souhaitez plus d’informations sur notre politique de confidentialité ou sur le flux technique, consultez la rubrique <a href="/privacy.html" style="color:#007bff">Politique de confidentialité</a> ou contactez-nous.
-      </p>
-
-      <h3>Combien coûte l’analyse de mon bulletin ?</h3>
-      <p>
-        L’analyse coûte 7,50€ pour un paiement unique. Ce montant couvre l’analyse complète de votre bulletin de salaire.
-      </p>
-
-      <h3>Combien de temps faut-il pour analyser mon bulletin ?</h3>
-      <p>
-        L’analyse est généralement terminée en moins de 5 minutes. Si le bulletin est un scan, cela peut prendre un peu plus de temps en fonction de la qualité de l'image.
-      </p>
-    </section>
-  </main>
-
-  <!-- Footer Section -->
-  <footer>
-    <p>&copy; 2025 Paiedyali. Tous droits réservés.</p>
-    <p>
-      <a href="/legal.html" aria-label="Mentions légales">Mentions légales</a> |
-      <a href="/privacy.html" aria-label="Politique de confidentialité">Politique de confidentialité</a>
-    </p>
-  </footer>
+  </div>
 </body>
 </html>
