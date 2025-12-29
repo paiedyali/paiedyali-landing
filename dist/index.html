@@ -246,11 +246,15 @@
   <header class="fade-in">
     <h1>Bienvenue sur Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
-    <a href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000" class="cta-btn">
+
+    <!-- CTA: href is set by script below to point to your Streamlit app partial analysis.
+         Replace APP_STREAMLIT_URL value in the script at the end of this file with your actual app URL. -->
+    <a href="#" class="cta-btn" id="cta-verify" aria-label="Vérifier maintenant">
       Vérifier maintenant
     </a>
+
     <!-- Lien de confiance ajouté sous le bouton Stripe -->
-    <p class="data-trust">Données supprimées après traitement</p>
+    <p class="data-trust" style="margin-top:12px;opacity:.9">Données supprimées après traitement</p>
   </header>
 
   <main class="container">
@@ -308,7 +312,7 @@
     </section>
   </main>
 
-  <!-- Footer avec Mentions légales et RGPD -->
+  <!-- Footer with Mentions légales and RGPD (kept accessible) -->
   <footer>
     <div>© 2025 Paiedyali — Tous droits réservés.</div>
 
@@ -463,7 +467,31 @@
         });
       }
     });
-  </script>
 
+    // --- CTA behaviour: point the "Vérifier maintenant" button to your Streamlit app partial analysis.
+    // Replace the APP_STREAMLIT_URL value below with your real Streamlit app URL (example: https://paiedyali-app.example)
+    // We append a query param source=landing so you can detect incoming users if you wish.
+    const APP_STREAMLIT_URL = "https://app.paiedyali.example"; // <- REPLACE with your app URL
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const cta = document.getElementById('cta-verify');
+      if (!cta) return;
+      // If APP_STREAMLIT_URL is not set, leave href as '#' to avoid broken link.
+      if (APP_STREAMLIT_URL && APP_STREAMLIT_URL !== "" && !APP_STREAMLIT_URL.includes("example")) {
+        cta.href = APP_STREAMLIT_URL + "?source=landing";
+        cta.target = "_blank";
+        cta.rel = "noopener noreferrer";
+      } else {
+        // fallback: open in a new tab to a placeholder page explaining how to proceed
+        cta.href = "about:blank";
+        cta.addEventListener('click', (e) => {
+          if (APP_STREAMLIT_URL && APP_STREAMLIT_URL.includes("example")) {
+            e.preventDefault();
+            alert("Veuillez configurer l'URL de l'application Streamlit dans le fichier HTML (APP_STREAMLIT_URL).");
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
