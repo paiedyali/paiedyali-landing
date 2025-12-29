@@ -246,11 +246,14 @@
   <header class="fade-in">
     <h1>Bienvenue sur Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
-    <a href="https://buy.stripe.com/test_bJedRa82z9N2dqh2rfak000" class="cta-btn">
+
+    <!-- CTA: now points to the Render app to start partial analysis -->
+    <a href="https://paiedyali.onrender.com?mode=partial" class="cta-btn" id="cta-verify" aria-label="Vérifier maintenant" target="_blank" rel="noopener noreferrer">
       Vérifier maintenant
     </a>
-    <!-- Lien de confiance ajouté sous le bouton Stripe -->
-    <p class="data-trust">Données supprimées après traitement</p>
+
+    <!-- Lien de confiance ajouté sous le bouton -->
+    <p class="data-trust" style="margin-top:12px;opacity:.9">Données supprimées après traitement</p>
   </header>
 
   <main class="container">
@@ -308,7 +311,7 @@
     </section>
   </main>
 
-  <!-- Footer avec Mentions légales et RGPD -->
+  <!-- Footer with Mentions légales and RGPD -->
   <footer>
     <div>© 2025 Paiedyali — Tous droits réservés.</div>
 
@@ -461,6 +464,13 @@
         overlays.forEach(overlay=>{
           if(overlay.style.display === 'flex') closeModal(overlay);
         });
+      }
+    });
+
+    // Accessibility: focus trap hint (simple fallback)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        // ensure modals close on ESC handled above; focus management can be improved if needed
       }
     });
   </script>
