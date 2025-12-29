@@ -6,88 +6,31 @@
   <title>Analysez facilement votre bulletin de salaire avec Paiedyali</title>
   <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité avec Paiedyali. Comprenez chaque détail de votre fiche de paie sans jargon." />
 
+  <!-- Preconnects (speed up connections to external services used) -->
+  <link rel="preconnect" href="https://checkout.stripe.com" crossorigin>
+  <link rel="preconnect" href="https://js.stripe.com" crossorigin>
+
+  <!-- Preload external stylesheet (non-blocking) -->
+  <link rel="preload" href="/assets/styles.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/assets/styles.min.css"></noscript>
+
+  <!-- Critical CSS only (small inline portion needed for initial render) -->
   <style>
-    /* Simple styling for layout */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background-color: #f4f4f9;
-    }
-    header {
-      background-color: #007bff;
-      color: white;
-      text-align: center;
-      padding: 50px 0;
-    }
-    header h1 {
-      margin: 0;
-    }
-    .cta-caption {
-      margin-top: 10px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.95);
-    }
-    section {
-      padding: 30px;
-      margin: 20px 0;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    #qui-sommes-nous h2, #faq h2, #fonctionnement h2 {
-      color: #007bff;
-    }
-    #faq h3 {
-      color: #555;
-    }
-    .cta-btn {
-      background-color: #28a745;
-      color: white;
-      padding: 15px 30px;
-      text-decoration: none;
-      font-size: 18px;
-      border-radius: 5px;
-      display: inline-block;
-      margin-top: 20px;
-    }
-    .cta-btn:hover {
-      background-color: #218838;
-    }
-    .privacy-banner {
-      max-width: 980px;
-      margin: 12px auto;
-      padding: 12px 16px;
-      border-radius: 8px;
-      background: #eef8ff;
-      color: #063246;
-      text-align: center;
-      font-size: 14px;
-      border: 1px solid rgba(0,0,0,0.06);
-    }
-    footer {
-      background-color: #343a40;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 40px;
-    }
-    footer p {
-      margin: 0;
-    }
-    footer a { color:#cbd3da; text-decoration:none; }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:16px;
-    }
-    @media (max-width:720px){
-      .grid{grid-template-columns:1fr}
-    }
-    .faq-title{font-weight:700;color:#333;margin-bottom:6px}
-    .faq-body{color:#444;font-size:15px;line-height:1.45}
-    .muted{color:#666;font-size:14px}
+    /* Critical inline CSS - keep minimal to render above-the-fold */
+    :root{--brand:#007bff;--btn:#28a745;--btn-hover:#218838}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f9;color:#111;line-height:1.5}
+    header{background:var(--brand);color:#fff;text-align:center;padding:50px 16px}
+    header h1{margin:0;font-size:1.6rem}
+    header p{margin-top:8px}
+    .cta-btn{background:var(--btn);color:#fff;padding:12px 22px;border-radius:6px;text-decoration:none;display:inline-block;margin-top:18px}
+    .cta-btn:hover{background:var(--btn-hover)}
+    .cta-caption{margin-top:10px;font-size:13px;color:rgba(255,255,255,0.95)}
+    .privacy-banner{max-width:980px;margin:12px auto;padding:10px 14px;border-radius:8px;background:#eef8ff;color:#063246;font-size:14px;border:1px solid rgba(0,0,0,0.05);text-align:center}
+    section{padding:28px;margin:18px 0;background:#fff;border-radius:8px;max-width:980px;margin-left:auto;margin-right:auto}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    @media(max-width:720px){.grid{grid-template-columns:1fr}}
+    a{color:inherit}
   </style>
 </head>
 <body>
@@ -96,8 +39,8 @@
     <h1>Analyse de bulletin de salaire simplifiée avec Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
 
-    <!-- CTA kept as in your provided file (Stripe) -->
-    <a href="https://checkout.stripe.com/pay/{CHECKOUT_SESSION_ID}" class="cta-btn" id="cta-verify" aria-label="Vérifier maintenant">
+    <!-- CTA kept as in your provided file (Stripe checkout) -->
+    <a href="https://checkout.stripe.com/pay/{CHECKOUT_SESSION_ID}" class="cta-btn" id="cta-verify" aria-label="Vérifier maintenant" target="_blank" rel="noopener noreferrer">
       Vérifier maintenant
     </a>
 
@@ -112,123 +55,148 @@
     Confidentialité : nous ne conservons pas votre PDF après l’analyse. Les transmissions sont chiffrées (TLS).
   </div>
 
-  <!-- Qui sommes-nous Section -->
-  <section id="qui-sommes-nous">
-    <h2>Qui sommes-nous et pourquoi analyser votre bulletin de salaire avec Paiedyali ?</h2>
-    <p>
-      Diplômé d’expertise comptable et spécialiste de la paie depuis plus de 15 ans, j’ai créé Paiedyali après avoir constaté un problème courant : la majorité des salariés ne comprennent souvent que la ligne "Net payé" sur leur bulletin de salaire.
-      <br><br>
-      Entre les cotisations, les abréviations techniques et les règles sociales complexes, il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
-      <br><br>
-      <strong>Paiedyali ne remplace pas un expert-comptable</strong>, mais propose un service conçu pour rendre votre bulletin de salaire facile à comprendre. Nous le traduisons en <strong>français clair</strong>, en une analyse <strong>pédagogique</strong> et <strong>compréhensible</strong>.
-      <br><br>
-      Notre analyse repose sur :
-      <ul>
-        <li>Mon expertise professionnelle en paie,</li>
-        <li>Une lecture rigoureuse des données de votre bulletin de salaire,</li>
-        <li>Une synthèse simple et sans jargon inutile.</li>
-      </ul>
-      <br>
-      L'objectif est de vous permettre de <strong>comprendre votre bulletin de salaire de manière claire et transparente</strong>, sans stress et sans interprétation approximative, tout en garantissant <strong>votre confidentialité</strong>.
-    </p>
-  </section>
+  <!-- Main content -->
+  <main>
+    <!-- Qui sommes-nous Section -->
+    <section id="qui-sommes-nous">
+      <h2>Qui sommes-nous et pourquoi analyser votre bulletin de salaire avec Paiedyali ?</h2>
+      <p>
+        Diplômé d’expertise comptable et spécialiste de la paie depuis plus de 15 ans, j’ai créé Paiedyali après avoir constaté un problème courant : la majorité des salariés ne comprennent souvent que la ligne "Net payé" sur leur bulletin de salaire.
+        <br><br>
+        Entre les cotisations, les abréviations techniques et les règles sociales complexes, il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
+        <br><br>
+        <strong>Paiedyali ne remplace pas un expert-comptable</strong>, mais propose un service conçu pour rendre votre bulletin de salaire facile à comprendre. Nous le traduisons en <strong>français clair</strong>, en une analyse <strong>pédagogique</strong> et <strong>compréhensible</strong>.
+        <br><br>
+        Notre analyse repose sur :
+        <ul>
+          <li>Mon expertise professionnelle en paie,</li>
+          <li>Une lecture rigoureuse des données de votre bulletin de salaire,</li>
+          <li>Une synthèse simple et sans jargon inutile.</li>
+        </ul>
+        <br>
+        L'objectif est de vous permettre de <strong>comprendre votre bulletin de salaire de manière claire et transparente</strong>, sans stress et sans interprétation approximative, tout en garantissant <strong>votre confidentialité</strong>.
+      </p>
+    </section>
 
-  <!-- Fonctionnement Section (updated with validation step) -->
-  <section id="fonctionnement">
-    <h2>Comment ça marche ?</h2>
-    <div class="grid">
-      <div>
-        <b>1. Télécharger</b><br>
-        Importez votre bulletin au format PDF (ou un scan lisible).
-      </div>
+    <!-- Fonctionnement Section (updated with validation step) -->
+    <section id="fonctionnement">
+      <h2>Comment ça marche ?</h2>
+      <div class="grid" style="margin-top:12px">
+        <div>
+          <b>1. Télécharger</b><br>
+          Importez votre bulletin au format PDF (ou un scan lisible).
+        </div>
 
-      <div>
-        <b>2. Vérification</b><br>
-        Contrôle automatique de lisibilité : on vérifie que le fichier est exploitable (pré‑validation).
-      </div>
+        <div>
+          <b>2. Vérification</b><br>
+          Contrôle automatique de lisibilité : on vérifie que le fichier est exploitable (pré‑validation).
+        </div>
 
-      <div>
-        <b>3. Payer</b><br>
-        Paiement sécurisé (7,50 €) pour lancer l’analyse complète.
-      </div>
+        <div>
+          <b>3. Payer</b><br>
+          Paiement sécurisé (7,50 €) pour lancer l’analyse complète.
+        </div>
 
-      <div>
-        <b>4. Re‑téléverser & recevoir</b><br>
-        Après paiement, téléversez à nouveau le même bulletin pour démarrer l’analyse complète et télécharger votre rapport.
-      </div>
-    </div>
-    <p class="muted" style="margin-top:12px">
-      Le double téléversement nous permet de garantir qu'aucun fichier n'est conservé avant paiement.
-    </p>
-  </section>
-
-  <!-- FAQ Section (enriched, includes synthesis question and short control answer) -->
-  <section id="faq">
-    <h2>Foire Aux Questions (FAQ)</h2>
-
-    <div class="grid" style="margin-top:12px">
-      <div>
-        <div class="faq-title">Pourquoi mon bulletin est‑il analysé ?</div>
-        <div class="faq-body">
-          L’analyse vous aide à comprendre la répartition des cotisations, le lien entre salaire brut et salaire net, et les éléments importants de votre bulletin à titre pédagogique.
+        <div>
+          <b>4. Re‑téléverser & recevoir</b><br>
+          Après paiement, téléversez à nouveau le même bulletin pour démarrer l’analyse complète et télécharger votre rapport.
         </div>
       </div>
+      <p style="margin-top:12px;color:#666;font-size:14px">
+        Le double téléversement nous permet de garantir qu'aucun fichier n'est conservé avant paiement.
+      </p>
+    </section>
 
-      <div>
-        <div class="faq-title">Que contient la synthèse ?</div>
-        <div class="faq-body">
-          La synthèse explique la différence brut / net, détaille les principales cotisations et donne une estimation simple du coût salarial approximatif.
+    <!-- FAQ Section (enriched) -->
+    <section id="faq">
+      <h2>Foire Aux Questions (FAQ)</h2>
+
+      <div class="grid" style="margin-top:12px">
+        <div>
+          <div style="font-weight:700;color:#333;margin-bottom:6px">Pourquoi mon bulletin est‑il analysé ?</div>
+          <div style="color:#444;font-size:15px;line-height:1.45">
+            L’analyse vous aide à comprendre la répartition des cotisations, le lien entre salaire brut et salaire net, et les éléments importants de votre bulletin à titre pédagogique.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight:700;color:#333;margin-bottom:6px">Que contient la synthèse ?</div>
+          <div style="color:#444;font-size:15px;line-height:1.45">
+            La synthèse explique la différence brut / net, détaille les principales cotisations et donne une estimation simple du coût salarial approximatif.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight:700;color:#333;margin-bottom:6px">L’application réalise‑t‑elle des contrôles automatiques ?</div>
+          <div style="color:#444;font-size:15px;line-height:1.45">
+            Non — pour l’instant l’application n’effectue pas de contrôles automatiques approfondis. Elle extrait et présente les éléments clés (brut, net, cotisations) à titre pédagogique.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight:700;color:#333;margin-bottom:6px">Quel format est accepté ?</div>
+          <div style="color:#444;font-size:15px;line-height:1.45">
+            Nous acceptons les fichiers PDF lisibles. Si votre bulletin est un scan, la qualité de l’OCR dépendra de la netteté et du contraste.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight:700;color:#333;margin-bottom:6px">Combien ça coûte et comment suis‑je facturé ?</div>
+          <div style="color:#444;font-size:15px;line-height:1.45">
+            Chaque analyse complète coûte 7,50 € (paiement unique via Stripe). La facturation se fait une fois par bulletin analysé.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight:700;color:#333;margin-bottom:6px">Combien de temps prend l’analyse ?</div>
+          <div style="color:#444;font-size:15px;line-height:1.45">
+            En général quelques minutes. Les scans de faible qualité ou les bulletins très complexes peuvent rallonger le temps de traitement.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight:700;color:#333;margin-bottom:6px">Puis‑je analyser plusieurs bulletins ?</div>
+          <div style="color:#444;font-size:15px;line-height:1.45">
+            Oui — chaque bulletin analysé est facturé séparément.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight:700;color:#333;margin-bottom:6px">Remboursement</div>
+          <div style="color:#444;font-size:15px;line-height:1.45">
+            Le service est considéré rendu à la fourniture du rapport. En cas de problème (incident technique ou erreur manifeste), contactez‑nous : <a href="mailto:contact@paiedyali.fr">contact@paiedyali.fr</a>.
+          </div>
         </div>
       </div>
-
-      <div>
-        <div class="faq-title">L’application réalise‑t‑elle des contrôles automatiques ?</div>
-        <div class="faq-body">
-          Non — pour l’instant l’application n’effectue pas de contrôles automatiques approfondis. Elle extrait et présente les éléments clés (brut, net, cotisations) à titre pédagogique.
-        </div>
-      </div>
-
-      <div>
-        <div class="faq-title">Quel format est accepté ?</div>
-        <div class="faq-body">
-          Nous acceptons les fichiers PDF lisibles. Si votre bulletin est un scan, la qualité de l’OCR dépendra de la netteté et du contraste.
-        </div>
-      </div>
-
-      <div>
-        <div class="faq-title">Combien ça coûte et comment suis‑je facturé ?</div>
-        <div class="faq-body">
-          Chaque analyse complète coûte 7,50 € (paiement unique via Stripe). La facturation se fait une fois par bulletin analysé.
-        </div>
-      </div>
-
-      <div>
-        <div class="faq-title">Combien de temps prend l’analyse ?</div>
-        <div class="faq-body">
-          En général quelques minutes. Les scans de faible qualité ou les bulletins très complexes peuvent rallonger le temps de traitement.
-        </div>
-      </div>
-
-      <div>
-        <div class="faq-title">Puis‑je analyser plusieurs bulletins ?</div>
-        <div class="faq-body">
-          Oui — chaque bulletin analysé est facturé séparément.
-        </div>
-      </div>
-
-      <div>
-        <div class="faq-title">Remboursement</div>
-        <div class="faq-body">
-          Le service est considéré rendu à la fourniture du rapport. En cas de problème (incident technique ou erreur manifeste), contactez‑nous : <a href="mailto:contact@paiedyali.fr">contact@paiedyali.fr</a>.
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- Footer Section -->
-  <footer>
+  <footer style="max-width:980px;margin:20px auto;padding:18px;text-align:center;color:#fff;background:transparent">
     <p>&copy; 2025 Paiedyali. Tous droits réservés.</p>
-    <p><a href="/legal.html">Mentions légales</a> | <a href="/privacy.html">Politique de confidentialité</a></p>
+    <p><a href="/legal.html" style="color:#cbd3da;text-decoration:none">Mentions légales</a> | <a href="/privacy.html" style="color:#cbd3da;text-decoration:none">Politique de confidentialité</a></p>
   </footer>
+
+  <!-- Optional: load lightweight deferred analytics (example pattern) -->
+  <script>
+    // Defer loading analytics until after load/idle to reduce TBT
+    (function loadAnalyticsWhenIdle(){
+      function injectGtag(){
+        var s = document.createElement('script');
+        s.src = "https://www.googletagmanager.com/gtag/js?id=G-TKM8MB9T2H";
+        s.async = true;
+        document.head.appendChild(s);
+        s.onload = function(){
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', 'G-TKM8MB9T2H');
+        };
+      }
+      if ('requestIdleCallback' in window) requestIdleCallback(injectGtag, {timeout:2000});
+      else window.addEventListener('load', function(){ setTimeout(injectGtag, 1200); });
+    })();
+  </script>
 </body>
 </html>
