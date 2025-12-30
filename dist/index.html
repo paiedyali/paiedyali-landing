@@ -6,7 +6,7 @@
   <title>Paiedyali — Analyse de bulletin de salaire</title>
   <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité.">
 
-  <!-- Perf hints: preconnect analytics endpoints (helps fetch start earlier) -->
+  <!-- Perf hints -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 
@@ -22,43 +22,51 @@
       --text-dark:#111827;
       --muted:#94a3b8;
       --border:rgba(255,255,255,.12);
-      --shadow:0 16px 48px rgba(0,0,0,.45);
+      /* reduced shadow to lower paint/compositing cost */
+      --shadow:0 8px 24px rgba(0,0,0,.30);
       --radius:14px;
       --section-padding:30px;
       --max:980px;
     }
 
-    /* Basic reset */
     *{box-sizing:border-box;margin:0;padding:0}
     body{
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(1200px 700px at 10% 0%, rgba(78,115,223,.22), transparent 55%),
-                  radial-gradient(900px 600px at 90% 10%, rgba(40,167,69,.14), transparent 60%),
+      /* keep gradients but keep them simple — they are cheap compared to heavy blurs */
+      background: radial-gradient(900px 500px at 10% 0%, rgba(78,115,223,.18), transparent 55%),
+                  radial-gradient(700px 450px at 90% 10%, rgba(40,167,69,.10), transparent 60%),
                   var(--bg-dark);
       color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
     a{color:inherit}
     .container{max-width:var(--max);margin:0 auto;padding:0 18px 60px}
 
-    /* Animations */
-    .fade-in{opacity:0;animation:fadeIn 1.2s ease-out forwards}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    /* Animations: do not hide elements initially (so LCP can be detected) */
+    .fade-in{
+      animation: fadeIn 600ms ease-out both;
+      /* small translation only (cheap) */
+      will-change: transform;
+    }
+    @keyframes fadeIn{
+      from { transform: translateY(6px); opacity: 1; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
 
-    /* Header - reserve vertical space to reduce CLS (min-height) */
+    /* Header (reserve space to reduce CLS) */
     header{
       max-width:var(--max);
       margin:20px auto 24px;
-      padding:70px 22px;
+      padding:60px 22px;
       border-radius:var(--radius);
       background: linear-gradient(135deg, rgba(78,115,223,.95), rgba(78,115,223,.72));
       box-shadow:var(--shadow);
       text-align:center;
-      border:1px solid rgba(255,255,255,.18);
-
-      /* Stabilize layout: reserve space for hero/header to reduce CLS */
-      min-height: 260px;
+      border:1px solid rgba(255,255,255,.12);
+      min-height: 240px; /* reserved height to stabilize layout */
     }
     header h1{font-size:clamp(2rem, 3.5vw, 3rem);margin:0 0 8px}
     header p{font-size:clamp(1.05rem, 1.5vw, 1.25rem);opacity:.95}
@@ -66,49 +74,46 @@
     .cta-btn{
       background:var(--btn);
       color:#fff;
-      padding:14px 28px;
+      padding:12px 24px;
       text-decoration:none;
       font-size:18px;
       border-radius:999px;
       display:inline-flex;
       align-items:center;
       gap:10px;
-      margin-top:22px;
-      box-shadow:0 10px 26px rgba(0,0,0,.35);
-      transition:transform .15s ease, background-color .25s ease, box-shadow .25s ease;
+      margin-top:18px;
+      box-shadow:0 8px 22px rgba(0,0,0,.28);
+      transition:transform .12s ease, background-color .2s ease, box-shadow .2s ease;
     }
     .cta-btn:hover{
       background:var(--btn-hover);
       transform:translateY(-1px);
-      box-shadow:0 14px 34px rgba(0,0,0,.45);
+      box-shadow:0 10px 26px rgba(0,0,0,.32);
     }
 
-    /* Privacy banner - reserve small height so it does not push content on load */
+    /* Privacy banner - reserve fixed min-height so it doesn't shift content when displayed/hidden */
     .privacy-banner{
       max-width:var(--max);
       margin:0 auto 18px;
-      padding:14px 18px;
+      padding:12px 18px;
       border-radius:10px;
-      background: linear-gradient(90deg, rgba(78,115,223,.08), rgba(40,167,69,.04));
+      background: linear-gradient(90deg, rgba(78,115,223,.06), rgba(40,167,69,.03));
       color: rgba(229,231,235,.95);
       text-align:center;
       font-size:0.98rem;
       border:1px solid rgba(255,255,255,.06);
-
-      /* Reserve space to avoid layout shift if banner content changes or is toggled */
-      min-height:48px;
+      min-height:46px;
     }
     .privacy-banner strong{color:#fff}
 
-    /* Sections */
+    /* Sections: removed backdrop-filter (costly) and reduced shadow */
     .section{
       margin:22px auto;
       padding:var(--section-padding);
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
       border-radius:var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(6px);
     }
 
     h2{
@@ -122,7 +127,7 @@
 
     .divider{
       height:1px;
-      background: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.10);
       margin:18px 0 8px;
     }
 
@@ -130,21 +135,20 @@
     .grid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:16px;
+      gap:14px;
       margin-top:14px;
     }
     @media (max-width: 720px){
       .grid{grid-template-columns:1fr}
-      header{padding:56px 18px}
+      header{padding:46px 18px}
     }
 
-    /* ✅ correction + style */
     .grid div{
-      background-color: rgba(255,255,255,0.06);
-      padding:18px;
+      background-color: rgba(255,255,255,0.04);
+      padding:16px;
       border-radius: calc(var(--radius) - 2px);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.09);
+      box-shadow: 0 6px 14px rgba(0,0,0,.20);
     }
     .grid div b{
       display:inline-block;
@@ -165,7 +169,7 @@
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
-      border-top: 1px solid rgba(255,255,255,.12);
+      border-top: 1px solid rgba(255,255,255,.10);
     }
     .footer-links{
       display:flex;
@@ -175,21 +179,21 @@
     }
     .link-btn{
       background:transparent;
-      border:1px solid rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.14);
       color:rgba(229,231,235,.92);
       padding:8px 12px;
       border-radius:999px;
       cursor:pointer;
-      transition:background .2s ease, transform .15s ease, border-color .2s ease;
+      transition:background .18s ease, transform .12s ease, border-color .18s ease;
       font: inherit;
     }
     .link-btn:hover{
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.04);
       transform: translateY(-1px);
-      border-color: rgba(255,255,255,.24);
+      border-color: rgba(255,255,255,.20);
     }
 
-    /* MODAL */
+    /* MODAL - lighter shadow */
     .modal-overlay{
       position:fixed;
       inset:0;
@@ -205,10 +209,10 @@
       max-height: 86vh;
       overflow:auto;
       background: #0b1224;
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 16px;
-      box-shadow: 0 22px 70px rgba(0,0,0,.6);
-      padding: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.45);
+      padding: 16px;
     }
     .modal-header{
       display:flex;
@@ -216,17 +220,17 @@
       align-items:center;
       gap:10px;
       padding-bottom:10px;
-      border-bottom:1px solid rgba(255,255,255,.12);
+      border-bottom:1px solid rgba(255,255,255,.10);
       margin-bottom:12px;
     }
     .modal-title{
-      font-size: 1.2rem;
+      font-size: 1.12rem;
       color:#fff;
       margin:0;
     }
     .close-btn{
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.04);
       color:#fff;
       border-radius:999px;
       padding:8px 12px;
@@ -247,39 +251,35 @@
       display:inline-block;
       padding:3px 10px;
       border-radius:999px;
-      background: rgba(78,115,223,.18);
-      border:1px solid rgba(78,115,223,.28);
+      background: rgba(78,115,223,.16);
+      border:1px solid rgba(78,115,223,.24);
       margin: 4px 0;
       font-size: .9rem;
       color:#dbeafe;
     }
   </style>
 
-<!-- Google tag (gtag.js) - script left async but initial config deferred to idle/load to avoid blocking LCP -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TKM8MB9T2H"></script>
 <script>
-  // Minimal gtag setup but defer the heavy config call until after load/idle.
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  // Defer the "config" call so analytics doesn't block LCP/TBT measurement.
-  // Uses requestIdleCallback when available, otherwise waits for the load event or a timeout.
+  // Defer the "config" call so analytics doesn't interfere with LCP/TBT.
   (function deferGtagConfig() {
     var measurementId = 'G-TKM8MB9T2H';
     function runConfig(){
       try {
-        // make sure gtag function exists
         if (typeof gtag === 'function') {
           gtag('config', measurementId);
         }
-      } catch (e) { /* swallow */ }
+      } catch (e) { /* ignore */ }
     }
 
     if ('requestIdleCallback' in window) {
       requestIdleCallback(runConfig, {timeout: 2000});
     } else {
-      // If page already loaded, run after small timeout
       if (document.readyState === 'complete') {
         setTimeout(runConfig, 1000);
       } else {
@@ -296,22 +296,18 @@
     <h1>Bienvenue sur Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
 
-    <!-- CTA: now points to the Render app to start partial analysis -->
     <a href="https://paiedyali.onrender.com?mode=partial" class="cta-btn" id="cta-verify" aria-label="Vérifier maintenant" target="_blank" rel="noopener noreferrer">
       Vérifier maintenant
     </a>
 
-    <!-- Lien de confiance ajouté sous the button -->
     <p class="data-trust" style="margin-top:12px;opacity:.9">Données supprimées après traitement</p>
   </header>
 
-  <!-- Privacy banner (added to highlight confidentiality) -->
   <div class="privacy-banner" role="note" aria-live="polite">
     <strong>Confidentialité :</strong> par souci de sécurité, nous ne conservons pas vos fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bull[...]
   </div>
 
   <main class="container">
-    <!-- Qui sommes-nous -->
     <section class="section fade-in">
       <h2>Qui sommes-nous ?</h2>
       <p>
@@ -328,7 +324,6 @@
       </p>
     </section>
 
-    <!-- Pourquoi nous -->
     <section class="section fade-in">
       <h2>Pourquoi choisir Paiedyali ?</h2>
       <div class="grid">
@@ -339,7 +334,6 @@
       </div>
     </section>
 
-    <!-- Comment ça marche ? (avec étape de validation) -->
 <section class="section fade-in" id="fonctionnement">
   <h2>Comment ça marche ?</h2>
   <div class="grid">
@@ -369,7 +363,6 @@
   </p>
 </section>
 
- <!-- FAQ -->
 <section class="section fade-in" id="faq">
   <h2>Foire aux questions</h2>
   <div class="grid">
@@ -473,7 +466,7 @@
     </div>
   </div>
 </section>
-  <!-- Footer with Mentions légales and RGPD -->
+
   <footer>
     <div>© 2025 Paiedyali — Tous droits réservés.</div>
 
@@ -484,7 +477,7 @@
     </div>
   </footer>
 
-  <!-- MODAL Mentions légales -->
+  <!-- MODALS (unchanged behaviour) -->
   <div class="modal-overlay" id="modal-mentions" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mentions-title">
       <div class="modal-header">
@@ -525,7 +518,6 @@
     </div>
   </div>
 
-  <!-- MODAL RGPD -->
   <div class="modal-overlay" id="modal-rgpd" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rgpd-title">
       <div class="modal-header">
@@ -559,7 +551,6 @@
         <h3>Conservation</h3>
         <p>
           Objectif : minimiser la conservation. (À adapter selon ton fonctionnement réel.)
-          Si tu supprimes les PDF après analyse, indique-le ici clairement.
         </p>
 
         <h3>Prestataires</h3>
@@ -571,14 +562,12 @@
 
         <h3>Vos droits</h3>
         <p>
-          Vous disposez des droits d’accès, rectification, effacement, limitation, opposition et portabilité.
           Pour exercer vos droits : <b>contact@paiedyali.fr</b>
         </p>
 
         <h3>Cookies</h3>
         <p>
-          À préciser selon ce que tu utilises (analytics, etc.). Si tu n’utilises aucun cookie de suivi,
-          tu peux l’indiquer explicitement.
+          À préciser selon ce que tu utilises (analytics, etc.).
         </p>
       </div>
     </div>
@@ -626,13 +615,6 @@
         overlays.forEach(overlay=>{
           if(overlay.style.display === 'flex') closeModal(overlay);
         });
-      }
-    });
-
-    // Accessibility: focus trap hint (simple fallback)
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Tab') {
-        // ensure modals close on ESC handled above; focus management can be improved if needed
       }
     });
   </script>
