@@ -6,7 +6,7 @@
   <title>Paiedyali — Analyse de bulletin de salaire</title>
   <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité.">
 
-  <!-- Perf hints -->
+  <!-- Perf hints: start TCP/TLS early for analytics without blocking -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 
@@ -22,19 +22,21 @@
       --text-dark:#111827;
       --muted:#94a3b8;
       --border:rgba(255,255,255,.12);
-      /* reduced shadow to lower paint/compositing cost */
-      --shadow:0 8px 24px rgba(0,0,0,.30);
-      --radius:14px;
-      --section-padding:30px;
+      /* very light shadows to reduce paint/compositing cost */
+      --shadow: 0 4px 12px rgba(0,0,0,.14);
+      --radius:12px;
+      --section-padding:28px;
       --max:980px;
     }
 
+    /* Minimal reset */
     *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
     body{
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      /* keep gradients but keep them simple — they are cheap compared to heavy blurs */
-      background: radial-gradient(900px 500px at 10% 0%, rgba(78,115,223,.18), transparent 55%),
-                  radial-gradient(700px 450px at 90% 10%, rgba(40,167,69,.10), transparent 60%),
+      /* simplified gradients to keep visual while reducing paint cost */
+      background: radial-gradient(900px 450px at 10% 0%, rgba(78,115,223,.15), transparent 55%),
+                  radial-gradient(650px 380px at 90% 10%, rgba(40,167,69,.08), transparent 60%),
                   var(--bg-dark);
       color: var(--text);
       line-height: 1.6;
@@ -45,31 +47,29 @@
     a{color:inherit}
     .container{max-width:var(--max);margin:0 auto;padding:0 18px 60px}
 
-    /* Animations: do not hide elements initially (so LCP can be detected) */
+    /* Animations: do NOT hide elements initially so LCP can be measured immediately */
     .fade-in{
-      animation: fadeIn 600ms ease-out both;
-      /* small translation only (cheap) */
-      will-change: transform;
+      animation: fadeIn 560ms ease-out both;
     }
     @keyframes fadeIn{
       from { transform: translateY(6px); opacity: 1; }
       to   { transform: translateY(0); opacity: 1; }
     }
 
-    /* Header (reserve space to reduce CLS) */
+    /* Header - reserve vertical space to avoid CLS and remove heavy shadow */
     header{
       max-width:var(--max);
       margin:20px auto 24px;
       padding:60px 22px;
       border-radius:var(--radius);
-      background: linear-gradient(135deg, rgba(78,115,223,.95), rgba(78,115,223,.72));
-      box-shadow:var(--shadow);
+      background: linear-gradient(135deg, rgba(78,115,223,.92), rgba(78,115,223,.78));
+      box-shadow: none; /* removed heavy shadow for faster paint */
       text-align:center;
-      border:1px solid rgba(255,255,255,.12);
-      min-height: 240px; /* reserved height to stabilize layout */
+      border:1px solid rgba(255,255,255,.06);
+      min-height:220px; /* reserve space to stabilize layout */
     }
     header h1{font-size:clamp(2rem, 3.5vw, 3rem);margin:0 0 8px}
-    header p{font-size:clamp(1.05rem, 1.5vw, 1.25rem);opacity:.95}
+    header p{font-size:clamp(1.05rem, 1.5vw, 1.2rem);opacity:.95}
 
     .cta-btn{
       background:var(--btn);
@@ -82,16 +82,16 @@
       align-items:center;
       gap:10px;
       margin-top:18px;
-      box-shadow:0 8px 22px rgba(0,0,0,.28);
+      box-shadow: 0 6px 18px rgba(0,0,0,.18);
       transition:transform .12s ease, background-color .2s ease, box-shadow .2s ease;
     }
     .cta-btn:hover{
       background:var(--btn-hover);
       transform:translateY(-1px);
-      box-shadow:0 10px 26px rgba(0,0,0,.32);
+      box-shadow: 0 8px 22px rgba(0,0,0,.2);
     }
 
-    /* Privacy banner - reserve fixed min-height so it doesn't shift content when displayed/hidden */
+    /* Privacy banner - fixed min-height to avoid shifts */
     .privacy-banner{
       max-width:var(--max);
       margin:0 auto 18px;
@@ -101,17 +101,17 @@
       color: rgba(229,231,235,.95);
       text-align:center;
       font-size:0.98rem;
-      border:1px solid rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.05);
       min-height:46px;
     }
     .privacy-banner strong{color:#fff}
 
-    /* Sections: removed backdrop-filter (costly) and reduced shadow */
+    /* Sections: removed backdrop-filter and reduced shadows/complexity */
     .section{
       margin:22px auto;
       padding:var(--section-padding);
-      background: rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
       border-radius:var(--radius);
       box-shadow: var(--shadow);
     }
@@ -127,7 +127,7 @@
 
     .divider{
       height:1px;
-      background: rgba(255,255,255,.10);
+      background: rgba(255,255,255,.08);
       margin:18px 0 8px;
     }
 
@@ -144,11 +144,11 @@
     }
 
     .grid div{
-      background-color: rgba(255,255,255,0.04);
+      background-color: rgba(255,255,255,0.03);
       padding:16px;
       border-radius: calc(var(--radius) - 2px);
-      border:1px solid rgba(255,255,255,.09);
-      box-shadow: 0 6px 14px rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.07);
+      box-shadow: 0 6px 14px rgba(0,0,0,.12);
     }
     .grid div b{
       display:inline-block;
@@ -169,7 +169,7 @@
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
-      border-top: 1px solid rgba(255,255,255,.10);
+      border-top: 1px solid rgba(255,255,255,.06);
     }
     .footer-links{
       display:flex;
@@ -179,7 +179,7 @@
     }
     .link-btn{
       background:transparent;
-      border:1px solid rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.12);
       color:rgba(229,231,235,.92);
       padding:8px 12px;
       border-radius:999px;
@@ -188,12 +188,12 @@
       font: inherit;
     }
     .link-btn:hover{
-      background: rgba(255,255,255,.04);
+      background: rgba(255,255,255,.03);
       transform: translateY(-1px);
-      border-color: rgba(255,255,255,.20);
+      border-color: rgba(255,255,255,.16);
     }
 
-    /* MODAL - lighter shadow */
+    /* Modal (lighter visual cost) */
     .modal-overlay{
       position:fixed;
       inset:0;
@@ -209,9 +209,9 @@
       max-height: 86vh;
       overflow:auto;
       background: #0b1224;
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.08);
       border-radius: 12px;
-      box-shadow: 0 12px 34px rgba(0,0,0,.45);
+      box-shadow: 0 10px 28px rgba(0,0,0,.28);
       padding: 16px;
     }
     .modal-header{
@@ -220,7 +220,7 @@
       align-items:center;
       gap:10px;
       padding-bottom:10px;
-      border-bottom:1px solid rgba(255,255,255,.10);
+      border-bottom:1px solid rgba(255,255,255,.08);
       margin-bottom:12px;
     }
     .modal-title{
@@ -229,8 +229,8 @@
       margin:0;
     }
     .close-btn{
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
       color:#fff;
       border-radius:999px;
       padding:8px 12px;
@@ -251,52 +251,54 @@
       display:inline-block;
       padding:3px 10px;
       border-radius:999px;
-      background: rgba(78,115,223,.16);
-      border:1px solid rgba(78,115,223,.24);
+      background: rgba(78,115,223,.14);
+      border:1px solid rgba(78,115,223,.20);
       margin: 4px 0;
       font-size: .9rem;
       color:#dbeafe;
     }
   </style>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TKM8MB9T2H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) loaded async, but config deferred to idle/load to avoid blocking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TKM8MB9T2H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  // Defer the "config" call so analytics doesn't interfere with LCP/TBT.
-  (function deferGtagConfig() {
-    var measurementId = 'G-TKM8MB9T2H';
-    function runConfig(){
-      try {
-        if (typeof gtag === 'function') {
-          gtag('config', measurementId);
-        }
-      } catch (e) { /* ignore */ }
-    }
-
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(runConfig, {timeout: 2000});
-    } else {
-      if (document.readyState === 'complete') {
-        setTimeout(runConfig, 1000);
-      } else {
-        window.addEventListener('load', function(){ setTimeout(runConfig, 300); }, {once:true});
+    (function deferGtagConfig(){
+      var measurementId = 'G-TKM8MB9T2H';
+      function runConfig(){
+        try {
+          if (typeof gtag === 'function') {
+            gtag('config', measurementId);
+          }
+        } catch (e){ /* ignore */ }
       }
-    }
-  })();
-</script>
-
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(runConfig, {timeout:2000});
+      } else {
+        if (document.readyState === 'complete') {
+          setTimeout(runConfig, 800);
+        } else {
+          window.addEventListener('load', function(){ setTimeout(runConfig, 300); }, {once:true});
+        }
+      }
+    })();
+  </script>
 </head>
 
 <body>
-  <header class="fade-in">
+  <header class="fade-in" role="banner">
     <h1>Bienvenue sur Paiedyali</h1>
     <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
 
-    <a href="https://paiedyali.onrender.com?mode=partial" class="cta-btn" id="cta-verify" aria-label="Vérifier maintenant" target="_blank" rel="noopener noreferrer">
+    <a href="https://paiedyali.onrender.com?mode=partial"
+       class="cta-btn"
+       id="cta-verify"
+       aria-label="Vérifier maintenant"
+       target="_blank"
+       rel="noopener noreferrer">
       Vérifier maintenant
     </a>
 
@@ -307,9 +309,9 @@
     <strong>Confidentialité :</strong> par souci de sécurité, nous ne conservons pas vos fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bull[...]
   </div>
 
-  <main class="container">
-    <section class="section fade-in">
-      <h2>Qui sommes-nous ?</h2>
+  <main class="container" role="main">
+    <section class="section fade-in" aria-labelledby="qui-sommes">
+      <h2 id="qui-sommes">Qui sommes-nous ?</h2>
       <p>
         Diplômé d’expertise comptable, spécialiste de la paie depuis plus de 15 ans,
         j’ai créé Paiedyali à partir d’un constat simple : les salariés ne comprennent
@@ -324,8 +326,8 @@
       </p>
     </section>
 
-    <section class="section fade-in">
-      <h2>Pourquoi choisir Paiedyali ?</h2>
+    <section class="section fade-in" aria-labelledby="pourquoi-nous">
+      <h2 id="pourquoi-nous">Pourquoi choisir Paiedyali ?</h2>
       <div class="grid">
         <div><b>Rapide</b><br>Résultats en quelques minutes</div>
         <div><b>Pédagogique</b><br>Explications compréhensibles</div>
@@ -334,140 +336,141 @@
       </div>
     </section>
 
-<section class="section fade-in" id="fonctionnement">
-  <h2>Comment ça marche ?</h2>
-  <div class="grid">
-    <div>
-      <b>1. Télécharger</b><br>
-      Importez votre bulletin au format PDF (ou scan lisible).
-    </div>
+    <section class="section fade-in" id="fonctionnement" aria-labelledby="fonctionnement-title">
+      <h2 id="fonctionnement-title">Comment ça marche ?</h2>
+      <div class="grid">
+        <div>
+          <b>1. Télécharger</b><br>
+          Importez votre bulletin au format PDF (ou scan lisible).
+        </div>
 
-    <div>
-      <b>2. Vérification</b><br>
-      Nous vérifions la lisibilité du fichier (contrôle automatique). Cette étape est locale/éphémère : aucun stockage permanent.
-    </div>
+        <div>
+          <b>2. Vérification</b><br>
+          Nous vérifions la lisibilité du fichier (contrôle automatique). Cette étape est locale/éphémère : aucun stockage permanent.
+        </div>
 
-    <div>
-      <b>3. Payer</b><br>
-      Paiement sécurisé (7,50 €) pour lancer l’analyse complète.
-    </div>
+        <div>
+          <b>3. Payer</b><br>
+          Paiement sécurisé (7,50 €) pour lancer l’analyse complète.
+        </div>
 
-    <div>
-      <b>4. Re‑téléverser & recevoir</b><br>
-      Après paiement, téléversez à nouveau le même bulletin pour démarrer l’analyse complète et télécharger votre rapport PDF.
-    </div>
-  </div>
-
-  <p style="margin-top:12px;color:rgba(229,231,235,.88);font-size:0.95rem;">
-    Remarque : le double téléversement nous permet de garantir que nous ne conservons pas vos fichiers avant paiement — pour en savoir plus, consultez la FAQ ou la Politique de confidentialité.
-  </p>
-</section>
-
-<section class="section fade-in" id="faq">
-  <h2>Foire aux questions</h2>
-  <div class="grid">
-    <div>
-      <div class="faq-title"><b>Pourquoi mon bulletin est‑il analysé ?</b></div>
-      <div class="faq-body">
-        L’analyse vise à vous donner une lecture claire et pédagogique de votre bulletin : répartition des cotisations, salaire brut et net, et points d’attention repérés automatiquement dans[...]
-        Elle fournit des explications ligne par ligne pour vous aider à comprendre chaque poste important.
+        <div>
+          <b>4. Re‑téléverser & recevoir</b><br>
+          Après paiement, téléversez à nouveau le même bulletin pour démarrer l’analyse complète et télécharger votre rapport PDF.
+        </div>
       </div>
-    </div>
 
-    <div>
-      <div class="faq-title"><b>Que contient le rapport ?</b></div>
-      <div class="faq-body">
-        Le rapport inclut :
-        <ul>
-          <li>Un résumé synthétique (brut estimé, net payé, principales cotisations),</li>
-          <li>Des explications claires pour les lignes significatives,</li>
-          <li>Les passages du bulletin utilisés pour chaque conclusion (extrait source) afin que vous puissiez vérifier.</li>
-        </ul>
+      <p style="margin-top:12px;color:rgba(229,231,235,.88);font-size:0.95rem;">
+        Remarque : le double téléversement nous permet de garantir que nous ne conservons pas vos fichiers avant paiement — pour en savoir plus, consultez la FAQ ou la Politique de confidentialité.
+      </p>
+    </section>
+
+    <section class="section fade-in" id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Foire aux questions</h2>
+      <div class="grid">
+        <div>
+          <div class="faq-title"><b>Pourquoi mon bulletin est‑il analysé ?</b></div>
+          <div class="faq-body">
+            L’analyse vise à vous donner une lecture claire et pédagogique de votre bulletin : répartition des cotisations, salaire brut et net, et points d’attention repérés automatiquement dans[...]
+            Elle fournit des explications ligne par ligne pour vous aider à comprendre chaque poste important.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Que contient le rapport ?</b></div>
+          <div class="faq-body">
+            Le rapport inclut :
+            <ul>
+              <li>Un résumé synthétique (brut estimé, net payé, principales cotisations),</li>
+              <li>Des explications claires pour les lignes significatives,</li>
+              <li>Les passages du bulletin utilisés pour chaque conclusion (extrait source) afin que vous puissiez vérifier.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Est‑ce sécurisé ?</b></div>
+          <div class="faq-body">
+            Oui. Nous minimisons la conservation des données et protégeons votre confidentialité :
+            <ul>
+              <li><strong>Aucun stockage permanent :</strong> nous ne conservons pas votre PDF après l’analyse.</li>
+              <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement vous téléversez à nouveau le même fichier pour lancer l’analys[...]
+              <li><strong>Chiffrement :</strong> toutes les communications se font via TLS.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>En quoi la synthèse va‑t‑elle m’aider ?</b></div>
+          <div class="faq-body">
+            La synthèse transforme les lignes techniques en explications accessibles :  
+            - elle compare brut vs net pour que vous compreniez ce qui est prélevé ;  
+            - elle identifie les cotisations principales et leur impact sur le salaire ;  
+            - elle fournit une estimation simple du coût total pour l’employeur (salaire + charges), vous permettant de mieux situer votre rémunération.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Quel format de fichier est accepté ?</b></div>
+          <div class="faq-body">
+            Nous acceptons les fichiers PDF lisibles. Si votre bulletin est un scan, la qualité de l’OCR dépendra de la netteté et du contraste de l’image.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Combien ça coûte et comment suis‑je facturé ?</b></div>
+          <div class="faq-body">
+            Chaque analyse complète coûte 7,50 € (paiement unique via Stripe). La facturation se fait une fois par bulletin analysé.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Combien de temps prend l’analyse ?</b></div>
+          <div class="faq-body">
+            En général quelques minutes. Les scans de faible qualité ou les bulletins très complexes peuvent rallonger le temps de traitement.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Puis‑je analyser plusieurs bulletins ?</b></div>
+          <div class="faq-body">
+            Oui — chaque bulletin analysé est facturé séparément. Si vous avez plusieurs bulletins, téléversez‑les un par un.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Remboursement</b></div>
+          <div class="faq-body">
+            Le service est considéré rendu à la fourniture du rapport. En cas de problème (erreur manifeste ou incident technique), contactez‑nous (contact@paiedyali.fr) ; nous traitons les demandes[...]
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Que faire si l’analyse ne trouve pas de lignes importantes ?</b></div>
+          <div class="faq-body">
+            Si des lignes attendues (ex. "Salaire brut", "Net à payer") ne sont pas détectées, vérifiez la qualité du PDF/scan. Si le problème persiste, envoyez‑nous un extrait (ou contactez‑nou[...]
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Contact & confidentialité</b></div>
+          <div class="faq-body">
+            Pour toute question sur la confidentialité, la rectification ou la suppression de données, écrivez à <a href="mailto:contact@paiedyali.fr" style="color:inherit;text-decoration:underline">contact@paiedyali.fr</a>.
+            Consultez aussi la <a href="/privacy.html" style="color:inherit;text-decoration:underline">Politique de confidentialité</a> pour les détails.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Besoin d’un audit approfondi ?</b></div>
+          <div class="faq-body">
+            Si vous voulez une analyse technique ou un audit détaillé (calculs détaillés, vérification des taux), nous pouvons proposer une prestation dédiée — contactez‑nous pour un devis.
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+  </main>
 
-    <div>
-      <div class="faq-title"><b>Est‑ce sécurisé ?</b></div>
-      <div class="faq-body">
-        Oui. Nous minimisons la conservation des données et protégeons votre confidentialité :
-        <ul>
-          <li><strong>Aucun stockage permanent :</strong> nous ne conservons pas votre PDF après l’analyse.</li>
-          <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement vous téléversez à nouveau le même fichier pour lancer l’analys[...]
-          <li><strong>Chiffrement :</strong> toutes les communications se font via TLS.</li>
-        </ul>
-      </div>
-    </div>
-
-   <div>
-  <div class="faq-title"><b>En quoi la synthèse va‑t‑elle m’aider ?</b></div>
-  <div class="faq-body">
-    La synthèse transforme les lignes techniques en explications accessibles :  
-    - elle compare brut vs net pour que vous compreniez ce qui est prélevé ;  
-    - elle identifie les cotisations principales et leur impact sur le salaire ;  
-    - elle fournit une estimation simple du coût total pour l’employeur (salaire + charges), vous permettant de mieux situer votre rémunération.
-  </div>
-</div>
-
-    <div>
-      <div class="faq-title"><b>Quel format de fichier est accepté ?</b></div>
-      <div class="faq-body">
-        Nous acceptons les fichiers PDF lisibles. Si votre bulletin est un scan, la qualité de l’OCR dépendra de la netteté et du contraste de l’image.
-      </div>
-    </div>
-
-    <div>
-      <div class="faq-title"><b>Combien ça coûte et comment suis‑je facturé ?</b></div>
-      <div class="faq-body">
-        Chaque analyse complète coûte 7,50 € (paiement unique via Stripe). La facturation se fait une fois par bulletin analysé.
-      </div>
-    </div>
-
-    <div>
-      <div class="faq-title"><b>Combien de temps prend l’analyse ?</b></div>
-      <div class="faq-body">
-        En général quelques minutes. Les scans de faible qualité ou les bulletins très complexes peuvent rallonger le temps de traitement.
-      </div>
-    </div>
-
-    <div>
-      <div class="faq-title"><b>Puis‑je analyser plusieurs bulletins ?</b></div>
-      <div class="faq-body">
-        Oui — chaque bulletin analysé est facturé séparément. Si vous avez plusieurs bulletins, téléversez‑les un par un.
-      </div>
-    </div>
-
-    <div>
-      <div class="faq-title"><b>Remboursement</b></div>
-      <div class="faq-body">
-        Le service est considéré rendu à la fourniture du rapport. En cas de problème (erreur manifeste ou incident technique), contactez‑nous (contact@paiedyali.fr) ; nous traitons les demandes[...]
-      </div>
-    </div>
-
-    <div>
-      <div class="faq-title"><b>Que faire si l’analyse ne trouve pas de lignes importantes ?</b></div>
-      <div class="faq-body">
-        Si des lignes attendues (ex. "Salaire brut", "Net à payer") ne sont pas détectées, vérifiez la qualité du PDF/scan. Si le problème persiste, envoyez‑nous un extrait (ou contactez‑nou[...]
-      </div>
-    </div>
-
-    <div>
-      <div class="faq-title"><b>Contact & confidentialité</b></div>
-      <div class="faq-body">
-        Pour toute question sur la confidentialité, la rectification ou la suppression de données, écrivez à <a href="mailto:contact@paiedyali.fr" style="color:inherit;text-decoration:underline">c[...]
-        Consultez aussi la <a href="/privacy.html" style="color:inherit;text-decoration:underline">Politique de confidentialité</a> pour les détails.
-      </div>
-    </div>
-
-    <div>
-      <div class="faq-title"><b>Besoin d’un audit approfondi ?</b></div>
-      <div class="faq-body">
-        Si vous voulez une analyse technique ou un audit détaillé (calculs détaillés, vérification des taux), nous pouvons proposer une prestation dédiée — contactez‑nous pour un devis.
-      </div>
-    </div>
-  </div>
-</section>
-
-  <footer>
+  <footer role="contentinfo">
     <div>© 2025 Paiedyali — Tous droits réservés.</div>
 
     <div class="footer-links">
@@ -477,7 +480,7 @@
     </div>
   </footer>
 
-  <!-- MODALS (unchanged behaviour) -->
+  <!-- MODAL Mentions légales -->
   <div class="modal-overlay" id="modal-mentions" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mentions-title">
       <div class="modal-header">
@@ -518,6 +521,7 @@
     </div>
   </div>
 
+  <!-- MODAL RGPD -->
   <div class="modal-overlay" id="modal-rgpd" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rgpd-title">
       <div class="modal-header">
@@ -550,7 +554,7 @@
 
         <h3>Conservation</h3>
         <p>
-          Objectif : minimiser la conservation. (À adapter selon ton fonctionnement réel.)
+          Objectif : minimiser la conservation. Si tu supprimes les PDF après analyse, indique-le ici clairement.
         </p>
 
         <h3>Prestataires</h3>
@@ -562,62 +566,73 @@
 
         <h3>Vos droits</h3>
         <p>
+          Vous disposez des droits d’accès, rectification, effacement, limitation, opposition et portabilité.
           Pour exercer vos droits : <b>contact@paiedyali.fr</b>
         </p>
 
         <h3>Cookies</h3>
         <p>
-          À préciser selon ce que tu utilises (analytics, etc.).
+          À préciser selon ce que tu utilises (analytics, etc.). Si tu n’utilises aucun cookie de suivi,
+          tu peux l’indiquer explicitement.
         </p>
       </div>
     </div>
   </div>
 
   <script>
-    // Open/close modals
-    const openButtons = document.querySelectorAll('[data-open]');
-    const closeButtons = document.querySelectorAll('[data-close]');
-    const overlays = document.querySelectorAll('.modal-overlay');
+    /* Non-critical JS initialisation is deferred to idle/load to reduce main-thread work during critical rendering.
+       This initializes modal open/close handlers and other small UI behaviors.
+    */
+    function initNonCritical() {
+      const openButtons = document.querySelectorAll('[data-open]');
+      const closeButtons = document.querySelectorAll('[data-close]');
+      const overlays = document.querySelectorAll('.modal-overlay');
 
-    function openModal(which){
-      const el = document.getElementById('modal-' + which);
-      if(!el) return;
-      el.style.display = 'flex';
-      el.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(el){
-      el.style.display = 'none';
-      el.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    openButtons.forEach(btn=>{
-      btn.addEventListener('click', ()=> openModal(btn.dataset.open));
-    });
-
-    closeButtons.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const overlay = btn.closest('.modal-overlay');
-        if(overlay) closeModal(overlay);
-      });
-    });
-
-    overlays.forEach(overlay=>{
-      overlay.addEventListener('click', (e)=>{
-        if(e.target === overlay) closeModal(overlay);
-      });
-    });
-
-    window.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape'){
-        overlays.forEach(overlay=>{
-          if(overlay.style.display === 'flex') closeModal(overlay);
-        });
+      function openModal(which){
+        const el = document.getElementById('modal-' + which);
+        if(!el) return;
+        el.style.display = 'flex';
+        el.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
       }
-    });
-  </script>
 
+      function closeModal(el){
+        el.style.display = 'none';
+        el.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      openButtons.forEach(btn=>{
+        btn.addEventListener('click', ()=> openModal(btn.dataset.open));
+      });
+
+      closeButtons.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const overlay = btn.closest('.modal-overlay');
+          if(overlay) closeModal(overlay);
+        });
+      });
+
+      overlays.forEach(overlay=>{
+        overlay.addEventListener('click', (e)=>{
+          if(e.target === overlay) closeModal(overlay);
+        });
+      });
+
+      window.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape'){
+          overlays.forEach(overlay=>{
+            if(overlay.style.display === 'flex') closeModal(overlay);
+          });
+        }
+      });
+    }
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initNonCritical, {timeout:2000});
+    } else {
+      window.addEventListener('load', function(){ setTimeout(initNonCritical, 200); }, {once:true});
+    }
+  </script>
 </body>
 </html>
