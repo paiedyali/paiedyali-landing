@@ -6,6 +6,10 @@
   <title>Paiedyali — Analyse de bulletin de salaire</title>
   <meta name="description" content="Analysez facilement votre bulletin de salaire en toute sécurité.">
 
+  <!-- Perf hints: preconnect analytics endpoints (helps fetch start earlier) -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+
   <style>
     :root{
       --bg-dark:#0f172a;
@@ -24,6 +28,7 @@
       --max:980px;
     }
 
+    /* Basic reset */
     *{box-sizing:border-box;margin:0;padding:0}
     body{
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -41,7 +46,7 @@
     .fade-in{opacity:0;animation:fadeIn 1.2s ease-out forwards}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-    /* Header */
+    /* Header - reserve vertical space to reduce CLS (min-height) */
     header{
       max-width:var(--max);
       margin:20px auto 24px;
@@ -51,6 +56,9 @@
       box-shadow:var(--shadow);
       text-align:center;
       border:1px solid rgba(255,255,255,.18);
+
+      /* Stabilize layout: reserve space for hero/header to reduce CLS */
+      min-height: 260px;
     }
     header h1{font-size:clamp(2rem, 3.5vw, 3rem);margin:0 0 8px}
     header p{font-size:clamp(1.05rem, 1.5vw, 1.25rem);opacity:.95}
@@ -75,7 +83,7 @@
       box-shadow:0 14px 34px rgba(0,0,0,.45);
     }
 
-    /* Privacy banner */
+    /* Privacy banner - reserve small height so it does not push content on load */
     .privacy-banner{
       max-width:var(--max);
       margin:0 auto 18px;
@@ -86,6 +94,9 @@
       text-align:center;
       font-size:0.98rem;
       border:1px solid rgba(255,255,255,.06);
+
+      /* Reserve space to avoid layout shift if banner content changes or is toggled */
+      min-height:48px;
     }
     .privacy-banner strong{color:#fff}
 
@@ -243,15 +254,39 @@
       color:#dbeafe;
     }
   </style>
-<!-- Google tag (gtag.js) -->
+
+<!-- Google tag (gtag.js) - script left async but initial config deferred to idle/load to avoid blocking LCP -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TKM8MB9T2H"></script>
 <script>
+  // Minimal gtag setup but defer the heavy config call until after load/idle.
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  // Configuration de Google Analytics (GA4)
-  gtag('config', 'G-TKM8MB9T2H');
+  // Defer the "config" call so analytics doesn't block LCP/TBT measurement.
+  // Uses requestIdleCallback when available, otherwise waits for the load event or a timeout.
+  (function deferGtagConfig() {
+    var measurementId = 'G-TKM8MB9T2H';
+    function runConfig(){
+      try {
+        // make sure gtag function exists
+        if (typeof gtag === 'function') {
+          gtag('config', measurementId);
+        }
+      } catch (e) { /* swallow */ }
+    }
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(runConfig, {timeout: 2000});
+    } else {
+      // If page already loaded, run after small timeout
+      if (document.readyState === 'complete') {
+        setTimeout(runConfig, 1000);
+      } else {
+        window.addEventListener('load', function(){ setTimeout(runConfig, 300); }, {once:true});
+      }
+    }
+  })();
 </script>
 
 </head>
@@ -272,7 +307,7 @@
 
   <!-- Privacy banner (added to highlight confidentiality) -->
   <div class="privacy-banner" role="note" aria-live="polite">
-    <strong>Confidentialité :</strong> par souci de sécurité, nous ne conservons pas vos fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bulletin pour lancer l’analyse complète. Toutes les transmissions sont chiffrées (TLS) et aucun PDF n'est archivé.
+    <strong>Confidentialité :</strong> par souci de sécurité, nous ne conservons pas vos fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bull[...]
   </div>
 
   <main class="container">
@@ -341,7 +376,7 @@
     <div>
       <div class="faq-title"><b>Pourquoi mon bulletin est‑il analysé ?</b></div>
       <div class="faq-body">
-        L’analyse vise à vous donner une lecture claire et pédagogique de votre bulletin : répartition des cotisations, salaire brut et net, et points d’attention repérés automatiquement dans le texte.
+        L’analyse vise à vous donner une lecture claire et pédagogique de votre bulletin : répartition des cotisations, salaire brut et net, et points d’attention repérés automatiquement dans[...]
         Elle fournit des explications ligne par ligne pour vous aider à comprendre chaque poste important.
       </div>
     </div>
@@ -364,7 +399,7 @@
         Oui. Nous minimisons la conservation des données et protégeons votre confidentialité :
         <ul>
           <li><strong>Aucun stockage permanent :</strong> nous ne conservons pas votre PDF après l’analyse.</li>
-          <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement vous téléversez à nouveau le même fichier pour lancer l’analyse complète.</li>
+          <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement vous téléversez à nouveau le même fichier pour lancer l’analys[...]
           <li><strong>Chiffrement :</strong> toutes les communications se font via TLS.</li>
         </ul>
       </div>
@@ -411,21 +446,21 @@
     <div>
       <div class="faq-title"><b>Remboursement</b></div>
       <div class="faq-body">
-        Le service est considéré rendu à la fourniture du rapport. En cas de problème (erreur manifeste ou incident technique), contactez‑nous (contact@paiedyali.fr) ; nous traitons les demandes au cas par cas.
+        Le service est considéré rendu à la fourniture du rapport. En cas de problème (erreur manifeste ou incident technique), contactez‑nous (contact@paiedyali.fr) ; nous traitons les demandes[...]
       </div>
     </div>
 
     <div>
       <div class="faq-title"><b>Que faire si l’analyse ne trouve pas de lignes importantes ?</b></div>
       <div class="faq-body">
-        Si des lignes attendues (ex. "Salaire brut", "Net à payer") ne sont pas détectées, vérifiez la qualité du PDF/scan. Si le problème persiste, envoyez‑nous un extrait (ou contactez‑nous) pour qu’on regarde manuellement.
+        Si des lignes attendues (ex. "Salaire brut", "Net à payer") ne sont pas détectées, vérifiez la qualité du PDF/scan. Si le problème persiste, envoyez‑nous un extrait (ou contactez‑nou[...]
       </div>
     </div>
 
     <div>
       <div class="faq-title"><b>Contact & confidentialité</b></div>
       <div class="faq-body">
-        Pour toute question sur la confidentialité, la rectification ou la suppression de données, écrivez à <a href="mailto:contact@paiedyali.fr" style="color:inherit;text-decoration:underline">contact@paiedyali.fr</a>.
+        Pour toute question sur la confidentialité, la rectification ou la suppression de données, écrivez à <a href="mailto:contact@paiedyali.fr" style="color:inherit;text-decoration:underline">c[...]
         Consultez aussi la <a href="/privacy.html" style="color:inherit;text-decoration:underline">Politique de confidentialité</a> pour les détails.
       </div>
     </div>
