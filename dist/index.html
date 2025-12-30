@@ -64,6 +64,7 @@
       --text-dark:#111827;
       --muted:#94a3b8;
       --border:rgba(255,255,255,.12);
+      /* very light shadows to reduce paint/compositing cost */
       --shadow: 0 4px 12px rgba(0,0,0,.14);
       --radius:12px;
       --section-padding:28px;
@@ -75,6 +76,7 @@
     html,body{height:100%}
     body{
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      /* simplified gradients to keep visual while reducing paint cost */
       background: radial-gradient(900px 450px at 10% 0%, rgba(78,115,223,.15), transparent 55%),
                   radial-gradient(650px 380px at 90% 10%, rgba(40,167,69,.08), transparent 60%),
                   var(--bg-dark);
@@ -87,19 +89,26 @@
     a{color:inherit}
     .container{max-width:var(--max);margin:0 auto;padding:0 18px 60px}
 
-    .fade-in{ animation: fadeIn 560ms ease-out both; }
-    @keyframes fadeIn{ from { transform: translateY(6px); opacity: 1; } to { transform: translateY(0); opacity: 1; } }
+    /* Animations: do NOT hide elements initially so LCP can be measured immediately */
+    .fade-in{
+      animation: fadeIn 560ms ease-out both;
+    }
+    @keyframes fadeIn{
+      from { transform: translateY(6px); opacity: 1; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
 
+    /* Header - reserve vertical space to avoid CLS and remove heavy shadow */
     header{
       max-width:var(--max);
       margin:20px auto 24px;
       padding:60px 22px;
       border-radius:var(--radius);
       background: linear-gradient(135deg, rgba(78,115,223,.92), rgba(78,115,223,.78));
-      box-shadow: none;
+      box-shadow: none; /* removed heavy shadow for faster paint */
       text-align:center;
       border:1px solid rgba(255,255,255,.06);
-      min-height:220px;
+      min-height:220px; /* reserve space to stabilize layout */
     }
     header h1{font-size:clamp(2rem, 3.5vw, 3rem);margin:0 0 8px}
     header p{font-size:clamp(1.05rem, 1.5vw, 1.2rem);opacity:.95}
@@ -124,6 +133,7 @@
       box-shadow: 0 8px 22px rgba(0,0,0,.2);
     }
 
+    /* Privacy banner - fixed min-height to avoid shifts */
     .privacy-banner{
       max-width:var(--max);
       margin:0 auto 18px;
@@ -138,6 +148,7 @@
     }
     .privacy-banner strong{color:#fff}
 
+    /* Sections: removed backdrop-filter and reduced shadows/complexity */
     .section{
       margin:22px auto;
       padding:var(--section-padding);
@@ -155,14 +166,41 @@
     }
 
     .section p{color:rgba(229,231,235,.92)}
-    .divider{ height:1px; background: rgba(255,255,255,.08); margin:18px 0 8px; }
 
-    .grid{ display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:14px; margin-top:14px; }
-    @media (max-width: 720px){ .grid{grid-template-columns:1fr} header{padding:46px 18px} }
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.08);
+      margin:18px 0 8px;
+    }
 
-    .grid div{ background-color: rgba(255,255,255,0.03); padding:16px; border-radius: calc(var(--radius) - 2px); border:1px solid rgba(255,255,255,.07); box-shadow: 0 6px 14px rgba(0,0,0,.12); color: rgba(229,231,235,.92) }
-    .grid div b{ display:inline-block; font-size:1.08rem; margin-bottom:6px; color:#fff; }
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (max-width: 720px){
+      .grid{grid-template-columns:1fr}
+      header{padding:46px 18px}
+    }
 
+    .grid div{
+      background-color: rgba(255,255,255,0.03);
+      padding:16px;
+      border-radius: calc(var(--radius) - 2px);
+      border:1px solid rgba(255,255,255,.07);
+      box-shadow: 0 6px 14px rgba(0,0,0,.12);
+    }
+    .grid div b{
+      display:inline-block;
+      font-size:1.08rem;
+      margin-bottom:6px;
+      color:#fff;
+    }
+    .grid div{color: rgba(229,231,235,.92)}
+
+    /* Footer */
     footer{
       max-width:var(--max);
       margin:28px auto 0;
@@ -175,23 +213,95 @@
       flex-wrap:wrap;
       border-top: 1px solid rgba(255,255,255,.06);
     }
-    .footer-links{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-    .link-btn{ background:transparent; border:1px solid rgba(255,255,255,.12); color:rgba(229,231,235,.92); padding:8px 12px; border-radius:999px; cursor:pointer; transition:background .18s ease, transform .12s ease, border-color .18s ease; font: inherit; }
-    .link-btn:hover{ background: rgba(255,255,255,.03); transform: translateY(-1px); border-color: rgba(255,255,255,.16); }
+    .footer-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .link-btn{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(229,231,235,.92);
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:background .18s ease, transform .12s ease, border-color .18s ease;
+      font: inherit;
+    }
+    .link-btn:hover{
+      background: rgba(255,255,255,.03);
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.16);
+    }
 
-    .modal-overlay{ position:fixed; inset:0; background: rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding:18px; z-index:9999; }
-    .modal{ width:min(920px, 100%); max-height: 86vh; overflow:auto; background: #0b1224; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; box-shadow: 0 10px 28px rgba(0,0,0,.28); padding: 16px; }
-    .modal-header{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,.08); margin-bottom:12px; }
-    .modal-title{ font-size: 1.12rem; color:#fff; margin:0; }
-    .close-btn{ border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); color:#fff; border-radius:999px; padding:8px 12px; cursor:pointer; }
-    .modal-content{ color: rgba(229,231,235,.92); font-size: 0.98rem; }
-    .modal-content h3{ margin:14px 0 8px; color:#fff; font-size:1.05rem; }
-    .modal-content p, .modal-content li{ color: rgba(229,231,235,.9) }
-    .modal-content ul{ padding-left:18px; margin:8px 0 }
-    .pill{ display:inline-block; padding:3px 10px; border-radius:999px; background: rgba(78,115,223,.14); border:1px solid rgba(78,115,223,.20); margin: 4px 0; font-size: .9rem; color:#dbeafe; }
+    /* Modal (lighter visual cost) */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
+    }
+    .modal{
+      width:min(920px, 100%);
+      max-height: 86vh;
+      overflow:auto;
+      background: #0b1224;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.28);
+      padding: 16px;
+    }
+    .modal-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      margin-bottom:12px;
+    }
+    .modal-title{
+      font-size: 1.12rem;
+      color:#fff;
+      margin:0;
+    }
+    .close-btn{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
+    }
+    .modal-content{
+      color: rgba(229,231,235,.92);
+      font-size: 0.98rem;
+    }
+    .modal-content h3{
+      margin:14px 0 8px;
+      color:#fff;
+      font-size:1.05rem;
+    }
+    .modal-content p, .modal-content li{color: rgba(229,231,235,.9)}
+    .modal-content ul{padding-left:18px;margin:8px 0}
+    .pill{
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      background: rgba(78,115,223,.14);
+      border:1px solid rgba(78,115,223,.20);
+      margin: 4px 0;
+      font-size: .9rem;
+      color:#dbeafe;
+    }
   </style>
 
-  <!-- Google tag (gtag.js) loaded async, with config deferred to idle/load to avoid blocking -->
+  <!-- Google tag (gtag.js) loaded async, but config deferred to idle/load to avoid blocking -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TKM8MB9T2H"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -246,11 +356,15 @@
       <h2 id="qui-sommes">Qui sommes-nous ?</h2>
       <p>
         Diplômé d’expertise comptable, spécialiste de la paie depuis plus de 15 ans,
-        j’ai créé Paiedyali à partir d’un constat simple : les salariés ne se limitent pas au "Net à payer" — ils ont besoin de comprendre ce que représentent les cotisations salariales et patronales.
+        j’ai créé Paiedyali à partir d’un constat simple : les salariés ne comprennent
+        souvent que la ligne “Net payé” sur leur bulletin de salaire.
       </p>
       <div class="divider"></div>
       <p>
-        Paiedyali traduit votre bulletin en français clair, de façon factuelle, pédagogique et compréhensible — en toute confidentialité.
+        Entre les cotisations, les lignes techniques, les abréviations et les règles sociales complexes,
+        il est difficile de savoir ce qui est réellement prélevé, pourquoi, et si tout est correct.
+        Paiedyali a été conçu pour traduire votre bulletin en français clair, de façon factuelle,
+        pédagogique et compréhensible — en toute confidentialité.
       </p>
     </section>
 
@@ -289,7 +403,7 @@
       </div>
 
       <p style="margin-top:12px;color:rgba(229,231,235,.88);font-size:0.95rem;">
-        Le double téléversement nous permet de garantir que nous ne conservons pas vos fichiers avant paiement — pour en savoir plus, consultez la FAQ ou la Politique de confidentialité.
+        Remarque : le double téléversement nous permet de garantir que nous ne conservons pas vos fichiers avant paiement — pour en savoir plus, consultez la FAQ ou la Politique de confidentialité.
       </p>
     </section>
 
@@ -299,7 +413,8 @@
         <div>
           <div class="faq-title"><b>Pourquoi mon bulletin est‑il analysé ?</b></div>
           <div class="faq-body">
-            L’analyse vise à vous donner une lecture claire et pédagogique de votre bulletin : répartition des cotisations, salaire brut et net, et points d’attention repérés automatiquement.
+            L’analyse vise à vous donner une lecture claire et pédagogique de votre bulletin : répartition des cotisations, salaire brut et net, et points d’attention repérés automatiquement [...]
+            Elle fournit des explications ligne par ligne pour vous aider à comprendre chaque poste important.
           </div>
         </div>
 
@@ -327,12 +442,70 @@
           </div>
         </div>
 
-        <!-- Additional FAQ items shortened for brevity in source; keep content as needed -->
+        <div>
+          <div class="faq-title"><b>En quoi la synthèse va‑t‑elle m’aider ?</b></div>
+          <div class="faq-body">
+            La synthèse transforme les lignes techniques en explications accessibles :  
+            - elle compare brut vs net pour que vous compreniez ce qui est prélevé ;  
+            - elle identifie les cotisations principales et leur impact sur le salaire ;  
+            - elle fournit une estimation simple du coût total pour l’employeur (salaire + charges), vous permettant de mieux situer votre rémunération.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Quel format de fichier est accepté ?</b></div>
+          <div class="faq-body">
+            Nous acceptons les fichiers PDF lisibles. Si votre bulletin est un scan, la qualité de l’OCR dépendra de la netteté et du contraste de l’image.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Combien ça coûte et comment suis‑je facturé ?</b></div>
+          <div class="faq-body">
+            Chaque analyse complète coûte 7,50 € (paiement unique via Stripe). La facturation se fait une fois par bulletin analysé.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Combien de temps prend l’analyse ?</b></div>
+          <div class="faq-body">
+            En général quelques minutes. Les scans de faible qualité ou les bulletins très complexes peuvent rallonger le temps de traitement.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Puis‑je analyser plusieurs bulletins ?</b></div>
+          <div class="faq-body">
+            Oui — chaque bulletin analysé est facturé séparément. Si vous avez plusieurs bulletins, téléversez‑les un par un.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Remboursement</b></div>
+          <div class="faq-body">
+            Le service est considéré rendu à la fourniture du rapport. En cas de problème (erreur manifeste ou incident technique), contactez‑nous (contact@paiedyali.fr) ; nous traitons les demandes au cas par cas.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Que faire si l’analyse ne trouve pas de lignes importantes ?</b></div>
+          <div class="faq-body">
+            Si des lignes attendues (ex. "Salaire brut", "Net à payer") ne sont pas détectées, vérifiez la qualité du PDF/scan. Si le problème persiste, envoyez‑nous un extrait (ou contactez‑nous) et nous vous aiderons.
+          </div>
+        </div>
+
         <div>
           <div class="faq-title"><b>Contact & confidentialité</b></div>
           <div class="faq-body">
             Pour toute question sur la confidentialité, la rectification ou la suppression de données, écrivez à <a href="mailto:contact@paiedyali.fr" style="color:inherit;text-decoration:underline">contact@paiedyali.fr</a>.
             Consultez aussi la <a href="/privacy.html" style="color:inherit;text-decoration:underline">Politique de confidentialité</a> pour les détails.
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-title"><b>Besoin d’un audit approfondi ?</b></div>
+          <div class="faq-body">
+            Si vous voulez une analyse technique ou un audit détaillé (calculs détaillés, vérification des taux), nous pouvons proposer une prestation dédiée — contactez‑nous pour un devis.
           </div>
         </div>
       </div>
@@ -349,7 +522,7 @@
     </div>
   </footer>
 
-  <!-- MODAL Mentions légales (kept original content) -->
+  <!-- MODAL Mentions légales -->
   <div class="modal-overlay" id="modal-mentions" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mentions-title">
       <div class="modal-header">
@@ -423,7 +596,7 @@
 
         <h3>Conservation</h3>
         <p>
-          Objectif : minimiser la conservation. Les PDF ne sont pas conservés après analyse.
+          Objectif : minimiser la conservation. Si tu supprimes les PDF après analyse, indique-le ici clairement.
         </p>
 
         <h3>Prestataires</h3>
