@@ -371,6 +371,23 @@
       Vérifier maintenant
     </a>
 
+    <script>
+      (function(){
+        // Enregistre la conversion LinkedIn au clic.
+        var btn = document.getElementById('cta-verify');
+        if (!btn) return;
+        btn.addEventListener('click', function(){
+          try {
+            // Assure l'existence d'une fonction lintrk qui met en queue les appels si la librairie n'est pas encore chargée.
+            window.lintrk = window.lintrk || function(){ (window.lintrk.q = window.lintrk.q || []).push(arguments); };
+            window.lintrk('track', { conversion_id: 25203210 });
+          } catch (e) {
+            // silencieux si échec
+          }
+        }, {passive:true});
+      })();
+    </script>
+
     <p class="data-trust" style="margin-top:12px;opacity:.9">Données supprimées après traitement</p>
   </header>
 
