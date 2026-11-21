@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>Paiedyali — Comprendre votre bulletin de salaire</title>
-  <meta name="description" content="Paiedyali simplifie votre bulletin de salaire : explication claire du net, des cotisations salariales et patronales pour mieux comprendre votre rémunération.">
+  <title>Comprendre sa fiche de paie en ligne | Paiedyali</title>
+  <meta name="description" content="Un doute sur votre fiche de paie ? Comprenez le brut, le net et les cotisations. Aperçu gratuit, rapport PDF à 7,50 €, sans abonnement.">
   <link rel="canonical" href="https://paiedyali.fr/">
 
   <!-- Favicons -->
@@ -16,16 +16,15 @@
   <!-- Open Graph / Social preview -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://paiedyali.fr/" />
-  <meta property="og:title" content="Paiedyali — Comprendre votre bulletin de salaire" />
-  <meta property="og:description" content="Paiedyali traduit votre bulletin en langage simple : net, cotisations salariales & patronales et décryptage ligne par ligne." />
+  <meta property="og:title" content="Un doute sur votre fiche de paie ? | Paiedyali" />
+  <meta property="og:description" content="Comprenez les montants clés de votre bulletin : aperçu gratuit, rapport PDF complet à 7,50 €, sans abonnement." />
   <meta property="og:image" content="https://paiedyali.fr/assets/og-image-1200x630.png" />
   <meta property="og:image:alt" content="Paiedyali — Comprendre votre bulletin de salaire" />
-  <meta property="og:image" content="https://paiedyali.fr/assets/og-image-1200x630.png" /> <meta property="og:image:alt" content="Paiedyali — Comprendre votre bulletin de salaire" /> <meta name="twi[...]
   
   <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Paiedyali — Comprendre votre bulletin de salaire" />
-  <meta name="twitter:description" content="Paiedyali traduit votre bulletin en langage simple : net, cotisations salariales & patronales et décryptage ligne par ligne." />
+  <meta name="twitter:title" content="Un doute sur votre fiche de paie ? | Paiedyali" />
+  <meta name="twitter:description" content="Aperçu gratuit de votre bulletin, puis rapport PDF complet à 7,50 € sans abonnement." />
   <meta name="twitter:image" content="https://paiedyali.fr/assets/og-image-1200x630.png" />
   <meta name="twitter:creator" content="@paiedyali" />
 
@@ -36,7 +35,7 @@
     "@type": "WebSite",
     "name": "Paiedyali",
     "url": "https://paiedyali.fr/",
-    "description": "Paiedyali simplifie votre bulletin de salaire : explication claire du net, des cotisations salariales et patronales pour mieux comprendre votre rémunération.",
+    "description": "Paiedyali aide les salariés à comprendre leur fiche de paie : brut, net, cotisations et montants clés. Aperçu gratuit, rapport PDF à 7,50 €.",
     "publisher": {
       "@type": "Organization",
       "name": "Paiedyali",
@@ -359,43 +358,51 @@
 
 <body>
   <header class="fade-in" role="banner">
-    <h1>Bienvenue sur Paiedyali</h1>
-    <p>Analysez facilement votre bulletin de salaire en toute sécurité.</p>
+    <h1>Un doute sur votre fiche de paie ?</h1>
+    <p>Comprenez votre salaire brut, votre net payé et vos cotisations grâce à une analyse automatique de votre bulletin.</p>
 
     <a href="https://paiedyali.onrender.com?mode=partial"
        class="cta-btn"
        id="cta-verify"
-       aria-label="Vérifier maintenant"
+       aria-label="Commencer gratuitement la vérification de mon bulletin"
        target="_blank"
        rel="noopener noreferrer">
-      Vérifier maintenant
+      Commencer gratuitement
     </a>
 
     <script>
       (function(){
         // Enregistre la conversion LinkedIn au clic.
-        var btn = document.getElementById('cta-verify');
-        if (!btn) return;
-        btn.addEventListener('click', function(){
+        document.querySelectorAll('.cta-btn').forEach(function(btn){
+          btn.addEventListener('click', function(){
           try {
             // Assure l'existence d'une fonction lintrk qui met en queue les appels si la librairie n'est pas encore chargée.
             window.lintrk = window.lintrk || function(){ (window.lintrk.q = window.lintrk.q || []).push(arguments); };
             window.lintrk('track', { conversion_id: 25203210 });
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'start_free_check', {event_category: 'engagement', event_label: btn.id || 'cta'});
+            }
           } catch (e) {
             // silencieux si échec
           }
-        }, {passive:true});
+          }, {passive:true});
+        });
       })();
     </script>
 
-    <p class="data-trust" style="margin-top:12px;opacity:.9">Données supprimées après traitement</p>
+    <p class="data-trust" style="margin-top:12px;opacity:.9">Aperçu gratuit avant paiement • Rapport complet : 7,50 € • Sans abonnement</p>
   </header>
 
   <div class="privacy-banner" role="note" aria-live="polite">
-    <strong>Confidentialité :</strong> par souci de sécurité, nous ne conservons pas vos fichiers. Après la vérification initiale de lisibilité, vous devrez téléverser à nouveau le même bull[...]
+    <strong>Confidentialité :</strong> le contrôle initial de lisibilité est gratuit. Pour protéger vos données, le bulletin doit être téléversé à nouveau après paiement pour générer le rapport complet.
   </div>
 
   <main class="container" role="main">
+    <section class="section fade-in" aria-labelledby="questions-title">
+      <h2 id="questions-title">Vous avez du mal à lire votre bulletin de salaire ?</h2>
+      <p>Pourquoi le net payé diffère-t-il du brut ? À quoi servent les cotisations ? Comment lire les principales lignes de votre fiche de paie ?</p>
+      <p style="margin-top:10px">Paiedyali vous aide à comprendre ces montants avec une synthèse PDF. Commencez par un aperçu gratuit : vous ne payez 7,50 € que si vous choisissez l’analyse complète.</p>
+    </section>
     <section class="section fade-in" aria-labelledby="qui-sommes">
       <h2 id="qui-sommes">Qui sommes-nous ?</h2>
       <p>
@@ -417,7 +424,7 @@
       <div class="grid">
         <div><b>Rapide</b><br>Résultats en quelques minutes</div>
         <div><b>Pédagogique</b><br>Explications compréhensibles</div>
-        <div><b>Sécurisé</b><br>Confidentialité garantie</div>
+        <div><b>Confidentialité</b><br>PDF non conservé après traitement</div>
         <div><b>Sans abonnement</b><br>Juste 7,50 €</div>
       </div>
     </section>
@@ -447,7 +454,7 @@
       </div>
 
       <p style="margin-top:12px;color:rgba(229,231,235,.88);font-size:0.95rem;">
-        Remarque : le double téléversement nous permet de garantir que nous ne conservons pas vos fichiers avant paiement — pour en savoir plus, consultez la FAQ ou la Politique de confidentialit�[...]
+        Remarque : le double téléversement évite de conserver votre fichier entre la vérification gratuite et l’analyse complète.
       </p>
     </section>
 
@@ -457,7 +464,7 @@
         <div>
           <div class="faq-title"><b>Pourquoi mon bulletin est‑il analysé ?</b></div>
           <div class="faq-body">
-            L’analyse vise à vous donner une lecture claire et pédagogique de votre bulletin : répartition des cotisations, salaire brut et net, et points d’attention repérés automatiquement [...]
+            L’analyse vise à vous donner une lecture claire et pédagogique de votre bulletin : répartition des cotisations, salaire brut et net, et points d’attention repérés automatiquement.
             Elle fournit des explications ligne par ligne pour vous aider à comprendre chaque poste important.
           </div>
         </div>
@@ -480,7 +487,7 @@
             Oui. Nous minimisons la conservation des données et protégeons votre confidentialité :
             <ul>
               <li><strong>Aucun stockage permanent :</strong> nous ne conservons pas votre PDF après l’analyse.</li>
-              <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement vous téléversez à nouveau le même fichier pour lancer l’an[...]
+              <li><strong>Double téléversement :</strong> une vérification de lisibilité est faite avant paiement ; après paiement, vous téléversez à nouveau le même fichier pour lancer l’analyse complète.</li>
               <li><strong>Chiffrement :</strong> toutes les communications se font via TLS.</li>
             </ul>
           </div>
@@ -527,37 +534,42 @@
         <div>
           <div class="faq-title"><b>Remboursement</b></div>
           <div class="faq-body">
-            Le service est considéré rendu à la fourniture du rapport. En cas de problème (erreur manifeste ou incident technique), contactez‑nous (contact@paiedyali.fr) ; nous traitons les dema[...]
+            Le service est considéré rendu à la fourniture du rapport. En cas de problème (erreur manifeste ou incident technique), contactez-nous à contact@paiedyali.fr ; nous examinerons votre demande.
           </div>
         </div>
 
         <div>
           <div class="faq-title"><b>Que faire si l’analyse ne trouve pas de lignes importantes ?</b></div>
           <div class="faq-body">
-            Si des lignes attendues (ex. "Salaire brut", "Net à payer") ne sont pas détectées, vérifiez la qualité du PDF/scan. Si le problème persiste, envoyez‑nous un extrait (ou contactez��[...]
+            Si des lignes attendues (ex. « Salaire brut », « Net à payer ») ne sont pas détectées, vérifiez la qualité du PDF. Si le problème persiste, contactez-nous à contact@paiedyali.fr.
           </div>
         </div>
 
         <div>
           <div class="faq-title"><b>Contact & confidentialité</b></div>
           <div class="faq-body">
-            Pour toute question sur la confidentialité, la rectification ou la suppression de données, écrivez à <a href="mailto:contact@paiedyali.fr" style="color:inherit;text-decoration:underlin[...]
-            Consultez aussi la <a href="/privacy.html" style="color:inherit;text-decoration:underline">Politique de confidentialité</a> pour les détails.
+            Pour toute question sur la confidentialité, la rectification ou la suppression de données, écrivez à <a href="mailto:contact@paiedyali.fr" style="color:inherit;text-decoration:underline">contact@paiedyali.fr</a>.
+            <button type="button" class="link-btn" data-open="rgpd">Consulter la politique de confidentialité</button> pour les détails.
           </div>
         </div>
 
         <div>
           <div class="faq-title"><b>Besoin d’un audit approfondi ?</b></div>
           <div class="faq-body">
-            Si vous voulez une analyse technique ou un audit détaillé (calculs détaillés, vérification des taux), nous pouvons proposer une prestation dédiée — contactez‑nous pour un devis.[...]
+            Si vous voulez une analyse technique ou un audit détaillé (calculs détaillés, vérification des taux), nous pouvons proposer une prestation dédiée : contactez-nous pour un devis.
           </div>
         </div>
       </div>
     </section>
+    <section class="section fade-in" aria-labelledby="action-title">
+      <h2 id="action-title">Envie de mieux comprendre votre salaire ?</h2>
+      <p>Testez d’abord gratuitement la lisibilité de votre bulletin. Le rapport complet coûte 7,50 €, sans abonnement.</p>
+      <a class="cta-btn" id="cta-bottom" href="https://paiedyali.onrender.com?mode=partial" target="_blank" rel="noopener noreferrer">Commencer gratuitement</a>
+    </section>
   </main>
 
   <footer role="contentinfo">
-    <div>© 2025 Paiedyali — Tous droits réservés.</div>
+    <div>© 2026 Paiedyali — Tous droits réservés.</div>
 
     <div class="footer-links">
       <button class="link-btn" type="button" data-open="mentions">Mentions légales</button>
@@ -590,7 +602,7 @@
         <h3>Contact</h3>
         <p>
           Email principal : <b>contact@paiedyali.fr</b><br>
-          Email temporaire (en attendant la création) : <b>paiedyalii@gmail.com</b>
+          Contact complémentaire : <b>paiedyalii@gmail.com</b>
         </p>
 
         <h3>Hébergement</h3>
@@ -640,7 +652,7 @@
 
         <h3>Conservation</h3>
         <p>
-          Objectif : minimiser la conservation. Si tu supprimes les PDF après analyse, indique-le ici clairement.
+          Les bulletins transmis sont traités pour produire l’analyse. Le service indique ne pas conserver durablement les PDF après traitement. Des données techniques minimales peuvent être utilisées pour la sécurité et le fonctionnement.
         </p>
 
         <h3>Prestataires</h3>
@@ -658,8 +670,8 @@
 
         <h3>Cookies</h3>
         <p>
-          À préciser selon ce que tu utilises (analytics, etc.). Si tu n’utilises aucun cookie de suivi,
-          tu peux l’indiquer explicitement.
+          Le site intègre Google Analytics et LinkedIn Insight Tag pour mesurer son audience. Ces services peuvent utiliser des traceurs et recevoir des données techniques.
+          Pour toute question relative aux données et traceurs, contactez contact@paiedyali.fr.
         </p>
       </div>
     </div>
