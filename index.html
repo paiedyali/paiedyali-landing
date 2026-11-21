@@ -373,8 +373,9 @@
     <script>
       (function(){
         // Enregistre la conversion LinkedIn au clic.
-        document.querySelectorAll('.cta-btn').forEach(function(btn){
-          btn.addEventListener('click', function(){
+        document.addEventListener('click', function(event){
+          var btn = event.target.closest('.cta-btn');
+          if (!btn) return;
           try {
             // Assure l'existence d'une fonction lintrk qui met en queue les appels si la librairie n'est pas encore chargée.
             window.lintrk = window.lintrk || function(){ (window.lintrk.q = window.lintrk.q || []).push(arguments); };
@@ -385,8 +386,7 @@
           } catch (e) {
             // silencieux si échec
           }
-          }, {passive:true});
-        });
+        }, {passive:true});
       })();
     </script>
 
