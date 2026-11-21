@@ -1,12 +1,3 @@
 User-agent: *
-# Bloquer dossiers internes non publics (ajuste si ces chemins n'existent pas)
-Disallow: /admin/
-Disallow: /private/
-Disallow: /.git/
-Disallow: /node_modules/
-
-# Autoriser le reste
 Allow: /
-
-# Indiquer le sitemap (génère/dépose sitemap.xml si tu ne l'as pas encore)
 Sitemap: https://paiedyali.fr/sitemap.xml
