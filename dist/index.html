@@ -325,6 +325,31 @@
       font-size: .9rem;
       color:#dbeafe;
     }
+
+    /* Avant / après : démonstration accessible sans dépendance à une image externe */
+    .demo-card{background:#f8fafc;color:#172033;border-radius:16px;padding:clamp(18px,3.5vw,34px);margin:8px 0 20px;box-shadow:0 10px 28px rgba(0,0,0,.15)}
+    .demo-card h2{color:#19253b;margin-bottom:8px;text-align:center}
+    .demo-card .demo-intro{color:#334155;text-align:center;margin:0 auto 20px;max-width:660px}
+    .comparison{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+    .comparison-panel{border:1px solid #dce4ed;border-radius:13px;padding:18px;min-width:0;background:#fff}
+    .comparison-panel.before{background:#e9edf5}
+    .comparison-panel h3{font-size:1.25rem;color:#1e293b;margin:0 0 12px}
+    .fake-slip{background:#fff;border:1px solid #c5ced9;transform:rotate(-1deg);padding:13px;box-shadow:5px 7px 0 rgba(60,77,110,.07)}
+    .fake-slip .fake-heading{text-align:center;font-size:.85rem;font-weight:800;letter-spacing:.04em;border-bottom:2px solid #27364f;padding-bottom:8px}
+    .fake-slip .fake-line{display:flex;justify-content:space-between;gap:6px;border-bottom:1px solid #cbd5e1;font-size:.82rem;padding:8px 2px;color:#27364f}
+    .fake-slip .fake-line strong{white-space:nowrap}
+    .fake-slip .fake-line.final{font-weight:800;border-bottom:0;background:#edf4ff;margin-top:8px;padding:9px 5px}
+    .key-money{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:#12263c;margin-bottom:10px}
+    .summary-lines{display:grid;gap:8px;margin:14px 0}
+    .summary-lines>div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #e2e8f0;padding-bottom:8px;color:#334155;font-size:.94rem}
+    .summary-lines strong{color:#172033;white-space:nowrap}
+    .demo-footnote{color:#475569;font-size:.85rem;margin:14px 0 0;text-align:center}
+    .steps-brief{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
+    .steps-brief div{border:1px solid rgba(255,255,255,.12);padding:16px;border-radius:12px;background:rgba(255,255,255,.035)}
+    .steps-brief strong{display:block;color:white;margin-bottom:5px}
+    .steps-brief span{color:#d3deee;font-size:.94rem}
+    .top-reassurance{margin-top:12px;font-size:.93rem;color:#ecfdf5}
+    @media(max-width:660px){.comparison{grid-template-columns:1fr}.steps-brief{grid-template-columns:1fr}.demo-card{padding:18px}.comparison-panel{padding:15px}}
   </style>
 
   <!-- Google tag (gtag.js) loaded async, but config deferred to idle/load to avoid blocking -->
@@ -358,8 +383,8 @@
 
 <body>
   <header class="fade-in" role="banner">
-    <h1>Un doute sur votre fiche de paie ?</h1>
-    <p>Comprenez votre salaire brut, votre net payé et vos cotisations grâce à une analyse automatique de votre bulletin.</p>
+    <h1>Vous recevez votre fiche de paie chaque mois.<br>Comprenez enfin ce qu'elle contient.</h1>
+    <p>Brut, cotisations, net imposable, net payé : découvrez le sens des montants de votre bulletin avec un premier aperçu gratuit.</p>
 
     <a href="https://paiedyali.onrender.com?mode=partial"
        class="cta-btn"
@@ -367,7 +392,7 @@
        aria-label="Commencer gratuitement la vérification de mon bulletin"
        target="_blank"
        rel="noopener noreferrer">
-      Commencer gratuitement
+      Comprendre gratuitement ma fiche de paie
     </a>
 
     <script>
@@ -390,7 +415,7 @@
       })();
     </script>
 
-    <p class="data-trust" style="margin-top:12px;opacity:.9">Aperçu gratuit avant paiement • Rapport complet : 7,50 € • Sans abonnement</p>
+    <p class="top-reassurance">✓ Premier aperçu gratuit &nbsp; · &nbsp; ✓ Rapport complet facultatif : 7,50 € &nbsp; · &nbsp; ✓ Sans abonnement</p>
   </header>
 
   <div class="privacy-banner" role="note" aria-live="polite">
@@ -398,6 +423,46 @@
   </div>
 
   <main class="container" role="main">
+    <section class="demo-card fade-in" aria-labelledby="avant-apres-title">
+      <h2 id="avant-apres-title">D'un bulletin complexe à une explication claire</h2>
+      <p class="demo-intro">Vous gardez votre bulletin officiel : Paiedyali vous aide à comprendre les montants qu'il contient, avec des mots simples.</p>
+      <div class="comparison">
+        <div class="comparison-panel before">
+          <h3>Avant : votre bulletin</h3>
+          <div class="fake-slip" role="img" aria-label="Illustration fictive d'un bulletin de salaire présentant des montants et cotisations">
+            <div class="fake-heading">BULLETIN DE SALAIRE</div>
+            <div class="fake-line"><span>Salaire brut</span><strong>2 500,00 €</strong></div>
+            <div class="fake-line"><span>Cotisations salariales</span><strong>− 521,01 €</strong></div>
+            <div class="fake-line"><span>Net avant impôt</span><strong>1 978,99 €</strong></div>
+            <div class="fake-line"><span>Prélèvement à la source</span><strong>− 71,76 €</strong></div>
+            <div class="fake-line final"><span>Net payé</span><strong>1 907,23 €</strong></div>
+          </div>
+        </div>
+        <div class="comparison-panel">
+          <h3>Après : une lecture plus simple</h3>
+          <p style="color:#475569;font-size:.9rem;margin-bottom:4px">Le montant viré sur votre compte :</p>
+          <p class="key-money">1 907,23 €</p>
+          <div class="summary-lines">
+            <div><span>Salaire brut</span><strong>2 500,00 €</strong></div>
+            <div><span>Net avant impôt</span><strong>1 978,99 €</strong></div>
+            <div><span>Impôt prélevé</span><strong>71,76 €</strong></div>
+          </div>
+          <p style="color:#334155;font-size:.93rem">Une présentation pédagogique pour mieux distinguer ce que vous gagnez, ce qui est retenu et ce qui vous est versé.</p>
+        </div>
+      </div>
+      <p class="demo-footnote"><strong>Exemple fictif — aperçu illustratif.</strong> Les chiffres sont inventés pour expliquer le principe ; le contenu exact dépend du bulletin et des données lisibles.</p>
+      <p style="text-align:center;margin-top:15px"><a href="/exemple-rapport.html" style="color:#1d4ed8;font-weight:700">Voir un exemple détaillé de synthèse</a></p>
+    </section>
+    <section class="section fade-in" aria-labelledby="etapes-simples-title">
+      <h2 id="etapes-simples-title">Trois étapes pour comprendre votre paie</h2>
+      <div class="steps-brief">
+        <div><strong>1. Importez votre PDF</strong><span>Déposez un bulletin lisible et accédez à la première vérification gratuite.</span></div>
+        <div><strong>2. Découvrez l'aperçu</strong><span>Consultez les premières informations extraites, sans payer.</span></div>
+        <div><strong>3. Choisissez librement</strong><span>Si vous le souhaitez, commandez la synthèse complète à 7,50 € et téléversez à nouveau votre bulletin après paiement.</span></div>
+      </div>
+      <a class="cta-btn" id="cta-steps" href="https://paiedyali.onrender.com?mode=partial" target="_blank" rel="noopener noreferrer">Obtenir mon aperçu gratuit</a>
+      <p style="margin-top:10px;color:#cbd5e1;font-size:.9rem">La synthèse est pédagogique : elle ne constitue pas un audit exhaustif ni un avis juridique.</p>
+    </section>
     <section class="section fade-in" aria-labelledby="questions-title">
       <h2 id="questions-title">Vous avez du mal à lire votre bulletin de salaire ?</h2>
       <p>Pourquoi le net payé diffère-t-il du brut ? À quoi servent les cotisations ? Comment lire les principales lignes de votre fiche de paie ?</p>
